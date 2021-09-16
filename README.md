@@ -1,6 +1,7 @@
 # Membres de l'équipe
 
-- Hugo Roux
+- cheikh bassirou mbaye 
+- Hugo Rouxd
 - SATTI Enzo
 - Rémi Lecomte
 # Livrable 1
