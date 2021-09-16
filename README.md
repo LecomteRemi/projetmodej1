@@ -1,5 +1,5 @@
 # Membres de l'équipe
-
+SATTI Enzo
 # Livrable 1
 
 ## Fonctionnalités implémentées
