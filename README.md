@@ -1,6 +1,8 @@
 # Membres de l'équipe
 cheikh bassirou mbaye 
 
+- Rémi Lecomte
+
 # Livrable 1
 
 ## Fonctionnalités implémentées
