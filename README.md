@@ -1,5 +1,11 @@
 # Membres de l'équipe
+<<<<<<< HEAD
 Hugo Roux
+=======
+- SATTI Enzo
+- Rémi Lecomte
+>>>>>>> 564e4e4c57d8e2c8d804afbd87631817726d343f
+>>>>>>> cde4264b713f96c3f40cfabe7009a1976c1fd176
 # Livrable 1
 
 ## Fonctionnalités implémentées
