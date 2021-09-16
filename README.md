@@ -1,5 +1,5 @@
 # Membres de l'équipe
-
+Hugo Roux
 # Livrable 1
 
 ## Fonctionnalités implémentées
