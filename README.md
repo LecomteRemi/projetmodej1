@@ -1,5 +1,5 @@
 # Membres de l'équipe
-
+- Rémi Lecomte
 # Livrable 1
 
 ## Fonctionnalités implémentées
