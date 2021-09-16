@@ -1,7 +1,7 @@
 # Membres de l'équipe
 
--cheikh bassirou mbaye 
-- Rémi Lecomte
+- cheikh bassirou mbaye 
+- Hugo Rouxd
 - SATTI Enzo
 - Rémi Lecomte
 # Livrable 1
