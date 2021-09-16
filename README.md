@@ -1,8 +1,9 @@
 # Membres de l'équipe
-cheikh bassirou mbaye 
 
+-cheikh bassirou mbaye 
 - Rémi Lecomte
-
+- SATTI Enzo
+- Rémi Lecomte
 # Livrable 1
 
 ## Fonctionnalités implémentées
