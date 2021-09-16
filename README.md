@@ -1,5 +1,7 @@
 # Membres de l'équipe
-SATTI Enzo
+- SATTI Enzo
+- Rémi Lecomte
+>>>>>>> 564e4e4c57d8e2c8d804afbd87631817726d343f
 # Livrable 1
 
 ## Fonctionnalités implémentées
