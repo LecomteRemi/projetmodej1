@@ -37,4 +37,13 @@ public class Repere {
 
 		return res;
 	}
+	
+	public void setXAxis(double degree) {
+		double[] x=new double[3];
+		if()
+	}
+
+	public void setYAxis(double degree) {
+		
+	}
 }

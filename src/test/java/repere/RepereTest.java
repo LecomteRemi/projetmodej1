@@ -48,5 +48,25 @@ class RepereTest {
 		assertFalse(Repere.matriceRepereValide(matrice4));
 		assertFalse(Repere.matriceRepereValide(matrice5));
 	}
+	
+	
+	@Test
+	void changeRepereAxeTest() {
+		
+	}
+	
+	@Test
+	void calculGetPointInMatriceTest() throws Exception {
+		double[][] matrice1=new double[][] {
+			{1,0,0,0},
+			{0,1,0,0},
+			{0,0,1,0},
+			{0,0,0,1}
+			
+		};
+		Repere repere=new Repere(matrice1);
+		double[] point = new double[] {3,5,7,1};
+		assertArrayEquals(point, repere.getPointInRepere(point));
+		}
 
 }
