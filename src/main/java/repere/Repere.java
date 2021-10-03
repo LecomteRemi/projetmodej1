@@ -1,15 +1,17 @@
 package repere;
 
+import utilitaire.TrigonometrieSimplifiee;
+
+import java.util.Arrays;
+
 import utilitaire.Matrice;
 
+
 public class Repere {
-	double[][] matrice;
+	public double[][] matrice;
 	
-	public Repere(double[][] matrice) throws Exception {
-		if(!matriceRepereValide(matrice)) {
-			throw new Exception("La matrice du repere n'est pas valide");
-		}
-		this.matrice=matrice;
+	public Repere() throws Exception {
+		this.matrice=new double[][] {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
 	}
 	
 	public double[] getPointInRepere(double[] point) throws Exception {
@@ -19,31 +21,56 @@ public class Repere {
 		return pointInRepere[0];
 	}
 	
-	public static boolean matriceRepereValide(double[][] matrice) {
-		boolean res=true;
-		if(matrice.length!=4 ||matrice[0].length!=4) {
-			return false;
+	public void turnOnYAxisOf(double degree) throws Exception {
+		double[][] mat=new double[][] {{TrigonometrieSimplifiee.cos(degree),0,-1*TrigonometrieSimplifiee.sin(degree),0},
+									   {0,1,0,0},
+									   {TrigonometrieSimplifiee.sin(degree),0,TrigonometrieSimplifiee.cos(degree),0},
+									   {0,0,0,1}};
+		double[][] newMatrice=Matrice.multiplication(mat, this.matrice);
+		this.matrice=newMatrice;
+	}
+	public void turnOnXAxisOf(double degree) throws Exception {
+		double[][] mat=new double[][] {{1,0,0,0},
+									  {0,TrigonometrieSimplifiee.cos(degree),-1*TrigonometrieSimplifiee.sin(degree),0},
+									  {0,TrigonometrieSimplifiee.sin(degree),TrigonometrieSimplifiee.cos(degree),0},
+									  {0,0,0,1}};
+			   double[][] newMatrice=Matrice.multiplication(mat, this.matrice);
+			   this.matrice=newMatrice;
+	}
+	
+	
+	public double[] getVector(int col) {
+		double[] res=new double[3];
+		for(int i=0;i<3;i++) {
+			res[i]=this.matrice[i][col];
 		}
-		double[] derniereLigne=matrice[matrice.length-1];
-		if(derniereLigne[derniereLigne.length-1]!=1.0) {
-			return false;
-		}
-
-		for(int i=0; i<derniereLigne.length-1 && res; i++){
-			if(derniereLigne[i]!=0) {
-				res=false;
-			}
-		}
-
 		return res;
 	}
 	
-	public void setXAxis(double degree) {
-		double[] x=new double[3];
-		if()
+	public double[] getVectorX() {
+		return this.getVector(0);
 	}
-
-	public void setYAxis(double degree) {
-		
+	public double[] getVectorY() {
+		return this.getVector(1);
 	}
+	public double[] getVectorZ() {
+		return this.getVector(2);
+	}
+	public void setVector(double[] coord,int col) {
+		for(int i=0;i<3;i++) {
+			this.matrice[i][col]=coord[i];
+		}
+		System.out.println(Arrays.deepToString(this.matrice));
+	}
+	
+	public void setVectorX(double[] coord) {
+		this.setVector(coord,0);
+	}
+	public void setVectorY(double[] coord) {
+		this.setVector(coord,1);
+	}
+	public void setVectorZ(double[] coord) {
+		this.setVector(coord,2);
+	}
+	
 }
