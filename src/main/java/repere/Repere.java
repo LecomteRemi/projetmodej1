@@ -38,6 +38,19 @@ public class Repere {
 			   this.matrice=newMatrice;
 	}
 	
+	public void translation(double x, double y, double z) {
+		this.matrice[0][3]+=x;
+		this.matrice[1][3]+=y;
+		this.matrice[2][3]+=z;
+	}
+	public void homotetie(double factor) throws Exception {
+		double[][] homotetieMatrice=new double[][] {{factor,0,0,0},
+													{0,factor,0,0},
+													{0,0,factor,0},
+													{0,0,0,1}};
+		this.matrice=Matrice.multiplication(this.matrice, homotetieMatrice);
+	}
+	
 	
 	public double[] getVector(int col) {
 		double[] res=new double[3];
