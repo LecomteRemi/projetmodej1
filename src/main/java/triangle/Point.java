@@ -1,38 +1,41 @@
 package triangle;
-import java.lang.Math;
+
 public class Point {
+	double x ;
+	double y ;
 	
-	private double x, y;
-	public Point(){
-		
-		assign(0.0, 0.0);
+	public Point(double x, double y) {
+		this.x = x ; 
+		this.y = y;
 	}
-	public Point(double x, double y){
-		assign(x, y);
+	
+	public Point( Point p ){
+		this.x = p.x ;
+		this.y = p.y ;
 	}
-	public double getX(){
-		return x;
+	
+	public double getX() {
+		return this.x;
 	}
-	public double getY(){
-		return y;
+	
+	
+	public double getY() {
+		return this.y;
 	}
-	public void assign(double x, double y){
-		x = x;
-		y = y;
+	
+	public void setX( int x ){
+		this.x = x ;
 	}
-	public void afficher(){
-		System.out.print("("+getX()+","+getY()+")");
+		public void setY( int y ){
+		this.y = y ;
 	}
-	public String str(){
-		return "("+getX()+", "+getY()+")";
+	public String toString(){
+		return( "(" + x + "," + y + ")" ) ;
 	}
-	public double distance(Point p2){
-		double dx = (getX()-p2.getX());
-		double dy = (getY()-p2.getY());
-		return Math.sqrt(dx*dx + dy*dy);
+	
+	public void translate( int dx , int dy ){
+		x = x + dx ;
+		y = y + dy ;
 	}
-	public void translater(double dx, double dy){
-		x += dx;
-		y += dy;
-	}
+	
 }
