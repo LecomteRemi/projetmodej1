@@ -1,18 +1,24 @@
 package triangle;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 import javafx.scene.canvas.GraphicsContext;
 
 public class Triangle{
-	private Point p1 , p2 , p3 ;
+	private Point[] points;
 
 	
-	public Triangle(Point p1, Point p2, Point p3) {
-		super();
-		this.p1 = p1;
-		this.p2 = p2;
-		this.p3 = p3;
+	public Triangle(Point[] points) {
+		this.points=points;
 	}
 
+	public Point[] getPoints() {
+		return points;
+	}
+	public void sortPoint(Comparator<Point> comparator) {
+		Arrays.sort(points, comparator);
+	}
 
     public void drawTriangle(GraphicsContext gc,Point p1, Point p2 , Point p3) {
     	double[] abscusses = new double[]{p1.getX(), p2.getX(),p3.getX()};

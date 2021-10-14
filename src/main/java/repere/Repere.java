@@ -6,6 +6,8 @@ import java.util.Arrays;
 
 import utilitaire.Matrice;
 
+import triangle.Point;
+
 
 public class Repere {
 	public double[][] matrice;
@@ -14,12 +16,20 @@ public class Repere {
 		this.matrice=new double[][] {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}};
 	}
 	
-	public double[] getPointInRepere(double[] point) throws Exception {
-		double[][] pointMatrice=new double[1][4];
-		pointMatrice[0]=point;
-		double[][]pointInRepere=Matrice.multiplication(pointMatrice, this.matrice);
-		return pointInRepere[0];
+	public double[] getCoordonneeInRepere(double[] coordonnee) throws Exception {
+		double[][] coordonneeInMatrice=new double[1][4];
+		coordonneeInMatrice[0]=coordonnee;
+		double[][]coordonneeInRepere=Matrice.multiplication(coordonneeInMatrice, this.matrice);
+		return coordonneeInRepere[0];
 	}
+	public Point getPointInRepere(Point point) throws Exception{
+		double[] coordonnee=point.getMatricialCoordonnnee();
+		double[] coordonneeInRepere=this.getCoordonneeInRepere(coordonnee);
+		Point res=new Point(coordonneeInRepere);
+		return res;
+	}
+	
+	
 	
 	public void turnOnYAxisOf(double degree) throws Exception {
 		double[][] mat=new double[][] {{TrigonometrieSimplifiee.cos(degree),0,-1*TrigonometrieSimplifiee.sin(degree),0},
@@ -85,5 +95,25 @@ public class Repere {
 	public void setVectorZ(double[] coord) {
 		this.setVector(coord,2);
 	}
+	
+	public static boolean matriceRepereValide(double[][] matrice) {
+		boolean res=true;
+		if(matrice.length!=4 ||matrice[0].length!=4) {
+			return false;
+		}
+		double[] derniereLigne=matrice[matrice.length-1];
+		if(derniereLigne[derniereLigne.length-1]!=1.0) {
+			return false;
+		}
+
+		for(int i=0; i<derniereLigne.length-1 && res; i++){
+			if(derniereLigne[i]!=0) {
+				res=false;
+			}
+		}
+
+		return res;
+	}
+
 	
 }
