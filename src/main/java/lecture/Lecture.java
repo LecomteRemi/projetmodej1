@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Lecture {
 	public static void lecture(String file) {
 		String line;
-		String entete=""; //pour mettre toute la partie avant les coordonnées des points, sera gérée plus tard
+		String entete=""; //pour mettre toute la partie avant les coordonnes des points, sera gre plus tard
 		String coordonnees=""; 
 		String faces="";
 		
