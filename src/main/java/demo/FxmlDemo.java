@@ -18,7 +18,8 @@ public class FxmlDemo extends Application {
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
-            stage.setTitle("FXML demo");
+            stage.setTitle("ProjetModeJ1");
+            stage.setResizable(false);
             stage.show();
     }
 
