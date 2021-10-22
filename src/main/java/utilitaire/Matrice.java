@@ -1,29 +1,51 @@
 package utilitaire;
 
 public class Matrice {
-	public static double[][] addition(double[][] m1, double[][] m2) throws Exception{
-		if(m1.length==m2.length && m1[0].length==m2[0].length) {
-			double[][] res=new double[m1.length][m1[0].length];
+	public double[][] points;
+	
+	public Matrice(int nbLigne, int nbColonne) {
+		points=new double[nbLigne][nbColonne];
+	}
+	public Matrice(double[][] points) {
+		this.points=points;
+	}
+	public Matrice addition( Matrice other) throws Exception{
+		if(this.points.length==other.points.length && this.points[0].length==other.points[0].length) {
+			double[][] res=new double[this.points.length][this.points[0].length];
 			for(int i=0;i<res.length;i++) {
 				for(int j=0;j<res[0].length;j++) {
-					res[i][j]=m1[i][j]+m2[i][j];
+					res[i][j]=this.points[i][j]+other.points[i][j];
 				}
 			}
-			return res;
+			return new Matrice(res);
 		}else {
 			throw new Exception("Le nombre de colonne et/ou de ligne des matrices sont différents");
 		}
 		
 	}
-	public static double[][] multiplication(double[][] m1, double[][] m2) throws Exception{
-		if(m1[0].length==m2.length) {
-			double[][] res=new double[m1.length][m2[0].length];
+	public Matrice multiplication( Matrice other) throws Exception{
+		if(this.points[0].length==other.points.length) {
+			double[][] res=new double[this.points.length][other.points[0].length];
 			for(int i=0;i<res.length;i++) {
 				for(int j=0;j<res[0].length;j++) {
-					res[i][j]=additionLigneColonne(m1, m2, i, j);
+					res[i][j]=additionLigneColonne(this.points, other.points, i, j);
 				}
 			}
-			return res;
+			return new Matrice(res);
+		}else {
+			throw new Exception("Le nombre de colonne la premiere matrice et different du nombre le ligne de la seconde.");
+		}
+		
+	}
+	public Matrice multiplication( double[][] points) throws Exception{
+		if(this.points[0].length==points.length) {
+			double[][] res=new double[this.points.length][points[0].length];
+			for(int i=0;i<res.length;i++) {
+				for(int j=0;j<res[0].length;j++) {
+					res[i][j]=additionLigneColonne(this.points, points, i, j);
+				}
+			}
+			return new Matrice(res);
 		}else {
 			throw new Exception("Le nombre de colonne la premiere matrice et different du nombre le ligne de la seconde.");
 		}
