@@ -4,7 +4,7 @@ public class Point {
 	private int x;
 	private int y;
 	private int z;
-	//couleurs à ajouter plus tard
+	//couleurs ï¿½ ajouter plus tard
 	
 	public Point(int x, int y, int z) {
 		this.x = x; this.y = y; this.z=z;
