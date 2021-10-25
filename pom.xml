@@ -5,7 +5,7 @@
 	<groupId>fr.ulille.dut.s3</groupId>
 	<!-- Modifier le nom de votre projet ci-dessous -->
 	<artifactId>projetmodeJ1</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>livrable1</version>
 
 
 	<properties>
