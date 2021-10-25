@@ -2,8 +2,6 @@ package repere;
 
 import utilitaire.TrigonometrieSimplifiee;
 
-import java.util.Arrays;
-
 import utilitaire.Matrice;
 
 import triangle.Point;
@@ -46,9 +44,14 @@ public class Repere {
 			   this.matrice=matriceTemporaire.multiplication(this.matrice);
 	}
 	
-	public void translation(double x, double y, double z) throws Exception {
+	public void absoluteTranslation(double x, double y, double z) throws Exception {
 		Matrice matriceTemporaire=new Matrice(new double[][]{{0,0,0,x},{0,0,0,y},{0,0,0,z},{0,0,0,0}});
 		this.matrice=this.matrice.addition(matriceTemporaire);
+	}
+	public void relativeTranslation(double x, double y, double z) throws Exception{
+		Matrice matriceTemporaire=new Matrice(new double[][]{{1,0,0,x},{0,1,0,y},{0,0,1,z},{0,0,0,1}});
+		this.matrice=this.matrice.multiplication(matriceTemporaire.points);
+		
 	}
 	public void homotetie(double factor) throws Exception {
 		Matrice matriceTemporaire=new Matrice(new double[][] {{factor,0,0,0},
@@ -80,7 +83,7 @@ public class Repere {
 		for(int i=0;i<3;i++) {
 			this.matrice.points[i][col]=coord[i];
 		}
-		System.out.println(Arrays.deepToString(this.matrice.points));
+		//System.out.println(Arrays.deepToString(this.matrice.points));
 	}
 	
 	public void setVectorX(double[] coord) {

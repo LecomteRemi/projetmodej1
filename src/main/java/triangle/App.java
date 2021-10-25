@@ -30,7 +30,7 @@ public class App extends Application {
         Point p1 = new Point(90,30);
         Point p2 = new Point(190,170);
         Point p3 = new Point(10,170);
-        Triangle triangle = new Triangle(p1, p2, p3);
+        Triangle triangle = new Triangle(new Point[] {p1, p2, p3});
         triangle.drawTriangle(gc,new Point(90,30),new Point(190,170),new Point(10,170));
         root.getChildren().add(canvas);
         primaryStage.setScene(new Scene(root));

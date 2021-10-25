@@ -1,18 +1,7 @@
 package triangle;
 
-<<<<<<< HEAD
-import java.util.Comparator;
 
-public class TriangleComparatorZ implements Comparator<Triangle>{
-
-	@Override
-	public int compare(Triangle arg0, Triangle arg1) {
-		
-	}
-=======
-import java.util.ArrayList;
 import java.util.Comparator;
->>>>>>> e428f8f5e546083494b4fa5fbf776f2b350305c4
 
 public class TriangleComparatorZ implements Comparator<Triangle>{
 
