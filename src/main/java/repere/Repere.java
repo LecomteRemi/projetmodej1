@@ -27,8 +27,6 @@ public class Repere {
 		return res;
 	}
 	
-	
-	
 	public void turnOnYAxisOf(double degree) throws Exception {
 		Matrice matriceTemporaire=new Matrice(new double[][] {{TrigonometrieSimplifiee.cos(degree),0,-1*TrigonometrieSimplifiee.sin(degree),0},
 									   {0,1,0,0},
@@ -43,7 +41,16 @@ public class Repere {
 									  {0,0,0,1}});
 			   this.matrice=matriceTemporaire.multiplication(this.matrice);
 	}
-	
+	public void  turnOnYAxisAroundAPoint(double degree, Point point) throws Exception {
+		this.absoluteTranslation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
+		this.turnOnYAxisOf(degree);
+		this.absoluteTranslation(point.getX(), point.getY(), point.getZ());
+	}
+	public void  turnOnXAxisAroundAPoint(double degree, Point point) throws Exception {
+		this.absoluteTranslation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
+		this.turnOnXAxisOf(degree);
+		this.absoluteTranslation(point.getX(), point.getY(), point.getZ());
+	}
 	public void absoluteTranslation(double x, double y, double z) throws Exception {
 		Matrice matriceTemporaire=new Matrice(new double[][]{{0,0,0,x},{0,0,0,y},{0,0,0,z},{0,0,0,0}});
 		this.matrice=this.matrice.addition(matriceTemporaire);
@@ -60,7 +67,6 @@ public class Repere {
 													{0,0,0,1}});
 		this.matrice=matriceTemporaire.multiplication(this.matrice);
 	}
-	
 	
 	public double[] getVector(int col) {
 		double[] res=new double[3];
@@ -83,7 +89,6 @@ public class Repere {
 		for(int i=0;i<3;i++) {
 			this.matrice.points[i][col]=coord[i];
 		}
-		//System.out.println(Arrays.deepToString(this.matrice.points));
 	}
 	
 	public void setVectorX(double[] coord) {

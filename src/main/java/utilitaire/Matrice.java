@@ -21,7 +21,7 @@ public class Matrice {
 			}
 			return new Matrice(res);
 		} else {
-			throw new Exception("Le nombre de colonne et/ou de ligne des matrices sont différents");
+			throw new Exception("Le nombre de colonnes et/ou de lignes des matrices sont différents");
 		}
 	}
 
@@ -40,7 +40,7 @@ public class Matrice {
 			return new Matrice(res);
 		} else {
 			throw new Exception(
-					"Le nombre de colonne la premiere matrice et different du nombre le ligne de la seconde.");
+					"Le nombre de colonnes la premiere matrice est different du nombre de lignes de la seconde.");
 		}
 	}
 
