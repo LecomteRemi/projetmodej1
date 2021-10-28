@@ -2,15 +2,15 @@ package triangle;
 
 import java.util.Comparator;
 
-public class TriangleComparatorX implements Comparator<Triangle>{
+public class FaceComparatorY implements Comparator<Face>{
 	@Override
-	public int compare(Triangle t1, Triangle t2) {
+	public int compare(Face t1, Face t2) {
 		Point[] points1=t1.getPoints();
 		Point[] points2=t2.getPoints();
 		for(int i=0; i<points1.length;i++) {
-			if(points1[i].getX()>points2[i].getX()) {
+			if(points1[i].getY()>points2[i].getY()) {
 				return 1;
-			}else if(points1[i].getX()>points2[i].getX()) {
+			}else if(points1[i].getY()>points2[i].getY()) {
 				return -1;
 			}
 		}
