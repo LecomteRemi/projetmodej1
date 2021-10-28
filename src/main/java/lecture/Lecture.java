@@ -18,6 +18,7 @@ public class Lecture {
 		
 	}
 	
+	@SuppressWarnings("unused")
 	public static void lecture(String file) {
 		String line;
 		String entete=""; //pour mettre toute la partie avant les coordonnées des points, sera gérée plus tard
@@ -30,17 +31,14 @@ public class Lecture {
 				entete = entete +line+"\n";
 				line = br.readLine();
 			}
-			ecrire_fichier(entete, "./src/main/java/lecture/entete.txt");
-			//-------Points---------
+			//--------Points--------
 			line = br.readLine();
 			while (line!=null && !est_ligne_face(line)) {
 				creation_point(line);
-				//System.out.println(listePoints.get(listePoints.size()-1));
 				coordonnees = coordonnees +line+"\n";
 				line = br.readLine();
 			}
-			ecrire_fichier(coordonnees, "./src/main/java/lecture/coordonnes.txt");
-			//--------Faces---------
+			//--------Faces--------
 			int nbptFace ;
 			int cpt=0;
 			while(line!=null && est_ligne_face(line)) {
@@ -52,7 +50,6 @@ public class Lecture {
 				cpt++;
 			}
 			System.out.println(listeFaces.size());
-			//ecrire_fichier(faces, "./src/main/java/lecture/faces.txt");
 		}catch(IOException e) {
 			System.out.println("Une erreur est survenue");
 			e.printStackTrace();
@@ -62,8 +59,11 @@ public class Lecture {
 	
 	private static void creation_point(String line) {
 		String [] splited = line.split(" ");
-		listePoints.add(new Point((Float.parseFloat(splited[0])), (Float.parseFloat(splited[1])), (Float.parseFloat(splited[2])) ) );
+		if(splited.length==3) {
+			listePoints.add(new Point((Float.parseFloat(splited[0])), (Float.parseFloat(splited[1])), (Float.parseFloat(splited[2])) ) );
+		}
 	}
+
 	
 	private static void creation_faces(String line, int nbpoint) {
 		String [] splited = line.split(" ");
@@ -104,7 +104,8 @@ public class Lecture {
 	}
 	
 	public static void main(String [] args) {
-		lecture("./src/main/java/lecture/avion.ply");
+		lecture("./exemples/vache.ply");
+		//lecture("./exemples/skull.ply");
 	}
 }
 
