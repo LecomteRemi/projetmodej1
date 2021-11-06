@@ -73,6 +73,12 @@ public class Repere {
 		this.matrice=matriceTemporaire.multiplication(this.matrice);
 	}
 	
+	public void homotetiFromAPoint(double factor, Point point) throws Exception {
+		this.absoluteTranslation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
+		this.homotetie(factor);
+		this.absoluteTranslation(point.getX(), point.getY(), point.getZ());
+	}
+	
 	public double[] getVector(int col) {
 		double[] res=new double[3];
 		for(int i=0;i<3;i++) {
@@ -130,5 +136,16 @@ public class Repere {
 		return res;
 	}
 
+	public void symetry(String plan) throws Exception {
+		SymetricMatrixFactory factory=new SymetricMatrixFactory();
+		Matrice matriceTemporaire=factory.SymetricMatrix(plan);
+		this.matrice=matriceTemporaire.multiplication(this.matrice);
+	}
+	public void symetryFromAPoint(String plan, Point point) throws Exception {
+		this.absoluteTranslation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
+		this.symetry(plan);
+		this.absoluteTranslation(point.getX(), point.getY(), point.getZ());
+		
+	}
 	
 }
