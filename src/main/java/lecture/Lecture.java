@@ -5,33 +5,51 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Lecture {
+	private static ArrayList<Point> listePoints = new ArrayList<Point>();
+	private static ArrayList<Face> listeFaces = new ArrayList<Face>();
+	
+	public static Modele creation_modele(String file) {
+		lecture(file);
+		return new Modele(listeFaces);
+		
+	}
+	
+	@SuppressWarnings("unused")
 	public static void lecture(String file) {
 		String line;
-		String entete=""; //pour mettre toute la partie avant les coordonnées des points, sera gérée plus tard
+		String entete=""; //pour mettre toute la partie avant les coordonnÃ©es des points, sera gÃ©rÃ©e plus tard
 		String coordonnees=""; 
-		String faces="";
-		
+		String faces=""; 
 		try(BufferedReader br = new BufferedReader(new FileReader(file))) {
 			line = br.readLine();
+			String[] splited;
 			while(!line.split(" ")[0].equals("end_header")) {
 				entete = entete +line+"\n";
 				line = br.readLine();
 			}
-			ecrire_fichier(entete, "./ressources/entete.txt");
+			//--------Points--------
 			line = br.readLine();
 			while (line!=null && !est_ligne_face(line)) {
+				creation_point(line);
 				coordonnees = coordonnees +line+"\n";
 				line = br.readLine();
 			}
-			ecrire_fichier(coordonnees, "./ressources/coordonnes.txt");
-			while(line!=null) {
+			//--------Faces--------
+			int nbptFace ;
+			int cpt=0;
+			while(line!=null && est_ligne_face(line)) {
+				nbptFace = getNbPointsFaces(line);
+				creation_faces(line, nbptFace);
+				System.out.println(listeFaces.get(listeFaces.size()-1));
 				faces= faces +line+"\n";
 				line = br.readLine();
+				cpt++;
 			}
-			ecrire_fichier(faces, "./ressources/faces.txt");
+			System.out.println(listeFaces.size());
 		}catch(IOException e) {
 			System.out.println("Une erreur est survenue");
 			e.printStackTrace();
@@ -39,7 +57,24 @@ public class Lecture {
 	}
 	
 	
-	public static void ecrire_fichier(String ligne, String fichier_dest) {
+	private static void creation_point(String line) {
+		String [] splited = line.split(" ");
+		if(splited.length==3) {
+			listePoints.add(new Point((Float.parseFloat(splited[0])), (Float.parseFloat(splited[1])), (Float.parseFloat(splited[2])) ) );
+		}
+	}
+
+	
+	private static void creation_faces(String line, int nbpoint) {
+		String [] splited = line.split(" ");
+		ArrayList<Point> pointDeFace = new ArrayList<Point>();
+		for(int i=1; i<=nbpoint; i++) {
+			pointDeFace.add(listePoints.get(Integer.parseInt(splited[i])));
+		}
+		listeFaces.add(new Face(pointDeFace, nbpoint));
+	}
+	
+	private static void ecrire_fichier(String ligne, String fichier_dest) {
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(fichier_dest);
@@ -51,7 +86,7 @@ public class Lecture {
 		}
 	}
 	
-	public static boolean est_ligne_face(String ligne) {
+	private static boolean est_ligne_face(String ligne) {
 		String[] mots = ligne.split(" ");
 		Scanner scanner = new Scanner(mots[0]);
 		if(scanner.hasNextInt()) {
@@ -63,8 +98,14 @@ public class Lecture {
 		return false;
 	}
 	
+	private static int getNbPointsFaces(String line) {
+		String [] splited = line.split(" ");
+		return Integer.parseInt(splited[0]);
+	}
+	
 	public static void main(String [] args) {
-		lecture("./ressources/test.ply");
+		lecture("./exemples/vache.ply");
+		//lecture("./exemples/skull.ply");
 	}
 }
 

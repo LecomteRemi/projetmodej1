@@ -11,7 +11,7 @@ public class Face {
 	}
 
 	public ArrayList<Point> getPoints() {
-		return points;
+		return points; 
 	}
 
 	public void setPoints(ArrayList<Point> points) {
@@ -25,6 +25,12 @@ public class Face {
 	public void setNb_points(int nb_points) {
 		this.nb_points = nb_points;
 	}
+
+	@Override
+	public String toString() {
+		return "Face [points=" + points + ", nb_points=" + nb_points + "]";
+	}
+	
 	
 	
 }
