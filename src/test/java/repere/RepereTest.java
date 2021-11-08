@@ -2,71 +2,105 @@ package repere;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
+
+import repere.Repere;
 
 class RepereTest {
 
 	@Test
-	void matriceRepereValidetest() {
-		double[][] matrice1=new double[][] {
-			{5,8,1,5},
-			{2,3,7,7},
-			{4,8,3,4},
-			{0,0,0,1}
-			
-		};
-		double[][] matrice2=new double[][] {
-			{5,8,1,5},
-			{2,3,7,7},
-			{4,8,3,4},
-			{0,0,0,0}
-			
-		};
-		double[][] matrice3=new double[][] {
-			{5,8,1,5},
-			{2,3,7,7},
-			{4,8,3,4},
-			{0,0,1,1}
-			
-		};
-		double[][] matrice4=new double[][] {
-			{5,8,1,5},
-			{2,3,7,7},
-			{0,0,0,1}
-			
-		};
-		double[][] matrice5=new double[][] {
-			{5,8,5},
-			{2,3,7},
-			{4,8,4},
-			{0,0,1}
-			
-		};
-		assertTrue(Repere.matriceRepereValide(matrice1));
-		assertFalse(Repere.matriceRepereValide(matrice2));
-		assertFalse(Repere.matriceRepereValide(matrice3));
-		assertFalse(Repere.matriceRepereValide(matrice4));
-		assertFalse(Repere.matriceRepereValide(matrice5));
-	}
-	
-	
-	@Test
-	void changeRepereAxeTest() {
+	void test() throws Exception {
+		Repere repere=new Repere();
+		repere.turnOnYAxisOf(90);
+		
+		assertArrayEquals(repere.matrice.points, new double[][] {{0,0,-1,0},
+														  {0,1,0,0},
+														  {1,0,0,0},
+														  {0,0,0,1}
+														});
+
+		repere.turnOnYAxisOf(-90);
+		repere.turnOnXAxisOf(180);
+		assertArrayEquals(repere.matrice.points, new double[][] {{1,0,0,0},
+														  {0,-1,0,0},
+														  {0,0,-1,0},
+														  {0,0,0,1}
+														 });
+		
+		repere=new Repere();
+		repere.turnOnYAxisOf(180);
+		repere.turnOnXAxisOf(270);
+		
+		assertArrayEquals(repere.matrice.points, new double[][] {{-1,0,0,0},
+														  {0,0,-1,0},
+														  {0,-1,0,0},
+														  {0,0,0,1}
+														 });
+		repere=new Repere();
+		repere.turnOnYAxisOf(45);
+		double arrondiSqrtDeux=(double)Math.round((Math.sqrt(2)*10000))/10000;
+		/*System.out.println(arrondiSqrtDeux/2);
+		System.out.println("\n--------\n"+Arrays.toString(repere.matrice.points[0]));
+		System.out.println(Arrays.toString(repere.matrice.points[1]));
+		System.out.println(Arrays.toString(repere.matrice.points[2]));
+		System.out.println(Arrays.toString(repere.matrice.points[3]));*/
+		assertArrayEquals(repere.matrice.points, new double[][] {{arrondiSqrtDeux/2,0,-1*arrondiSqrtDeux/2,0},
+			  {0,1,0,0},
+			  {arrondiSqrtDeux/2,0,arrondiSqrtDeux/2,0},
+			  {0,0,0,1}
+			 });
 		
 	}
 	
 	@Test
-	void calculGetPointInMatriceTest() throws Exception {
-		double[][] matrice1=new double[][] {
-			{1,0,0,0},
-			{0,1,0,0},
-			{0,0,1,0},
-			{0,0,0,1}
-			
-		};
-		Repere repere=new Repere(matrice1);
-		double[] point = new double[] {3,5,7,1};
-		assertArrayEquals(point, repere.getPointInRepere(point));
-		}
+	void translationTest() throws Exception {
+
+		Repere repere=new Repere();
+		repere.absoluteTranslation(5, 10, 3);
+		assertArrayEquals(repere.matrice.points, new double[][] {{1,0,0,5},
+														  {0,1,0,10},
+														  {0,0,1,3},
+														  {0,0,0,1}});
+		repere=new Repere();
+		repere.homotetie(2);
+		repere.turnOnYAxisOf(90);
+		repere.relativeTranslation(1, 4, 2);
+		System.out.println("\n--------\n"+Arrays.toString(repere.matrice.points[0]));
+		System.out.println(Arrays.toString(repere.matrice.points[1]));
+		System.out.println(Arrays.toString(repere.matrice.points[2]));
+		System.out.println(Arrays.toString(repere.matrice.points[3]));
+		assertArrayEquals(repere.matrice.points, new double[][] {{0,0,-2,-4},
+			  {0,2,0,8},
+			  {2,0,0,2},
+			  {0,0,0,1}});
+	}
+	@Test
+	void homotetieTest() throws Exception {
+
+		Repere repere=new Repere();
+		repere.homotetie(0.5);
+		assertArrayEquals(repere.matrice.points, new double[][] {{0.5,0,0,0},
+														  {0,0.5,0,0},
+														  {0,0,0.5,0},
+														  {0,0,0,1}});
+		repere=new Repere();
+		repere.absoluteTranslation(2, 1, 0);
+
+		/*System.out.println("\n--------\n"+Arrays.toString(repere.matrice.points[0]));
+		System.out.println(Arrays.toString(repere.matrice.points[1]));
+		System.out.println(Arrays.toString(repere.matrice.points[2]));
+		System.out.println(Arrays.toString(repere.matrice.points[3]));*/
+		repere.homotetie(2);/*
+		System.out.println("\n--------\n"+Arrays.toString(repere.matrice.points[0]));
+		System.out.println(Arrays.toString(repere.matrice.points[1]));
+		System.out.println(Arrays.toString(repere.matrice.points[2]));
+		System.out.println(Arrays.toString(repere.matrice.points[3]));*/
+		assertArrayEquals(repere.matrice.points, new double[][] {{2,0,0,4},
+			  {0,2,0,2},
+			  {0,0,2,0},
+			  {0,0,0,1}});
+	}
 
 }

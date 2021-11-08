@@ -16,9 +16,9 @@
 - [ ] Message d'erreur en cas d'erreur de format dans le fichier
 - [ ] La visualisation est correcte
 - [ ] On visualise simultanément trois vues du modèle (de face, de haut, de côté)
-- [ ] Rotation
-- [ ] Translation
-- [ ] Homotétie
+- [X] Rotation
+- [X] Translation
+- [X] Homotétie
 
 ## Autres éléments demandés
 
