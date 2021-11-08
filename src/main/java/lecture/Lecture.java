@@ -108,4 +108,3 @@ public class Lecture {
 		//lecture("./exemples/skull.ply");
 	}
 }
-

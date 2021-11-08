@@ -1,5 +1,6 @@
 package triangle;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import javafx.stage.Stage;
 import repere.Repere;
 import triangle.Face;
 import triangle.Point;
+import javafx.scene.shape.ArcType;
 
 
 /**
@@ -30,6 +32,13 @@ public class App extends Application {
         Group root = new Group();
         Canvas canvas = new Canvas(300, 250);
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        
+        gc.fillPolygon(new double[]{10, 40, 10, 40},
+                new double[]{210, 210, 240, 240}, 4);
+ gc.strokePolygon(new double[]{60, 90, 60, 90},
+                  new double[]{210, 210, 240, 240}, 4);
+ gc.strokePolyline(new double[]{110, 140, 110, 140},
+                   new double[]{210, 210, 240, 240}, 4);
       
         listePoint.add(new Point(50,50,10));
         listePoint.add(new Point(10,50,10));
@@ -63,7 +72,6 @@ public class App extends Application {
         
         FaceSorter faceSorter= FaceSorter.faceSorterX();
         faceSorter.sort(listeface);
-        
         
         /*
         //drawShapes(gc);
