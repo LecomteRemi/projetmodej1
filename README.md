@@ -17,7 +17,7 @@
 - [ ] La visualisation est correcte
 - [ ] On visualise simultanément trois vues du modèle (de face, de haut, de côté)
 - [X] Rotation
-- [V] Translation
+- [X] Translation
 - [X] Homotétie
 
 ## Autres éléments demandés
