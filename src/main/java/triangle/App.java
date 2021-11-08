@@ -10,7 +10,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import repere.Repere;
 import triangle.Face;
 import triangle.Point;
 
@@ -29,11 +31,11 @@ public class App extends Application {
         Canvas canvas = new Canvas(300, 250);
         GraphicsContext gc = canvas.getGraphicsContext2D();
       
-        listePoint.add(new Point(5,29,0));
-        listePoint.add(new Point(36,57,0));
-        listePoint.add(new Point(20,63,2));
-        listePoint.add(new Point(80,42,4));
-        listePoint.add(new Point(5,29,6));
+        listePoint.add(new Point(50,50,10));
+        listePoint.add(new Point(10,50,10));
+        listePoint.add(new Point(30,50,-10));
+        listePoint.add(new Point(30,20,0));
+       /* listePoint.add(new Point(5,29,6));
         listePoint.add(new Point(86,11,6));
         listePoint.add(new Point(19,69,0));
         listePoint.add(new Point(102,40,4));
@@ -45,18 +47,18 @@ public class App extends Application {
         listePoint.add(new Point(63,42,1));
         listePoint.add(new Point(67,74,4));
         listePoint.add(new Point(38,33,3));
-        listePoint.add(new Point(64,63,5));
+        listePoint.add(new Point(64,63,5));*/
         
         
         listeface.add(new Face(0,1,2,listePoint));
-        listeface.add(new Face(1,3,4,listePoint));
-        listeface.add(new Face(2,1,3,listePoint));
-        listeface.add(new Face(0,3,4,listePoint));
-        listeface.add(new Face(2,5,6,listePoint));
+        listeface.add(new Face(1,2,3,listePoint));
+        listeface.add(new Face(2,0,3,listePoint));
+        listeface.add(new Face(1,3,0,listePoint));
+        /*listeface.add(new Face(2,5,6,listePoint));
         listeface.add(new Face(3,1,4,listePoint));
         listeface.add(new Face(1,2,3,listePoint));
         listeface.add(new Face(2,2,5,listePoint));
-        listeface.add(new Face(3,1,4,listePoint));
+        listeface.add(new Face(3,1,4,listePoint));*/
         
         
         FaceSorter faceSorter= FaceSorter.faceSorterX();
@@ -71,6 +73,30 @@ public class App extends Application {
         Face triangle = new Face(new Point[] {p1, p2, p3});
         triangle.drawTriangle(gc,new Point(90,30),new Point(190,170),new Point(10,170));
         */
+        try {
+			Repere repere=new Repere();
+			repere.turnOnYAxisOf(45);
+			for (Point point : listePoint) {
+					point.transform(repere);
+					System.out.println(point.toString());
+			}
+        for (Face face : listeface) {
+        	double[] x=new double[3];
+        	double[] y=new double[3];
+        	for(int i=0; i<face.getPoints().length; i++) {
+        		x[i]=face.getPoints()[i].getX()*10;
+        		y[i]=face.getPoints()[i].getY()*10;
+
+        	}
+        	//gc.setLineWidth(1);
+        	gc.setStroke(Color.BLACK);
+ 
+        	gc.strokePolygon(x, y, face.getPoints().length);
+		}
+        } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         root.getChildren().add(canvas);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
