@@ -22,10 +22,19 @@ import javafx.scene.shape.ArcType;
 
 
 /**
- * JavaFX App
+ * JavaFX app pour tester la génération 2D
+ * @author Cheikh bassirou Mbaye
+ * @version 28/09/2021
  */
+
 public class App extends Application {
+	/**
+	 * Attribut qui stocke une liste de points dans une collection
+	 */
 	public List<Point> listePoint = new ArrayList<>();
+	/**
+	 * Attribut qui stocke une liste de Face dans une collection
+	 */
 	public List<Face> listeface = new ArrayList<>();
 	
     @Override

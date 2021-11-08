@@ -4,6 +4,9 @@ import java.util.List;
 
 public class Modele {
 
+	/**
+	 * 
+	 */
 	List<Face> listeFaces ;
 	List<Point> listPoints ;
 	

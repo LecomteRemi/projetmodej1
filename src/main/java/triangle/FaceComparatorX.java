@@ -2,6 +2,11 @@ package triangle;
 
 import java.util.Comparator;
 
+/**
+ * Matrice d'adjacence servant à représenter les arcs 
+ * @author Cheikh bassirou Mbaye
+ * @version 28/09/2021
+ */
 public class FaceComparatorX implements Comparator<Face>{
 	@Override
 	public int compare(Face t1, Face t2) {
