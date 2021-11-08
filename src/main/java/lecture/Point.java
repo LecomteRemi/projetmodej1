@@ -1,3 +1,4 @@
+
 package lecture;
 
 public class Point {
