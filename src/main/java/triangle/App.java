@@ -2,6 +2,7 @@ package triangle;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javafx.application.Application;
@@ -9,13 +10,14 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import repere.Repere;
 import triangle.Face;
 import triangle.Point;
+import utilitaire.Matrice;
 import javafx.scene.shape.ArcType;
 
 
@@ -40,10 +42,10 @@ public class App extends Application {
  gc.strokePolyline(new double[]{110, 140, 110, 140},
                    new double[]{210, 210, 240, 240}, 4);
       
-        listePoint.add(new Point(50,50,10));
-        listePoint.add(new Point(10,50,10));
-        listePoint.add(new Point(30,50,-10));
-        listePoint.add(new Point(30,20,0));
+        listePoint.add(new Point(-20,-20,20));
+        listePoint.add(new Point(20,-20,20));
+        listePoint.add(new Point(0,20,0));
+        listePoint.add(new Point(0,-20,-20));
        /* listePoint.add(new Point(5,29,6));
         listePoint.add(new Point(86,11,6));
         listePoint.add(new Point(19,69,0));
@@ -70,7 +72,7 @@ public class App extends Application {
         listeface.add(new Face(3,1,4,listePoint));*/
         
         
-        FaceSorter faceSorter= FaceSorter.faceSorterX();
+        FaceSorter faceSorter= FaceSorter.faceSorterZ();
         faceSorter.sort(listeface);
         
         /*
@@ -81,33 +83,78 @@ public class App extends Application {
         Face triangle = new Face(new Point[] {p1, p2, p3});
         triangle.drawTriangle(gc,new Point(90,30),new Point(190,170),new Point(10,170));
         */
+      
         try {
 			Repere repere=new Repere();
-			repere.turnOnYAxisOf(45);
+
+			//repere.turnOnYAxisOf(180);
+			//repere.turnOnXAxisOf(90);
 			for (Point point : listePoint) {
+
+
 					point.transform(repere);
-					System.out.println(point.toString());
+					
 			}
+			faceSorter.sort(listeface); 
         for (Face face : listeface) {
         	double[] x=new double[3];
         	double[] y=new double[3];
         	for(int i=0; i<face.getPoints().length; i++) {
-        		x[i]=face.getPoints()[i].getX()*10;
-        		y[i]=face.getPoints()[i].getY()*10;
+        		x[i]=face.getPoints()[i].getX()+100;
+        		y[i]=face.getPoints()[i].getY()+100;
 
         	}
         	//gc.setLineWidth(1);
-        	gc.setStroke(Color.BLACK);
  
         	gc.strokePolygon(x, y, face.getPoints().length);
-		}
+        }
+        root.getChildren().add(canvas);
+        Button button=new Button("tourner de 90 degré sur y");
+        button.setOnAction(e->{
+        
+				try {
+					repere.turnOnYAxisOf(90);
+					gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+					
+			    	for (Point point : listePoint) {
+
+
+						point.transform(repere);
+						
+				}
+				//faceSorter.sort(listeface); 
+	        for (Face face : listeface) {
+	        	double[] x=new double[3];
+	        	double[] y=new double[3];
+	        	for(int i=0; i<face.getPoints().length; i++) {
+	        		x[i]=face.getPoints()[i].getX()+100;
+	        		y[i]=face.getPoints()[i].getY()+100;
+
+	        	}
+	          	//gc.setLineWidth(1);
+	 
+	        	gc.strokePolygon(x, y, face.getPoints().length);
+	        	
+	        } 
+	        System.out.println("-----------------");
+	        for (Point point : listePoint) {
+				System.out.println(Arrays.toString(point.getMatricialCoordonnnee()));
+			}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			
+        });
+        root.getChildren().add(button);
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+       
         } catch (Exception e) {
+        	System.out.println("\n\n-------------------"+e.toString());
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        root.getChildren().add(canvas);
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
     }
     /*
     private void drawShapes(GraphicsContext gc) {
