@@ -61,10 +61,9 @@ public class App extends Application {
         
         FaceSorter faceSorter= FaceSorter.faceSorterX();
         faceSorter.sort(listeface);
-        
-        
+        drawTriangles(gc,listeface);
         /*
-        //drawShapes(gc);
+        drawShapes(gc);
         Point p1 = new Point(90,30);
         Point p2 = new Point(190,170);
         Point p3 = new Point(10,170);
@@ -75,28 +74,31 @@ public class App extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
-    /*
-    private void drawShapes(GraphicsContext gc) {
-		// TODO Auto-generated method stub
-    	
-    	int firstX = 90;
-        int secondX = 190;
-        int thirdX = 10;
-
-        int firstY =30;
-        int secondY =170;
-        int thirdY =170;
-        gc.strokePolygon(
-        		new double[]{firstX, secondX,thirdX},
-                new double[]{firstY, secondY, thirdY}, 3);
-                
     
+    
+    
+    private void drawTriangles(GraphicsContext gc ,List<Face> listFace) {
+    	for(int i=0; i<listFace.size();i++){
+    		  Face face=listFace.get(i);
+    		  Point p1=face.getPoints()[0];
+    		  Point p2=face.getPoints()[1];
+    		  Point p3=face.getPoints()[2];
+    		  drawTriangle(gc,p1,p2,p3);
+    		}
+    }
+    
+    
+    
+	private void drawTriangle(GraphicsContext gc, Point p1, Point p2, Point p3) {
+		gc.strokePolygon(
+        		new double[]{p1.getX(), p2.getX(),p3.getX()},
+                new double[]{p1.getY(), p2.getY(), p3.getY()}, 3);
 		
 	}
-      */
-    
-    
-    
+
+
+
+
 	public static void main(String[] args) {
         launch();
     }
