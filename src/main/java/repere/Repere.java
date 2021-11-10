@@ -4,6 +4,8 @@ import utilitaire.TrigonometrieSimplifiee;
 
 import utilitaire.Matrice;
 
+import java.util.Arrays;
+
 import triangle.Point;
 
 
@@ -15,10 +17,16 @@ public class Repere {
 	}
 	
 	public double[] getCoordonneeInRepere(double[] coordonnee) throws Exception {
-		double[][] coordonneeInMatrice=new double[1][4];
-		coordonneeInMatrice[0]=coordonnee;
+		double[][] coordonneeInMatrice=new double[4][1];
+		for(int i=0;i<3;i++) {
+			coordonneeInMatrice[i][0]=coordonnee[i];
+		}
+		coordonneeInMatrice[3][0]=1;
+		System.out.println("\n\n|||||||||||"+Arrays.deepToString(coordonneeInMatrice)+"\n\n---");
 		double[][]coordonneeInRepere=matrice.multiplication(coordonneeInMatrice).points;
-		return coordonneeInRepere[0];
+		System.out.println(Arrays.deepToString(coordonneeInRepere)+"\n\n---");
+		
+		return new double[] {coordonneeInRepere[0][0],coordonneeInRepere[1][0],coordonneeInRepere[2][0]};
 	}
 	public Point getPointInRepere(Point point) throws Exception{
 		double[] coordonnee=point.getMatricialCoordonnnee();
@@ -71,6 +79,12 @@ public class Repere {
 													{0,0,factor,0},
 													{0,0,0,1}});
 		this.matrice=matriceTemporaire.multiplication(this.matrice);
+	}
+	
+	public void homotetiFromAPoint(double factor, Point point) throws Exception {
+		this.absoluteTranslation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
+		this.homotetie(factor);
+		this.absoluteTranslation(point.getX(), point.getY(), point.getZ());
 	}
 	
 	public double[] getVector(int col) {
@@ -130,5 +144,16 @@ public class Repere {
 		return res;
 	}
 
+	public void symetry(String plan) throws Exception {
+		SymetricMatrixFactory factory=new SymetricMatrixFactory();
+		Matrice matriceTemporaire=factory.SymetricMatrix(plan);
+		this.matrice=matriceTemporaire.multiplication(this.matrice);
+	}
+	public void symetryFromAPoint(String plan, Point point) throws Exception {
+		this.absoluteTranslation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
+		this.symetry(plan);
+		this.absoluteTranslation(point.getX(), point.getY(), point.getZ());
+		
+	}
 	
 }
