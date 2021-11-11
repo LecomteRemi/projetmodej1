@@ -19,6 +19,10 @@ public class Point {
 	 * Attribut qui stocke la position z du point
 	 */
 	protected double z;
+	
+	protected double currentX;
+	protected double currentY;
+	protected double currentZ;
 
 	/**
 	 * Constructeur récupérant les positions x et y pour les assigner au point
@@ -44,6 +48,9 @@ public class Point {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		this.currentX=x;
+		this.currentY=y;
+		this.currentZ=z;
 	}
 	
 	/**
@@ -159,6 +166,7 @@ public class Point {
 		return new double[] {x,y,z,1};
 	}
 	
+	
 	/**
 	 * retourne les nouvelles coordonées suite à l'adaptation du repère
 	 * @param repere
@@ -168,9 +176,19 @@ public class Point {
 	 */
 	public void transform(Repere repere) throws Exception {
 		Point pointInRepere=repere.getPointInRepere(this);
-		this.x=pointInRepere.x;
-		this.y=pointInRepere.y;
-		this.z=pointInRepere.z;
+		this.currentX=pointInRepere.x;
+		this.currentY=pointInRepere.y;
+		this.currentZ=pointInRepere.z;
+	}
+	
+	public double getCurrentX() {
+		return currentX;
+	}
+	public double getCurrentY() {
+		return currentY;
+	}
+	public double getCurrentZ() {
+		return currentZ;
 	}
 
 }
