@@ -1,12 +1,10 @@
-package repere;
+package controle;
 
 import utilitaire.TrigonometrieSimplifiee;
-
+import view.Point;
 import utilitaire.Matrice;
 
 import java.util.Arrays;
-
-import triangle.Point;
 
 
 public class Repere {

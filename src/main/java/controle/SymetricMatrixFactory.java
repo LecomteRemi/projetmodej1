@@ -1,4 +1,4 @@
-package repere;
+package controle;
 
 import utilitaire.Matrice;
 

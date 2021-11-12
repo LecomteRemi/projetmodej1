@@ -1,4 +1,4 @@
-package triangle;
+package view;
 
 public class Vecteur {
 
