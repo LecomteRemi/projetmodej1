@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import modele.Lecture;
 import view.Face;
 import view.FaceSorter;
 import view.Point;
@@ -47,12 +48,17 @@ public class App extends Application {
                   new double[]{210, 210, 240, 240}, 4);
  gc.strokePolyline(new double[]{110, 140, 110, 140},
                    new double[]{210, 210, 240, 240}, 4);
+ 
+      Modele modele = Lecture.creation_modele("./exemples/trashcan.ply");
       
-        listePoint.add(new Point(-1,-1,1));
+      listePoint = modele.getListPoints();
+      listeface = modele.getListeFaces();
+       /*listePoint.add(new Point(-1,-1,1));
         listePoint.add(new Point(1,-1,1));
         listePoint.add(new Point(0,1,0));
+        listePoint.add(new Point(0,0,0));
         listePoint.add(new Point(0,-1,-1));
-       /* listePoint.add(new Point(5,29,6));
+        listePoint.add(new Point(5,29,6));
         listePoint.add(new Point(86,11,6));
         listePoint.add(new Point(19,69,0));
         listePoint.add(new Point(102,40,4));
@@ -67,11 +73,11 @@ public class App extends Application {
         listePoint.add(new Point(64,63,5));*/
         
         
-        listeface.add(new Face(0,1,2,listePoint));
+        /*listeface.add(new Face(0,1,2,listePoint));
         listeface.add(new Face(1,2,3,listePoint));
         listeface.add(new Face(2,0,3,listePoint));
         listeface.add(new Face(1,3,0,listePoint));
-        /*listeface.add(new Face(2,5,6,listePoint));
+        listeface.add(new Face(2,5,6,listePoint));
         listeface.add(new Face(3,1,4,listePoint));
         listeface.add(new Face(1,2,3,listePoint));
         listeface.add(new Face(2,2,5,listePoint));
@@ -80,7 +86,7 @@ public class App extends Application {
         
         FaceSorter faceSorter= FaceSorter.faceSorterZ();
         faceSorter.sort(listeface);
-        drawTriangles(gc,listeface);
+        //drawTriangles(gc,listeface);
 
         /*
         drawShapes(gc);
@@ -106,14 +112,14 @@ public class App extends Application {
         for (Face face : listeface) {
         	double[] x=new double[3];
         	double[] y=new double[3];
-        	for(int i=0; i<face.getPoints().length; i++) {
-        		x[i]=face.getPoints()[i].getCurrentX()*20+100;
-        		y[i]=face.getPoints()[i].getCurrentY()*20+100;
+        	for(int i=0; i<face.getPoints().size(); i++) {
+        		x[i]=face.getPoints().get(i).getCurrentX()*20+100;
+        		y[i]=face.getPoints().get(i).getCurrentY()*20+100;
 
         	}
         	//gc.setLineWidth(1);
  
-        	gc.strokePolygon(x, y, face.getPoints().length);
+        	gc.strokePolygon(x, y, face.getPoints().size());
         }
         root.getChildren().add(canvas);
         Button button=new Button("tourner de 5 degré sur y");
@@ -136,13 +142,13 @@ public class App extends Application {
 	        for (Face face : listeface) {
 	        	double[] x=new double[3];
 	        	double[] y=new double[3];
-	        	for(int i=0; i<face.getPoints().length; i++) {
-	        		x[i]=face.getPoints()[i].getCurrentX()*20+100;
-	        		y[i]=face.getPoints()[i].getCurrentY()*20+100;
+	        	for(int i=0; i<face.getPoints().size(); i++) {
+	        		x[i]=face.getPoints().get(i).getCurrentX()*20+100;
+	        		y[i]=face.getPoints().get(i).getCurrentY()*20+100;
 
 	        	}
 	 
-	        	gc.strokePolygon(x, y, face.getPoints().length);
+	        	gc.strokePolygon(x, y, face.getPoints().size());
 	        	
 	        } 
 	        System.out.println("-----------------");
@@ -176,13 +182,13 @@ public class App extends Application {
 	        for (Face face : listeface) {
 	        	double[] x=new double[3];
 	        	double[] y=new double[3];
-	        	for(int i=0; i<face.getPoints().length; i++) {
-	        		x[i]=face.getPoints()[i].getCurrentX()*20+100;
-	        		y[i]=face.getPoints()[i].getCurrentY()*20+100;
+	        	for(int i=0; i<face.getPoints().size(); i++) {
+	        		x[i]=face.getPoints().get(i).getCurrentX()*20+100;
+	        		y[i]=face.getPoints().get(i).getCurrentY()*20+100;
 
 	        	}
 	 
-	        	gc.strokePolygon(x, y, face.getPoints().length);
+	        	gc.strokePolygon(x, y, face.getPoints().size());
 	        	
 	        } 
 	        System.out.println("-----------------");
@@ -211,12 +217,12 @@ public class App extends Application {
     
     
     
-    private void drawTriangles(GraphicsContext gc ,List<Face> listFace) {
+   private void drawTriangles(GraphicsContext gc ,List<Face> listFace) {
     	for(int i=0; i<listFace.size();i++){
     		  Face face=listFace.get(i);
-    		  Point p1=face.getPoints()[0];
-    		  Point p2=face.getPoints()[1];
-    		  Point p3=face.getPoints()[2];
+    		  Point p1=face.getPoints().get(0);
+    		  Point p2=face.getPoints().get(1);
+    		  Point p3=face.getPoints().get(2);
     		  drawTriangle(gc,p1,p2,p3);
     		}
     }

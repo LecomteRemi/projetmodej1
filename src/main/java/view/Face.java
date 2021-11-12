@@ -1,6 +1,8 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -16,7 +18,8 @@ public class Face{
 	/**
 	 * Tableau de Points appartenant à la face.
 	 */
-	private Point[] points;
+	private ArrayList<Point> points;
+	private int nbpoints;
 
 	/**
 	 * Constructeur acceptant un tableau de points 
@@ -25,7 +28,11 @@ public class Face{
 	 * @version 28/09/2021
 	 */
 	public Face(Point[] points) {
-		this.points=points;
+		ArrayList<Point> pointsList = new ArrayList<Point>();
+		for(int i=0; i<points.length; i++) {
+			pointsList.add(points[i]);
+		}
+		this.points=pointsList;
 	}
 	
 	/**
@@ -37,8 +44,9 @@ public class Face{
 	 * @author Cheikh bassirou Mbaye
 	 * @version 28/09/2021
 	 */
-	public Face(int a, int b, int c, List<Point> point) {
-		this(new Point[] {point.get(a),point.get(b),point.get(c)});
+	public Face(List<Point> points, int nbpoints) {
+		this.points = (ArrayList<Point>) points;
+		this.nbpoints = nbpoints;
 	}
 	
 	/**
@@ -47,8 +55,12 @@ public class Face{
 	 * @author Cheikh bassirou Mbaye
 	 * @version 28/09/2021
 	 */
-	public Point[] getPoints() {
+	public ArrayList<Point> getPoints() {
 		return points;
+	}
+	
+	public Face(int a, int b, int c, List<Point> point) {
+		this(new Point[] {point.get(a),point.get(b),point.get(c)});
 	}
 	
 	/**
@@ -58,7 +70,7 @@ public class Face{
 	 * @version 28/09/2021
 	 */
 	public void sortPoint(Comparator<Point> comparator) {
-		Arrays.sort(points, comparator);
+		Collections.sort(points, comparator);
 	}
 
 	
