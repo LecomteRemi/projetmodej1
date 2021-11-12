@@ -37,7 +37,7 @@ public class App extends Application {
 	
     @Override
     public void start(Stage primaryStage) {
-    	primaryStage.setTitle("Des triangle");
+    	primaryStage.setTitle("Projet Modélisation");
         Group root = new Group();
         Canvas canvas = new Canvas(300, 250);
         GraphicsContext gc = canvas.getGraphicsContext2D();
