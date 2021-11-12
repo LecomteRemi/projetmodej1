@@ -1,7 +1,7 @@
 # Membres de l'équipe
 
 - cheikh bassirou mbaye 
-- Hugo Rouxd
+- Hugo Roux
 - SATTI Enzo
 - Rémi Lecomte
 # Livrable 1
@@ -22,16 +22,19 @@
 
 ## Autres éléments demandés
 
-- [ ] Tests pour les classes de calcul mathématique
-- [ ] Captures d'écran pour le rendu
-- [ ] Vidéo de présentation du rendu
-- [ ] Respect du format de rendu (cf Moodle)
+- [X] Tests pour les classes de calcul mathématique
+- [X] Captures d'écran pour le rendu
+- [X] Vidéo de présentation du rendu
+- [X] Respect du format de rendu (cf Moodle)
 
 ## Distribution du travail (qui a fait quoi)
-
+Rémi s'est occupé de la partie mathématique avec tout la partie sur les matrices.
+Enzo s'est occupé de la partie lecture des fichiers ply
+Hugo de l'interface graphique
+et Cheikh de l'affichage du modèle
 
 ## Difficultés rencontrées
-
+On a mis du temps a comprendre comment fonctionne le fichier ply, problèmes avec maeven, nottamentv des problèmes lors de la création d'archives jar.
 
 
 # Livrable 2
