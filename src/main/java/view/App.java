@@ -122,7 +122,7 @@ public class App extends Application {
         	gc.strokePolygon(x, y, face.getPoints().size());
         }
         root.getChildren().add(canvas);
-        Button button=new Button("tourner de 5 degré sur y");
+        Button button=new Button("tourner de 5 degrés sur y");
         button.setOnAction(e->{
         
 				try {
@@ -162,7 +162,7 @@ public class App extends Application {
 			
         });
         //root.getChildren().add(button);
-        Button button2=new Button("tourner de 5 degré sur x");
+        Button button2=new Button("tourner de 5 degrés sur x");
         button2.setOnAction(e->{
         
 				try {
