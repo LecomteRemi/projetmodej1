@@ -123,13 +123,11 @@ public class App extends Application {
 					repere.turnOnYAxisOf(5);
 					System.out.println(Arrays.deepToString(repere.matrice.points));
 					gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-					System.out.println("Coordonées points:\n---------------");
-			    	ArrayList<Point> listOfNewPoints=new ArrayList<Point>();
 					for (Point point : listePoint) {
 
-			    		System.out.println(Arrays.toString(point.getMatricialCoordonnnee())+"\n---------------\n");
+			    		//System.out.println(Arrays.toString(point.getMatricialCoordonnnee())+"\n---------------\n");
 						point.transform(repere);
-						System.out.println(Arrays.toString(point.getMatricialCoordonnnee())+"\n---------------\n||||||||||||\n---------");
+						//System.out.println(Arrays.toString(point.getMatricialCoordonnnee())+"\n---------------\n||||||||||||\n---------");
 						
 				}
 			//faceSorter.sort(listeface); 
