@@ -34,7 +34,7 @@ Hugo de l'interface graphique
 et Cheikh de l'affichage du modèle
 
 ## Difficultés rencontrées
-On a mis du temps a comprendre comment fonctionne le fichier ply, problèmes avec maeven, nottamentv des problèmes lors de la création d'archives jar.
+On a mis du temps a comprendre comment fonctionne le fichier ply, problèmes avec maeven, nottament des problèmes lors de la création d'archives jar.
 
 
 # Livrable 2
