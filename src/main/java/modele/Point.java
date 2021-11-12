@@ -1,5 +1,5 @@
 
-package lecture;
+package modele;
 
 public class Point {
 	private float x;

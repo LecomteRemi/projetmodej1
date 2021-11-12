@@ -1,9 +1,10 @@
-package triangle;
+package view;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import controle.Repere;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -14,10 +15,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import repere.Repere;
-import triangle.Face;
-import triangle.FaceSorter;
-import triangle.Point;
+import view.Face;
+import view.FaceSorter;
+import view.Point;
 
 
 /**

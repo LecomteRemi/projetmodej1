@@ -1,6 +1,6 @@
-package triangle;
+package view;
 
-import repere.Repere;
+import controle.Repere;
 /**
  * 
  * @author Cheikh bassirou Mbaye

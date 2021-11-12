@@ -1,4 +1,4 @@
-package lecture;
+package modele;
 
 import java.util.ArrayList;
 
