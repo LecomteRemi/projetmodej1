@@ -12,9 +12,9 @@
 
 - [ ] Afficher la liste détaillée des modèles
 - [ ] Il est possible de choisir le modèle à visualiser dans la liste
-- [ ] Le modèle est chargé et visualisé
+- [X] Le modèle est chargé et visualisé
 - [ ] Message d'erreur en cas d'erreur de format dans le fichier
-- [ ] La visualisation est correcte
+- [X] La visualisation est correcte
 - [ ] On visualise simultanément trois vues du modèle (de face, de haut, de côté)
 - [X] Rotation
 - [X] Translation
@@ -28,9 +28,9 @@
 - [X] Respect du format de rendu (cf Moodle)
 
 ## Distribution du travail (qui a fait quoi)
-Rémi s'est occupé de la partie mathématique avec tout la partie sur les matrices.
-Enzo s'est occupé de la partie lecture des fichiers ply
-Hugo de l'interface graphique
+Rémi s'est occupé de la partie mathématique avec tout la partie sur les matrices.<br/>
+Enzo s'est occupé de la partie lecture des fichiers ply<br/>
+Hugo de l'interface graphique<br/>
 et Cheikh de l'affichage du modèle
 
 ## Difficultés rencontrées
