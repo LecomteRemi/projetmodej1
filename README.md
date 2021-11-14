@@ -1,7 +1,7 @@
 # Membres de l'équipe
 
 - cheikh bassirou mbaye 
-- Hugo Rouxd
+- Hugo Roux
 - SATTI Enzo
 - Rémi Lecomte
 # Livrable 1
@@ -12,9 +12,9 @@
 
 - [ ] Afficher la liste détaillée des modèles
 - [ ] Il est possible de choisir le modèle à visualiser dans la liste
-- [ ] Le modèle est chargé et visualisé
+- [X] Le modèle est chargé et visualisé
 - [ ] Message d'erreur en cas d'erreur de format dans le fichier
-- [ ] La visualisation est correcte
+- [X] La visualisation est correcte
 - [ ] On visualise simultanément trois vues du modèle (de face, de haut, de côté)
 - [X] Rotation
 - [X] Translation
@@ -22,16 +22,19 @@
 
 ## Autres éléments demandés
 
-- [ ] Tests pour les classes de calcul mathématique
-- [ ] Captures d'écran pour le rendu
-- [ ] Vidéo de présentation du rendu
-- [ ] Respect du format de rendu (cf Moodle)
+- [X] Tests pour les classes de calcul mathématique
+- [X] Captures d'écran pour le rendu
+- [X] Vidéo de présentation du rendu
+- [X] Respect du format de rendu (cf Moodle)
 
 ## Distribution du travail (qui a fait quoi)
-
+Rémi s'est occupé de la partie mathématique avec tout la partie sur les matrices.<br/>
+Enzo s'est occupé de la partie lecture des fichiers ply<br/>
+Hugo de l'interface graphique<br/>
+et Cheikh de l'affichage du modèle
 
 ## Difficultés rencontrées
-
+On a mis du temps a comprendre comment fonctionne le fichier ply, problèmes avec maeven, nottament des problèmes lors de la création d'archives jar.
 
 
 # Livrable 2

@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Modele {
@@ -7,28 +8,28 @@ public class Modele {
 	/**
 	 * 
 	 */
-	List<Face> listeFaces ;
-	List<Point> listPoints ;
+	ArrayList<Face> listeFaces ;
+	ArrayList<Point> listPoints ;
 	
-	public Modele(List<Face> listeFaces, List<Point> listPoints) {
+	public Modele(ArrayList<Face> listeFaces, ArrayList<Point> listPoints) {
 		super();
 		this.listeFaces = listeFaces;
 		this.listPoints = listPoints;
 	}
 
-	public List<Face> getListeFaces() {
+	public ArrayList<Face> getListeFaces() {
 		return listeFaces;
 	}
 
-	public void setListeFaces(List<Face> listeFaces) {
+	public void setListeFaces(ArrayList<Face> listeFaces) {
 		this.listeFaces = listeFaces;
 	}
 
-	public List<Point> getListPoints() {
+	public ArrayList<Point> getListPoints() {
 		return listPoints;
 	}
 
-	public void setListPoints(List<Point> listPoints) {
+	public void setListPoints(ArrayList<Point> listPoints) {
 		this.listPoints = listPoints;
 	}
 

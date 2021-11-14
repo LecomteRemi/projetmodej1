@@ -8,13 +8,17 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import view.Face;
+import view.Modele;
+import view.Point;
+
 public class Lecture {
 	private static ArrayList<Point> listePoints = new ArrayList<Point>();
 	private static ArrayList<Face> listeFaces = new ArrayList<Face>();
 	
 	public static Modele creation_modele(String file) {
 		lecture(file);
-		return new Modele(listeFaces);
+		return new Modele(listeFaces, listePoints);
 		
 	}
 	
