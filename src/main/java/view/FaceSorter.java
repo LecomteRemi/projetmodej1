@@ -4,6 +4,14 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import modele.FaceComparatorX;
+import modele.FaceComparatorY;
+import modele.FaceComparatorZ;
+import modele.Point;
+import modele.PointComparatorX;
+import modele.PointComparatorY;
+import modele.PointComparatorZ;
+
 public class FaceSorter {
 	public Comparator<Face> faceComparator;
 	public Comparator<Point> pointComparator;

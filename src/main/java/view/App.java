@@ -14,17 +14,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import modele.Lecture;
+import modele.Modele;
+import modele.Point;
+import utilitaire.Observer;
+import utilitaire.Subject;
 import view.Face;
 import view.FaceSorter;
-import view.Point;
 
 
 /**
  * JavaFX App
  */
-public class App extends Application {
+public class App extends Application implements Observer{
 
 	/**
 	 * Attribut qui stocke une liste de points dans une collection
@@ -34,12 +38,15 @@ public class App extends Application {
 	 * Attribut qui stocke une liste de Face dans une collection
 	 */
 	public List<Face> listeface = new ArrayList<>();
+	Modele modele;
+	protected FaceSorter faceSorter= FaceSorter.faceSorterZ();
+	Canvas canvas = new Canvas(300, 250);
 	
     @Override
     public void start(Stage primaryStage) {
     	primaryStage.setTitle("Projet Modélisation");
         Group root = new Group();
-        Canvas canvas = new Canvas(300, 250);
+        
         GraphicsContext gc = canvas.getGraphicsContext2D();
         
         gc.fillPolygon(new double[]{10, 40, 10, 40},
@@ -49,8 +56,8 @@ public class App extends Application {
  gc.strokePolyline(new double[]{110, 140, 110, 140},
                    new double[]{210, 210, 240, 240}, 4);
  
-      Modele modele = Lecture.creation_modele("./exemples/trashcan.ply");
-      
+       modele = Lecture.creation_modele("./exemples/vache.ply");
+      modele.attach(this);
       listePoint = modele.getListPoints();
       listeface = modele.getListeFaces();
        /*listePoint.add(new Point(-1,-1,1));
@@ -98,7 +105,7 @@ public class App extends Application {
         */
       
         try {
-			Repere repere=new Repere();
+		/*	Repere repere=new Repere();
 
 			//repere.turnOnYAxisOf(180);
 			//repere.turnOnXAxisOf(90);
@@ -113,38 +120,44 @@ public class App extends Application {
         	double[] x=new double[3];
         	double[] y=new double[3];
         	for(int i=0; i<face.getPoints().size(); i++) {
-        		x[i]=face.getPoints().get(i).getCurrentX()*20+100;
-        		y[i]=face.getPoints().get(i).getCurrentY()*20+100;
+        		x[i]=face.getPoints().get(i).getCurrentX()/20+100;
+        		y[i]=face.getPoints().get(i).getCurrentY()/20+100;
 
         	}
         	//gc.setLineWidth(1);
  
         	gc.strokePolygon(x, y, face.getPoints().size());
-        }
+        }*/
+        try {
+			DrawModele(modele, canvas);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         root.getChildren().add(canvas);
         Button button=new Button("tourner de 5 degrés sur y");
         button.setOnAction(e->{
+        	try {
+				modele.turnOnYAxis(5);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         
-				try {
-					repere.turnOnYAxisOf(5);
-					System.out.println(Arrays.deepToString(repere.matrice.points));
+				/*try {
+					modele.turnOnXAxis(5);
+					
 					gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 					System.out.println("Coordonées points:\n---------------");
-			    	ArrayList<Point> listOfNewPoints=new ArrayList<Point>();
-					for (Point point : listePoint) {
-
-			    		System.out.println(Arrays.toString(point.getMatricialCoordonnnee())+"\n---------------\n");
-						point.transform(repere);
-						System.out.println(Arrays.toString(point.getMatricialCoordonnnee())+"\n---------------\n||||||||||||\n---------");
-						
-				}
+			    	
+					
 			//faceSorter.sort(listeface); 
-	        for (Face face : listeface) {
+	        for (Face face : modele.getListeFaces()) {
 	        	double[] x=new double[3];
 	        	double[] y=new double[3];
 	        	for(int i=0; i<face.getPoints().size(); i++) {
-	        		x[i]=face.getPoints().get(i).getCurrentX()*20+100;
-	        		y[i]=face.getPoints().get(i).getCurrentY()*20+100;
+	        		x[i]=face.getPoints().get(i).getCurrentX()/20+100;
+	        		y[i]=face.getPoints().get(i).getCurrentY()/20+100;
 
 	        	}
 	 
@@ -159,13 +172,19 @@ public class App extends Application {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			
+			*/
         });
         //root.getChildren().add(button);
         Button button2=new Button("tourner de 5 degrés sur x");
         button2.setOnAction(e->{
-        
-				try {
+        		try {
+					modele.turnOnXAxis(5);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		
+				/*try {
 					repere.turnOnXAxisOf(5);
 					System.out.println(Arrays.deepToString(repere.matrice.points));
 					gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -183,8 +202,8 @@ public class App extends Application {
 	        	double[] x=new double[3];
 	        	double[] y=new double[3];
 	        	for(int i=0; i<face.getPoints().size(); i++) {
-	        		x[i]=face.getPoints().get(i).getCurrentX()*20+100;
-	        		y[i]=face.getPoints().get(i).getCurrentY()*20+100;
+	        		x[i]=face.getPoints().get(i).getCurrentX()/200+100;
+	        		y[i]=face.getPoints().get(i).getCurrentY()/200+100;
 
 	        	}
 	 
@@ -198,7 +217,7 @@ public class App extends Application {
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
+				}*/
 			
         });
         HBox hbox=new HBox();
@@ -235,6 +254,29 @@ public class App extends Application {
                 new double[]{p1.getY(), p2.getY(), p3.getY()}, 3);
 		
 	}
+	
+	protected void DrawModele(Modele modele, Canvas canvas) {
+		List<Face> faceList=modele.getListeFaces();
+		this.faceSorter.sort(faceList);
+		GraphicsContext gc= canvas.getGraphicsContext2D();
+		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    	
+		
+		//faceSorter.sort(listeface); 
+		for (Face face : modele.getListeFaces()) {
+			double[] x=new double[3];
+			double[] y=new double[3];
+			for(int i=0; i<face.getPoints().size(); i++) {
+				x[i]=face.getPoints().get(i).getCurrentX()*20+100;
+				y[i]=face.getPoints().get(i).getCurrentY()*20+100;
+
+			}
+			gc.strokePolygon(x, y, face.getPoints().size());
+			gc.setFill(Color.WHITE);
+			gc.fillPolygon(x, y, face.getPoints().size());
+		}
+		
+	}
 
 
 
@@ -242,5 +284,22 @@ public class App extends Application {
 	public static void main(String[] args) {
         launch();
     }
+
+
+
+	@Override
+	public void update(Subject subj) {
+		DrawModele(modele, canvas);
+		
+	}
+
+
+
+	@Override
+	public void update(Subject subj, Object data) {
+
+		DrawModele(modele, canvas);
+		
+	}
 
 }
