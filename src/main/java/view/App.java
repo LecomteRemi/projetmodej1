@@ -44,22 +44,15 @@ public class App extends Application implements Observer{
 	
     @Override
     public void start(Stage primaryStage) {
-    	primaryStage.setTitle("Projet Modélisation");
+    	primaryStage.setTitle("Projet Modelisation");
         Group root = new Group();
-        
+        //Canvas canvas = new Canvas(600, 500);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        
-        gc.fillPolygon(new double[]{10, 40, 10, 40},
-                new double[]{210, 210, 240, 240}, 4);
- gc.strokePolygon(new double[]{60, 90, 60, 90},
-                  new double[]{210, 210, 240, 240}, 4);
- gc.strokePolyline(new double[]{110, 140, 110, 140},
-                   new double[]{210, 210, 240, 240}, 4);
- 
        modele = Lecture.creation_modele("./exemples/vache.ply");
       modele.attach(this);
       listePoint = modele.getListPoints();
       listeface = modele.getListeFaces();
+      
        /*listePoint.add(new Point(-1,-1,1));
         listePoint.add(new Point(1,-1,1));
         listePoint.add(new Point(0,1,0));
@@ -91,7 +84,7 @@ public class App extends Application implements Observer{
         listeface.add(new Face(3,1,4,listePoint));*/
         
         
-        FaceSorter faceSorter= FaceSorter.faceSorterZ();
+        FaceSorter faceSorter = FaceSorter.faceSorterZ();
         faceSorter.sort(listeface);
         //drawTriangles(gc,listeface);
 
@@ -107,42 +100,59 @@ public class App extends Application implements Observer{
         try {
 		/*	Repere repere=new Repere();
 
+=======
+			Repere repere=new Repere();
+			repere.turnOnYAxisOf(180);
+>>>>>>> 3f13b43438d78c3a59e850ecff62445cade29b77
 			//repere.turnOnYAxisOf(180);
 			//repere.turnOnXAxisOf(90);
+			
 			for (Point point : listePoint) {
-
-
 					point.transform(repere);
-					
 			}
+			
 			faceSorter.sort(listeface); 
         for (Face face : listeface) {
         	double[] x=new double[3];
         	double[] y=new double[3];
+        	double[] x2=new double[3];
+        	double[] y2=new double[3];
+        	double[] x3=new double[3];
+        	double[] y3=new double[3];
         	for(int i=0; i<face.getPoints().size(); i++) {
+<<<<<<< HEAD
         		x[i]=face.getPoints().get(i).getCurrentX()/20+100;
         		y[i]=face.getPoints().get(i).getCurrentY()/20+100;
 
+=======
+        		x[i]=face.getPoints().get(i).getCurrentX()*20+100;
+        		y[i]=face.getPoints().get(i).getCurrentY()*20+100;
+        		x2[i]=face.getPoints().get(i).getCurrentX()*20+100+300;
+        		y2[i]=face.getPoints().get(i).getCurrentY()*20+100;
+        		x3[i]=face.getPoints().get(i).getCurrentX()*20+100;
+        		y3[i]=face.getPoints().get(i).getCurrentY()*20+100+300;
+>>>>>>> 3f13b43438d78c3a59e850ecff62445cade29b77
         	}
-        	//gc.setLineWidth(1);
  
         	gc.strokePolygon(x, y, face.getPoints().size());
+<<<<<<< HEAD
         }*/
         try {
 			DrawModele(modele, canvas);
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+			
+        }
+        
         root.getChildren().add(canvas);
-        Button button=new Button("tourner de 5 degrés sur y");
+        Button button = new Button("tourner de 5 degrés sur y");
+        
         button.setOnAction(e->{
         	try {
 				modele.turnOnYAxis(5);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
+			}});
         
 				/*try {
 					modele.turnOnXAxis(5);
@@ -155,14 +165,28 @@ public class App extends Application implements Observer{
 	        for (Face face : modele.getListeFaces()) {
 	        	double[] x=new double[3];
 	        	double[] y=new double[3];
+	        	double[] x2=new double[3];
+	        	double[] y2=new double[3];
+	        	double[] x3=new double[3];
+	        	double[] y3=new double[3];
 	        	for(int i=0; i<face.getPoints().size(); i++) {
+<<<<<<< HEAD
 	        		x[i]=face.getPoints().get(i).getCurrentX()/20+100;
 	        		y[i]=face.getPoints().get(i).getCurrentY()/20+100;
 
+=======
+	        		x[i]=face.getPoints().get(i).getCurrentX()*20+100;
+	        		y[i]=face.getPoints().get(i).getCurrentY()*20+100;
+	        		x2[i]=face.getPoints().get(i).getCurrentX()*20+100+300;
+	        		y2[i]=face.getPoints().get(i).getCurrentY()*20+100;
+	        		x3[i]=face.getPoints().get(i).getCurrentX()*20+100;
+	        		y3[i]=face.getPoints().get(i).getCurrentY()*20+100+300;
+>>>>>>> 3f13b43438d78c3a59e850ecff62445cade29b77
 	        	}
 	 
 	        	gc.strokePolygon(x, y, face.getPoints().size());
-	        	
+	        	gc.strokePolygon(x2, y2, face.getPoints().size());
+	        	gc.strokePolygon(x3, y3, face.getPoints().size());
 	        } 
 	        System.out.println("-----------------");
 	        for (Point point : listePoint) {
@@ -173,17 +197,15 @@ public class App extends Application implements Observer{
 					e1.printStackTrace();
 				}
 			*/
-        });
         //root.getChildren().add(button);
         Button button2=new Button("tourner de 5 degrés sur x");
         button2.setOnAction(e->{
         		try {
 					modele.turnOnXAxis(5);
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					
 				}
-        		
+        });		
 				/*try {
 					repere.turnOnXAxisOf(5);
 					System.out.println(Arrays.deepToString(repere.matrice.points));
@@ -201,14 +223,28 @@ public class App extends Application implements Observer{
 	        for (Face face : listeface) {
 	        	double[] x=new double[3];
 	        	double[] y=new double[3];
+	        	double[] x2=new double[3];
+	        	double[] y2=new double[3];
+	        	double[] x3=new double[3];
+	        	double[] y3=new double[3];
 	        	for(int i=0; i<face.getPoints().size(); i++) {
+<<<<<<< HEAD
 	        		x[i]=face.getPoints().get(i).getCurrentX()/200+100;
 	        		y[i]=face.getPoints().get(i).getCurrentY()/200+100;
 
+=======
+	        		x[i]=face.getPoints().get(i).getCurrentX()*20+100;
+	        		y[i]=face.getPoints().get(i).getCurrentY()*20+100;
+	        		x2[i]=face.getPoints().get(i).getCurrentX()*20+100+300;
+	        		y2[i]=face.getPoints().get(i).getCurrentY()*20+100;
+	        		x3[i]=face.getPoints().get(i).getCurrentX()*20+100;
+	        		y3[i]=face.getPoints().get(i).getCurrentY()*20+100+300;
+>>>>>>> 3f13b43438d78c3a59e850ecff62445cade29b77
 	        	}
 	 
 	        	gc.strokePolygon(x, y, face.getPoints().size());
-	        	
+	        	gc.strokePolygon(x2, y2, face.getPoints().size());
+	        	gc.strokePolygon(x3, y3, face.getPoints().size());
 	        } 
 	        System.out.println("-----------------");
 	        for (Point point : listePoint) {
@@ -219,7 +255,7 @@ public class App extends Application implements Observer{
 					e1.printStackTrace();
 				}*/
 			
-        });
+   
         HBox hbox=new HBox();
         
         hbox.getChildren().addAll(button2, button);
