@@ -39,20 +39,13 @@ public class App extends Application {
     public void start(Stage primaryStage) {
     	primaryStage.setTitle("Projet Modélisation");
         Group root = new Group();
-        Canvas canvas = new Canvas(300, 250);
+        Canvas canvas = new Canvas(600, 500);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        
-        gc.fillPolygon(new double[]{10, 40, 10, 40},
-                new double[]{210, 210, 240, 240}, 4);
- gc.strokePolygon(new double[]{60, 90, 60, 90},
-                  new double[]{210, 210, 240, 240}, 4);
- gc.strokePolyline(new double[]{110, 140, 110, 140},
-                   new double[]{210, 210, 240, 240}, 4);
  
-      Modele modele = Lecture.creation_modele("./exemples/trashcan.ply");
+        Modele modele = Lecture.creation_modele("./exemples/vache.ply");
       
-      listePoint = modele.getListPoints();
-      listeface = modele.getListeFaces();
+        listePoint = modele.getListPoints();
+        listeface = modele.getListeFaces();
        /*listePoint.add(new Point(-1,-1,1));
         listePoint.add(new Point(1,-1,1));
         listePoint.add(new Point(0,1,0));
@@ -84,7 +77,7 @@ public class App extends Application {
         listeface.add(new Face(3,1,4,listePoint));*/
         
         
-        FaceSorter faceSorter= FaceSorter.faceSorterZ();
+        FaceSorter faceSorter = FaceSorter.faceSorterZ();
         faceSorter.sort(listeface);
         //drawTriangles(gc,listeface);
 
@@ -99,30 +92,39 @@ public class App extends Application {
       
         try {
 			Repere repere=new Repere();
-
+			repere.turnOnYAxisOf(180);
 			//repere.turnOnYAxisOf(180);
 			//repere.turnOnXAxisOf(90);
+			
 			for (Point point : listePoint) {
-
-
 					point.transform(repere);
-					
 			}
+			
 			faceSorter.sort(listeface); 
         for (Face face : listeface) {
         	double[] x=new double[3];
         	double[] y=new double[3];
+        	double[] x2=new double[3];
+        	double[] y2=new double[3];
+        	double[] x3=new double[3];
+        	double[] y3=new double[3];
         	for(int i=0; i<face.getPoints().size(); i++) {
         		x[i]=face.getPoints().get(i).getCurrentX()*20+100;
         		y[i]=face.getPoints().get(i).getCurrentY()*20+100;
-
+        		x2[i]=face.getPoints().get(i).getCurrentX()*20+100+300;
+        		y2[i]=face.getPoints().get(i).getCurrentY()*20+100;
+        		x3[i]=face.getPoints().get(i).getCurrentX()*20+100;
+        		y3[i]=face.getPoints().get(i).getCurrentY()*20+100+300;
         	}
-        	//gc.setLineWidth(1);
  
         	gc.strokePolygon(x, y, face.getPoints().size());
+        	gc.strokePolygon(x2, y2, face.getPoints().size());
+        	gc.strokePolygon(x3, y3, face.getPoints().size());
         }
+        
         root.getChildren().add(canvas);
-        Button button=new Button("tourner de 5 degrés sur y");
+        Button button = new Button("tourner de 5 degrés sur y");
+        
         button.setOnAction(e->{
         
 				try {
@@ -142,14 +144,22 @@ public class App extends Application {
 	        for (Face face : listeface) {
 	        	double[] x=new double[3];
 	        	double[] y=new double[3];
+	        	double[] x2=new double[3];
+	        	double[] y2=new double[3];
+	        	double[] x3=new double[3];
+	        	double[] y3=new double[3];
 	        	for(int i=0; i<face.getPoints().size(); i++) {
 	        		x[i]=face.getPoints().get(i).getCurrentX()*20+100;
 	        		y[i]=face.getPoints().get(i).getCurrentY()*20+100;
-
+	        		x2[i]=face.getPoints().get(i).getCurrentX()*20+100+300;
+	        		y2[i]=face.getPoints().get(i).getCurrentY()*20+100;
+	        		x3[i]=face.getPoints().get(i).getCurrentX()*20+100;
+	        		y3[i]=face.getPoints().get(i).getCurrentY()*20+100+300;
 	        	}
 	 
 	        	gc.strokePolygon(x, y, face.getPoints().size());
-	        	
+	        	gc.strokePolygon(x2, y2, face.getPoints().size());
+	        	gc.strokePolygon(x3, y3, face.getPoints().size());
 	        } 
 	        System.out.println("-----------------");
 	        for (Point point : listePoint) {
@@ -182,14 +192,22 @@ public class App extends Application {
 	        for (Face face : listeface) {
 	        	double[] x=new double[3];
 	        	double[] y=new double[3];
+	        	double[] x2=new double[3];
+	        	double[] y2=new double[3];
+	        	double[] x3=new double[3];
+	        	double[] y3=new double[3];
 	        	for(int i=0; i<face.getPoints().size(); i++) {
 	        		x[i]=face.getPoints().get(i).getCurrentX()*20+100;
 	        		y[i]=face.getPoints().get(i).getCurrentY()*20+100;
-
+	        		x2[i]=face.getPoints().get(i).getCurrentX()*20+100+300;
+	        		y2[i]=face.getPoints().get(i).getCurrentY()*20+100;
+	        		x3[i]=face.getPoints().get(i).getCurrentX()*20+100;
+	        		y3[i]=face.getPoints().get(i).getCurrentY()*20+100+300;
 	        	}
 	 
 	        	gc.strokePolygon(x, y, face.getPoints().size());
-	        	
+	        	gc.strokePolygon(x2, y2, face.getPoints().size());
+	        	gc.strokePolygon(x3, y3, face.getPoints().size());
 	        } 
 	        System.out.println("-----------------");
 	        for (Point point : listePoint) {
