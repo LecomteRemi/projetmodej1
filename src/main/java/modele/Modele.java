@@ -70,6 +70,10 @@ public class Modele extends Subject {
 		this.repere.turnOnZAxisAroundAPoint(degree, point);
 		updatePoint();
 	}
+	public void homotetie(double factor) throws Exception {
+		this.repere.homotetie(factor);
+		updatePoint();
+	}
 	
 
 }
