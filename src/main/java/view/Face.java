@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
+import modele.Point;
 
 /**
  * Matrice d'adjacence servant à représenter les arcs 

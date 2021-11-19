@@ -1,10 +1,11 @@
 package controle;
 
 import utilitaire.TrigonometrieSimplifiee;
-import view.Point;
 import utilitaire.Matrice;
 
 import java.util.Arrays;
+
+import modele.Point;
 
 
 public class Repere {
@@ -151,6 +152,16 @@ public class Repere {
 		this.absoluteTranslation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
 		this.symetry(plan);
 		this.absoluteTranslation(point.getX(), point.getY(), point.getZ());
+		
+	}
+
+	public void turnOnZAxisOf(double degree) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void turnOnZAxisAroundAPoint(double degree, Point point) {
+		// TODO Auto-generated method stub
 		
 	}
 	
