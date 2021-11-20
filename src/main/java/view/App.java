@@ -1,5 +1,6 @@
 package view;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +13,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -90,7 +92,7 @@ public class App extends Application implements Observer{
         });		
 			
    
-        root.getChildren().addAll(buttonBox( modele), translationButtonPane(modele));
+        root.getChildren().addAll(buttonBox( modele), translationButtonPane(modele), listeModele());
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
        
@@ -174,28 +176,28 @@ public class App extends Application implements Observer{
 		Button yPlusButton=new Button("/\\");
 		yPlusButton.setOnAction(e->{
 			try {
-				modele.turnOnXAxis(5);
+				modele.turnOnXAxis(-5);
 			} catch (Exception e1) {}
 		});
 
 		Button xPlusButton=new Button(">");
 		xPlusButton.setOnAction(e->{
 			try {
-				modele.turnOnYAxis(5);
+				modele.turnOnYAxis(-5);
 			} catch (Exception e1) {}
 		});
 
 		Button yMoinsButton=new Button("\\/");
 		yMoinsButton.setOnAction(e->{
 			try {
-				modele.turnOnXAxis(-5);
+				modele.turnOnXAxis(5);
 			} catch (Exception e1) {}
 		});
 
 		Button xMoinsButton=new Button("<");
 		xMoinsButton.setOnAction(e->{
 			try {
-				modele.turnOnYAxis(-5);
+				modele.turnOnYAxis(5);
 			} catch (Exception e1) {}
 		});
 		HBox xButtonBox=new HBox();
@@ -239,7 +241,7 @@ public class App extends Application implements Observer{
 		HBox highButtonBox=new HBox();
 		highButtonBox.getChildren().addAll(dezoomButton, yPlusButton, zoomButton);
 		HBox lowButtonBox=new HBox();
-		lowButtonBox.getChildren().addAll(zPlusButton, yMoinsButton, zMoinsButton);
+		lowButtonBox.getChildren().addAll(zMoinsButton, yMoinsButton, zPlusButton);
 		xButtonBox.getChildren().addAll(xMoinsButton, xPlusButton);
 		res.getChildren().addAll(highButtonBox, xButtonBox, lowButtonBox);
 		return res;
@@ -299,6 +301,17 @@ public class App extends Application implements Observer{
 		res.setLeft(leftTranslationButton);
 		res.setRight(rightTranslationButton);
 		res.setCenter(barycenterButton);
+		return res;
+	}
+	
+	public ListView<String> listeModele(){
+		ListView<String> res=new ListView<>();
+		File path = new File("exemples"+File.separator);
+		String[] filelist = path.list();
+		for (String string : filelist) {
+			
+			res.getItems().add(string);
+		}
 		return res;
 	}
 
