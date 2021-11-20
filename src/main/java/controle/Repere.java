@@ -155,14 +155,20 @@ public class Repere {
 		
 	}
 
-	public void turnOnZAxisOf(double degree) {
-		// TODO Auto-generated method stub
+	public void turnOnZAxisOf(double degree) throws Exception {
+		Matrice matriceTemporaire=new Matrice(new double[][] {
+			  {TrigonometrieSimplifiee.cos(degree),-1*TrigonometrieSimplifiee.sin(degree),0,0},
+			  {TrigonometrieSimplifiee.sin(degree),TrigonometrieSimplifiee.cos(degree),0,0},
+			  {0,0,1,0},
+			  {0,0,0,1}});
+		this.matrice=matriceTemporaire.multiplication(this.matrice);
 		
 	}
 
-	public void turnOnZAxisAroundAPoint(double degree, Point point) {
-		// TODO Auto-generated method stub
-		
+	public void turnOnZAxisAroundAPoint(double degree, Point point) throws Exception {
+		this.absoluteTranslation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
+		this.turnOnZAxisOf(degree);
+		this.absoluteTranslation(point.getX(), point.getY(), point.getZ());
 	}
 	
 }

@@ -12,8 +12,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import modele.Lecture;
@@ -46,97 +48,21 @@ public class App extends Application implements Observer{
     public void start(Stage primaryStage) {
     	primaryStage.setTitle("Projet Modelisation");
         Group root = new Group();
-        //Canvas canvas = new Canvas(600, 500);
         GraphicsContext gc = canvas.getGraphicsContext2D();
        modele = Lecture.creation_modele("./exemples/vache.ply");
       modele.attach(this);
       listePoint = modele.getListPoints();
       listeface = modele.getListeFaces();
       
-       /*listePoint.add(new Point(-1,-1,1));
-        listePoint.add(new Point(1,-1,1));
-        listePoint.add(new Point(0,1,0));
-        listePoint.add(new Point(0,0,0));
-        listePoint.add(new Point(0,-1,-1));
-        listePoint.add(new Point(5,29,6));
-        listePoint.add(new Point(86,11,6));
-        listePoint.add(new Point(19,69,0));
-        listePoint.add(new Point(102,40,4));
-        listePoint.add(new Point(11,71,3));
-        listePoint.add(new Point(55,88,1));
-        listePoint.add(new Point(76,15,4));
-        listePoint.add(new Point(05,29,5));
-        listePoint.add(new Point(93,53,7));
-        listePoint.add(new Point(63,42,1));
-        listePoint.add(new Point(67,74,4));
-        listePoint.add(new Point(38,33,3));
-        listePoint.add(new Point(64,63,5));*/
-        
-        
-        /*listeface.add(new Face(0,1,2,listePoint));
-        listeface.add(new Face(1,2,3,listePoint));
-        listeface.add(new Face(2,0,3,listePoint));
-        listeface.add(new Face(1,3,0,listePoint));
-        listeface.add(new Face(2,5,6,listePoint));
-        listeface.add(new Face(3,1,4,listePoint));
-        listeface.add(new Face(1,2,3,listePoint));
-        listeface.add(new Face(2,2,5,listePoint));
-        listeface.add(new Face(3,1,4,listePoint));*/
+
         
         
         FaceSorter faceSorter = FaceSorter.faceSorterZ();
         faceSorter.sort(listeface);
-        //drawTriangles(gc,listeface);
 
-        /*
-        drawShapes(gc);
-        Point p1 = new Point(90,30);
-        Point p2 = new Point(190,170);
-        Point p3 = new Point(10,170);
-        Face triangle = new Face(new Point[] {p1, p2, p3});
-        triangle.drawTriangle(gc,new Point(90,30),new Point(190,170),new Point(10,170));
-        */
       
         try {
-		/*	Repere repere=new Repere();
-
-=======
-			Repere repere=new Repere();
-			repere.turnOnYAxisOf(180);
->>>>>>> 3f13b43438d78c3a59e850ecff62445cade29b77
-			//repere.turnOnYAxisOf(180);
-			//repere.turnOnXAxisOf(90);
-			
-			for (Point point : listePoint) {
-					point.transform(repere);
-			}
-			
-			faceSorter.sort(listeface); 
-        for (Face face : listeface) {
-        	double[] x=new double[3];
-        	double[] y=new double[3];
-        	double[] x2=new double[3];
-        	double[] y2=new double[3];
-        	double[] x3=new double[3];
-        	double[] y3=new double[3];
-        	for(int i=0; i<face.getPoints().size(); i++) {
-<<<<<<< HEAD
-        		x[i]=face.getPoints().get(i).getCurrentX()/20+100;
-        		y[i]=face.getPoints().get(i).getCurrentY()/20+100;
-
-=======
-        		x[i]=face.getPoints().get(i).getCurrentX()*20+100;
-        		y[i]=face.getPoints().get(i).getCurrentY()*20+100;
-        		x2[i]=face.getPoints().get(i).getCurrentX()*20+100+300;
-        		y2[i]=face.getPoints().get(i).getCurrentY()*20+100;
-        		x3[i]=face.getPoints().get(i).getCurrentX()*20+100;
-        		y3[i]=face.getPoints().get(i).getCurrentY()*20+100+300;
->>>>>>> 3f13b43438d78c3a59e850ecff62445cade29b77
-        	}
- 
-        	gc.strokePolygon(x, y, face.getPoints().size());
-<<<<<<< HEAD
-        }*/
+		
         try {
 			DrawModele(modele, canvas);
 		} catch (Exception e1) {
@@ -153,62 +79,7 @@ public class App extends Application implements Observer{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}});
-        
-				/*try {
-					modele.turnOnXAxis(5);
-					
-					gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-<<<<<<< HEAD
-					for (Point point : listePoint) {
-
-			    		//System.out.println(Arrays.toString(point.getMatricialCoordonnnee())+"\n---------------\n");
-						point.transform(repere);
-						//System.out.println(Arrays.toString(point.getMatricialCoordonnnee())+"\n---------------\n||||||||||||\n---------");
-						
-				}
-=======
-					System.out.println("Coordonées points:\n---------------");
-			    	
-					
->>>>>>> 8efa43c0830788fa4375b8c77a14f1cc47a35330
-			//faceSorter.sort(listeface); 
-	        for (Face face : modele.getListeFaces()) {
-	        	double[] x=new double[3];
-	        	double[] y=new double[3];
-	        	double[] x2=new double[3];
-	        	double[] y2=new double[3];
-	        	double[] x3=new double[3];
-	        	double[] y3=new double[3];
-	        	for(int i=0; i<face.getPoints().size(); i++) {
-<<<<<<< HEAD
-	        		x[i]=face.getPoints().get(i).getCurrentX()/20+100;
-	        		y[i]=face.getPoints().get(i).getCurrentY()/20+100;
-
-=======
-	        		x[i]=face.getPoints().get(i).getCurrentX()*20+100;
-	        		y[i]=face.getPoints().get(i).getCurrentY()*20+100;
-	        		x2[i]=face.getPoints().get(i).getCurrentX()*20+100+300;
-	        		y2[i]=face.getPoints().get(i).getCurrentY()*20+100;
-	        		x3[i]=face.getPoints().get(i).getCurrentX()*20+100;
-	        		y3[i]=face.getPoints().get(i).getCurrentY()*20+100+300;
->>>>>>> 3f13b43438d78c3a59e850ecff62445cade29b77
-	        	}
-	 
-	        	gc.strokePolygon(x, y, face.getPoints().size());
-	        	gc.strokePolygon(x2, y2, face.getPoints().size());
-	        	gc.strokePolygon(x3, y3, face.getPoints().size());
-	        } 
-	        System.out.println("-----------------");
-	        for (Point point : listePoint) {
-				System.out.println(Arrays.toString(point.getMatricialCoordonnnee()));
-			}
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			*/
-        //root.getChildren().add(button);
-        Button button2=new Button("tourner de 5 degrés sur x");
+                Button button2=new Button("tourner de 5 degrés sur x");
         button2.setOnAction(e->{
         		try {
 					modele.turnOnXAxis(5);
@@ -216,60 +87,9 @@ public class App extends Application implements Observer{
 					
 				}
         });		
-				/*try {
-					repere.turnOnXAxisOf(5);
-					System.out.println(Arrays.deepToString(repere.matrice.points));
-					gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-					System.out.println("Coordonées points:\n---------------");
-			    	ArrayList<Point> listOfNewPoints=new ArrayList<Point>();
-					for (Point point : listePoint) {
-
-			    		System.out.println(Arrays.toString(point.getMatricialCoordonnnee())+"\n---------------\n");
-						point.transform(repere);
-						System.out.println(Arrays.toString(point.getMatricialCoordonnnee())+"\n---------------\n||||||||||||\n---------");
-						
-				}
-			//faceSorter.sort(listeface); 
-	        for (Face face : listeface) {
-	        	double[] x=new double[3];
-	        	double[] y=new double[3];
-	        	double[] x2=new double[3];
-	        	double[] y2=new double[3];
-	        	double[] x3=new double[3];
-	        	double[] y3=new double[3];
-	        	for(int i=0; i<face.getPoints().size(); i++) {
-<<<<<<< HEAD
-	        		x[i]=face.getPoints().get(i).getCurrentX()/200+100;
-	        		y[i]=face.getPoints().get(i).getCurrentY()/200+100;
-
-=======
-	        		x[i]=face.getPoints().get(i).getCurrentX()*20+100;
-	        		y[i]=face.getPoints().get(i).getCurrentY()*20+100;
-	        		x2[i]=face.getPoints().get(i).getCurrentX()*20+100+300;
-	        		y2[i]=face.getPoints().get(i).getCurrentY()*20+100;
-	        		x3[i]=face.getPoints().get(i).getCurrentX()*20+100;
-	        		y3[i]=face.getPoints().get(i).getCurrentY()*20+100+300;
->>>>>>> 3f13b43438d78c3a59e850ecff62445cade29b77
-	        	}
-	 
-	        	gc.strokePolygon(x, y, face.getPoints().size());
-	        	gc.strokePolygon(x2, y2, face.getPoints().size());
-	        	gc.strokePolygon(x3, y3, face.getPoints().size());
-	        } 
-	        System.out.println("-----------------");
-	        for (Point point : listePoint) {
-				System.out.println(Arrays.toString(point.getMatricialCoordonnnee()));
-			}
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}*/
 			
    
-        HBox hbox=new HBox();
-        
-        hbox.getChildren().addAll(button2, button);
-        root.getChildren().add(hbox);
+        root.getChildren().add(buttonBox( modele));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
        
@@ -345,6 +165,83 @@ public class App extends Application implements Observer{
 	public void update(Subject subj, Object data) {
 
 		DrawModele(modele, canvas);
+		
+	}
+	
+	public VBox buttonBox( Modele modele) {
+		VBox res=new VBox();
+		Button yPlusButton=new Button("/\\");
+		yPlusButton.setOnAction(e->{
+			try {
+				modele.turnOnXAxis(5);
+			} catch (Exception e1) {}
+		});
+
+		Button xPlusButton=new Button(">");
+		xPlusButton.setOnAction(e->{
+			try {
+				modele.turnOnYAxis(5);
+			} catch (Exception e1) {}
+		});
+
+		Button yMoinsButton=new Button("\\/");
+		yMoinsButton.setOnAction(e->{
+			try {
+				modele.turnOnXAxis(-5);
+			} catch (Exception e1) {}
+		});
+
+		Button xMoinsButton=new Button("<");
+		xMoinsButton.setOnAction(e->{
+			try {
+				modele.turnOnYAxis(-5);
+			} catch (Exception e1) {}
+		});
+		HBox xButtonBox=new HBox();
+		
+		Button zoomButton =new Button("+");
+		Button dezoomButton=new Button("-");
+		zoomButton.setOnAction(e->{
+			try {
+				modele.homotetie(1.1);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		dezoomButton.setOnAction(e->{
+			try {
+				modele.homotetie(0.9);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		Button zPlusButton=new Button("+z");
+		Button zMoinsButton=new Button("-z");
+		zPlusButton.setOnAction(e->{
+			try {
+				modele.turnOnZAxis(5);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		zMoinsButton.setOnAction(e->{
+			try {
+				modele.turnOnZAxis(-5);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		HBox highButtonBox=new HBox();
+		highButtonBox.getChildren().addAll(dezoomButton, yPlusButton, zoomButton);
+		HBox lowButtonBox=new HBox();
+		lowButtonBox.getChildren().addAll(zPlusButton, yMoinsButton, zMoinsButton);
+		xButtonBox.getChildren().addAll(xMoinsButton, xPlusButton);
+		res.getChildren().addAll(highButtonBox, xButtonBox, lowButtonBox);
+		return res;
 		
 	}
 
