@@ -12,6 +12,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -47,7 +48,7 @@ public class App extends Application implements Observer{
     @Override
     public void start(Stage primaryStage) {
     	primaryStage.setTitle("Projet Modelisation");
-        Group root = new Group();
+        HBox root = new HBox();
         GraphicsContext gc = canvas.getGraphicsContext2D();
        modele = Lecture.creation_modele("./exemples/vache.ply");
       modele.attach(this);
@@ -89,7 +90,7 @@ public class App extends Application implements Observer{
         });		
 			
    
-        root.getChildren().add(buttonBox( modele));
+        root.getChildren().addAll(buttonBox( modele), translationButtonPane(modele));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
        
@@ -243,6 +244,62 @@ public class App extends Application implements Observer{
 		res.getChildren().addAll(highButtonBox, xButtonBox, lowButtonBox);
 		return res;
 		
+	}
+	
+	public BorderPane translationButtonPane(Modele modele) {
+		BorderPane res=new BorderPane();
+		Button upTranslationButton=new Button("/|\\");
+		Button downTranslationButton=new Button("\\|/");
+		Button leftTranslationButton=new Button("<-");
+		Button rightTranslationButton=new Button("->");
+		Button barycenterButton=new Button("o");
+		upTranslationButton.setOnAction(e->{
+			try {
+				modele.translation(0, -1, 0);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		downTranslationButton.setOnAction(e->{
+			try {
+				modele.translation(0, 1, 0);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		leftTranslationButton.setOnAction(e->{
+			try {
+				modele.translation(-1, 0, 0);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		rightTranslationButton.setOnAction(e->{
+			try {
+				modele.translation(1, 0, 0);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		barycenterButton.setOnAction(e->{
+			Point barycenter=modele.getBarycenter();
+			try {
+				modele.translation(-1*barycenter.getX(), -1*barycenter.getY(), -1*barycenter.getZ());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		res.setBottom(downTranslationButton);
+		res.setTop(upTranslationButton);
+		res.setLeft(leftTranslationButton);
+		res.setRight(rightTranslationButton);
+		res.setCenter(barycenterButton);
+		return res;
 	}
 
 }

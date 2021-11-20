@@ -74,6 +74,24 @@ public class Modele extends Subject {
 		this.repere.homotetie(factor);
 		updatePoint();
 	}
+	public void translation(double x, double y, double z) throws Exception {
+		this.repere.absoluteTranslation(x,y,z);
+		updatePoint();
+	}
+	public Point getBarycenter() {
+		double y=0;
+		double x=0;
+		double z=0;
+		for (Point point : listPoints) {
+			y+=point.getCurrentY();
+			x+=point.getCurrentX();
+			z+=point.getCurrentZ();
+		}
+		y=y/listPoints.size();
+		x=x/listPoints.size();
+		z=z/listPoints.size();
+		return new Point(new double[] {x,y,z});
+	}
 	
 
 }
