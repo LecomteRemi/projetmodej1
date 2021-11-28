@@ -10,18 +10,20 @@ import view.Face;
  * @author Cheikh bassirou Mbaye
  * @version 28/09/2021
  */
-public class FaceComparatorX implements Comparator<Face>{
+public class FaceComparatorX implements FaceComparator{
 	@Override
 	public int compare(Face t1, Face t2) {
-		ArrayList <Point> points1=t1.getPoints();
-		ArrayList <Point> points2=t2.getPoints();
-		for(int i=0; i<points1.size();i++) {
-			if(points1.get(i).getX()>points2.get(i).getX()) {
-				return 1;
-			}else if(points1.get(i).getX()>points2.get(i).getX()) {
-				return -1;
-			}
-		}
-		return 0;
+		double x=t1.getBarycenter().getX()-t2.getBarycenter().getX();
+		return x>0?1:x==0?0:-1;
+	}
+
+	@Override
+	public double getX2D(Point point) {
+		return point.getZ();
+	}
+
+	@Override
+	public double getY2D(Point point) {
+		return point.getY();
 	}
 }

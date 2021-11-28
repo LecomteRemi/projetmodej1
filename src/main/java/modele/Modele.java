@@ -12,20 +12,20 @@ public class Modele extends Subject {
 	/**
 	 * 
 	 */
-	protected ArrayList<Face> listeFaces ;
-	protected ArrayList<Point> listPoints ;
+	protected List<Face> listeFaces ;
+	protected List<Point> listePoints ;
 	protected Repere repere;
 	
-	public Modele(ArrayList<Face> listeFaces, ArrayList<Point> listPoints) {
+	public Modele(List<Face> listeFaces, List<Point> listPoints) {
 		super();
 		this.listeFaces = listeFaces;
-		this.listPoints = listPoints;
+		this.listePoints = listPoints;
 		try {
 			this.repere=new Repere();
 		} catch (Exception e) {};
 	}
 
-	public ArrayList<Face> getListeFaces() {
+	public List<Face> getListeFaces() {
 		return listeFaces;
 	}
 
@@ -33,16 +33,19 @@ public class Modele extends Subject {
 		this.listeFaces = listeFaces;
 	}
 
-	public ArrayList<Point> getListPoints() {
-		return listPoints;
+	public List<Point> getListPoints() {
+		return listePoints;
 	}
 
 	public void setListPoints(ArrayList<Point> listPoints) {
-		this.listPoints = listPoints;
+		this.listePoints = listPoints;
 	}
 	public void updatePoint() throws Exception {
-		for (Point point : listPoints) {
+		for (Point point : listePoints) {
 			point.transform(repere);
+		}
+		for (Face face : listeFaces) {
+			face.calculBarycenter();
 		}
 		this.notifyObservers();
 	}
@@ -82,14 +85,14 @@ public class Modele extends Subject {
 		double y=0;
 		double x=0;
 		double z=0;
-		for (Point point : listPoints) {
-			y+=point.getCurrentY();
-			x+=point.getCurrentX();
-			z+=point.getCurrentZ();
+		for (Point point : listePoints) {
+			x+=point.getX();
+			y+=point.getY();
+			z+=point.getZ();
 		}
-		y=y/listPoints.size();
-		x=x/listPoints.size();
-		z=z/listPoints.size();
+		y=y/listePoints.size();
+		x=x/listePoints.size();
+		z=z/listePoints.size();
 		return new Point(new double[] {x,y,z});
 	}
 	

@@ -10,19 +10,16 @@ public class Point {
 	/**
 	 * Attribut qui stocke la position x du point
 	 */
-	protected float x;
+	protected double x;
 	/**
 	 * Attribut qui stocke la position y du point
 	 */
-	protected float y;
+	protected double y;
 	/**
 	 * Attribut qui stocke la position z du point
 	 */
-	protected float z;
+	protected double z;
 	
-	protected float currentX;
-	protected float currentY;
-	protected float currentZ;
 
 	/**
 	 * Constructeur récupérant les positions x et y pour les assigner au point
@@ -44,13 +41,10 @@ public class Point {
 	 * @author Cheikh bassirou Mbaye
      * @version 12/09/2021
 	 */
-	public Point(float x, float y, float z) {
+	public Point(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.currentX=x;
-		this.currentY=y;
-		this.currentZ=z;
 	}
 	
 	/**
@@ -59,7 +53,7 @@ public class Point {
 	 * @author Cheikh bassirou Mbaye
      * @version 12/09/2021
 	 */
-	public Point(float[] coordonnnee) {
+	public Point(double[] coordonnnee) {
 		this(coordonnnee[0],coordonnnee[1],coordonnnee[2]);
 	}
 	
@@ -80,7 +74,7 @@ public class Point {
 	 * @author Cheikh bassirou Mbaye
      * @version 12/09/2021
 	 */
-	public float getX() {
+	public double getX() {
 		return this.x;
 	}
 
@@ -90,7 +84,7 @@ public class Point {
 	 * @author Cheikh bassirou Mbaye
      * @version 12/09/2021
 	 */
-	public float getY() {
+	public double getY() {
 		return this.y;
 	}
 
@@ -100,7 +94,7 @@ public class Point {
 	 * @author Cheikh bassirou Mbaye
      * @version 12/09/2021
 	 */
-	public float getZ() {
+	public double getZ() {
 		return z;
 	}
 	
@@ -110,7 +104,7 @@ public class Point {
 	 * @author Cheikh bassirou Mbaye
      * @version 12/09/2021
 	 */
-	public void setX(float x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
@@ -120,7 +114,7 @@ public class Point {
 	 * @author Cheikh bassirou Mbaye
      * @version 12/09/2021
 	 */
-	public void setY(float y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 	
@@ -130,7 +124,7 @@ public class Point {
 	 * @author Cheikh bassirou Mbaye
      * @version 12/09/2021
 	 */
-	public void setZ(float z) {
+	public void setZ(double z) {
 		this.z = z;
 	}
 
@@ -150,7 +144,7 @@ public class Point {
 	 * @author Cheikh bassirou Mbaye
      * @version 12/09/2021
 	 */
-	public void translate(int dx, int dy, int dz) {
+	public void translate(double dx, double dy, double dz) {
 		x = x + dx;
 		y = y + dy;
 		z = z + dz;
@@ -176,23 +170,10 @@ public class Point {
 	 */
 	public void transform(Repere repere) throws Exception {
 		Point pointInRepere=repere.getPointInRepere(this);
-		this.currentX=pointInRepere.x;
-		this.currentY=pointInRepere.y;
-		this.currentZ=pointInRepere.z;
+		this.x=pointInRepere.x;
+		this.y=pointInRepere.y;
+		this.z=pointInRepere.z;
 	}
-	
-	public Point(double[] coordonnnee) {
-		this((float)coordonnnee[0],(float)coordonnnee[1],(float)coordonnnee[2]);
-	}
-	
-	public float getCurrentX() {
-		return currentX;
-	}
-	public float getCurrentY() {
-		return currentY;
-	}
-	public float getCurrentZ() {
-		return currentZ;
-	}
+
 
 }

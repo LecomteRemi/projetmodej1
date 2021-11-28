@@ -5,18 +5,20 @@ import java.util.Comparator;
 
 import view.Face;
 
-public class FaceComparatorY implements Comparator<Face>{
+public class FaceComparatorY implements FaceComparator{
 	@Override
 	public int compare(Face t1, Face t2) {
-		ArrayList <Point> points1=t1.getPoints();
-		ArrayList <Point> points2=t2.getPoints();
-		for(int i=0; i<points1.size();i++) {
-			if(points1.get(i).getY()>points2.get(i).getY()) {
-				return 1;
-			}else if(points1.get(i).getY()>points2.get(i).getY()) {
-				return -1;
-			}
-		}
-		return 0;
+		double y=t1.getBarycenter().getY()-t2.getBarycenter().getY();
+		return y>0?1:y==0?0:-1;
+	}
+
+	@Override
+	public double getX2D(Point point) {
+		return point.getX();
+	}
+
+	@Override
+	public double getY2D(Point point) {
+		return point.getZ();
 	}
 }

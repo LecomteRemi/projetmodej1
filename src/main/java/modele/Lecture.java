@@ -6,13 +6,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import view.Face;
 
 public class Lecture {
-	private static ArrayList<Point> listePoints = new ArrayList<Point>();
-	private static ArrayList<Face> listeFaces = new ArrayList<Face>();
+	private static List<Point> listePoints = new ArrayList<Point>();
+	private static List<Face> listeFaces = new ArrayList<Face>();
 	
 	public static Modele creation_modele(String file) {
 		lecture(file);
@@ -73,7 +74,7 @@ public class Lecture {
 		for(int i=1; i<=nbpoint; i++) {
 			pointDeFace.add(listePoints.get(Integer.parseInt(splited[i])));
 		}
-		listeFaces.add(new Face(pointDeFace, nbpoint));
+		listeFaces.add(new Face(pointDeFace));
 	}
 	
 	private static void ecrire_fichier(String ligne, String fichier_dest) {

@@ -21,11 +21,15 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import modele.FaceComparatorX;
+import modele.FaceComparatorY;
+import modele.FaceComparatorZ;
 import modele.Lecture;
 import modele.Modele;
 import modele.Point;
 import utilitaire.Observer;
 import utilitaire.Subject;
+import view.View;
 import view.Face;
 import view.FaceSorter;
 
@@ -33,7 +37,7 @@ import view.FaceSorter;
 /**
  * JavaFX App
  */
-public class App extends Application implements Observer{
+public class App extends Application /*implements Observer*/{
 
 	/**
 	 * Attribut qui stocke une liste de points dans une collection
@@ -45,34 +49,40 @@ public class App extends Application implements Observer{
 	public List<Face> listeface = new ArrayList<>();
 	Modele modele;
 	protected FaceSorter faceSorter= FaceSorter.faceSorterZ();
-	Canvas canvas = new Canvas(300, 250);
+	//Canvas canvas = new Canvas(300, 250);
 	
     @Override
     public void start(Stage primaryStage) {
     	primaryStage.setTitle("Projet Modelisation");
         HBox root = new HBox();
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        //GraphicsContext gc = canvas.getGraphicsContext2D();
        modele = Lecture.creation_modele("./exemples/vache.ply");
-      modele.attach(this);
+       System.out.println(("ok"));
+     // modele.attach(this);
       listePoint = modele.getListPoints();
       listeface = modele.getListeFaces();
-      
+      View xView=new View(300, 300, new FaceComparatorX(), modele);
+      View yView=new View(300, 300, new FaceComparatorY(), modele);
+      View zView=new View(300, 300, new FaceComparatorZ(), modele);
+      modele.attach(zView);
+      modele.attach(xView);
+      modele.attach(yView);
 
         
         
-        FaceSorter faceSorter = FaceSorter.faceSorterZ();
-        faceSorter.sort(listeface);
+        //FaceSorter faceSorter = FaceSorter.faceSorterZ();
+       // faceSorter.sort(listeface);
 
       
         try {
 		
         try {
-			DrawModele(modele, canvas);
+			//DrawModele(modele, canvas);
 		} catch (Exception e1) {
 			
         }
         
-        root.getChildren().add(canvas);
+        root.getChildren().addAll(zView, yView, xView);
         Button button = new Button("tourner de 5 degrés sur y");
         
         button.setOnAction(e->{
@@ -105,26 +115,9 @@ public class App extends Application implements Observer{
     
     
     
-   private void drawTriangles(GraphicsContext gc ,List<Face> listFace) {
-    	for(int i=0; i<listFace.size();i++){
-    		  Face face=listFace.get(i);
-    		  Point p1=face.getPoints().get(0);
-    		  Point p2=face.getPoints().get(1);
-    		  Point p3=face.getPoints().get(2);
-    		  drawTriangle(gc,p1,p2,p3);
-    		}
-    }
-    
-    
-    
-	private void drawTriangle(GraphicsContext gc, Point p1, Point p2, Point p3) {
-		gc.strokePolygon(
-        		new double[]{p1.getX(), p2.getX(),p3.getX()},
-                new double[]{p1.getY(), p2.getY(), p3.getY()}, 3);
-		
-	}
+  
 	
-	protected void DrawModele(Modele modele, Canvas canvas) {
+	/*protected void DrawModele(Modele modele, Canvas canvas) {
 		List<Face> faceList=modele.getListeFaces();
 		this.faceSorter.sort(faceList);
 		GraphicsContext gc= canvas.getGraphicsContext2D();
@@ -136,16 +129,16 @@ public class App extends Application implements Observer{
 			double[] x=new double[3];
 			double[] y=new double[3];
 			for(int i=0; i<face.getPoints().size(); i++) {
-				x[i]=face.getPoints().get(i).getCurrentX()*20+100;
-				y[i]=face.getPoints().get(i).getCurrentY()*20+100;
+				x[i]=face.getPoints().get(i).getX()*20+100;
+				y[i]=face.getPoints().get(i).getY()*20+100;
 
 			}
 			gc.strokePolygon(x, y, face.getPoints().size());
-			gc.setFill(Color.WHITE);
+			gc.setFill(Color.LIME);
 			gc.fillPolygon(x, y, face.getPoints().size());
 		}
 		
-	}
+	}*/
 
 
 
@@ -156,27 +149,27 @@ public class App extends Application implements Observer{
 
 
 
-	@Override
+/*	@Override
 	public void update(Subject subj) {
 		DrawModele(modele, canvas);
 		
-	}
+	}*/
 
 
 
-	@Override
+	/*@Override
 	public void update(Subject subj, Object data) {
 
 		DrawModele(modele, canvas);
 		
-	}
+	}*/
 	
 	public VBox buttonBox( Modele modele) {
 		VBox res=new VBox();
 		Button yPlusButton=new Button("/\\");
 		yPlusButton.setOnAction(e->{
 			try {
-				modele.turnOnXAxis(-5);
+				modele.turnOnXAxis(5);
 			} catch (Exception e1) {}
 		});
 
@@ -190,7 +183,7 @@ public class App extends Application implements Observer{
 		Button yMoinsButton=new Button("\\/");
 		yMoinsButton.setOnAction(e->{
 			try {
-				modele.turnOnXAxis(5);
+				modele.turnOnXAxis(-5);
 			} catch (Exception e1) {}
 		});
 
@@ -257,7 +250,7 @@ public class App extends Application implements Observer{
 		Button barycenterButton=new Button("o");
 		upTranslationButton.setOnAction(e->{
 			try {
-				modele.translation(0, -1, 0);
+				modele.translation(0, 1, 0);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -265,7 +258,7 @@ public class App extends Application implements Observer{
 		});
 		downTranslationButton.setOnAction(e->{
 			try {
-				modele.translation(0, 1, 0);
+				modele.translation(0, -1, 0);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

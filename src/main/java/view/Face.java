@@ -19,8 +19,8 @@ public class Face{
 	/**
 	 * Tableau de Points appartenant à la face.
 	 */
-	private ArrayList<Point> points;
-	private int nbpoints;
+	private List<Point> points;
+	private Point barycenter;
 
 	/**
 	 * Constructeur acceptant un tableau de points 
@@ -34,6 +34,7 @@ public class Face{
 			pointsList.add(points[i]);
 		}
 		this.points=pointsList;
+		calculBarycenter();
 	}
 	
 	/**
@@ -45,9 +46,9 @@ public class Face{
 	 * @author Cheikh bassirou Mbaye
 	 * @version 28/09/2021
 	 */
-	public Face(List<Point> points, int nbpoints) {
-		this.points = (ArrayList<Point>) points;
-		this.nbpoints = nbpoints;
+	public Face(List<Point> points) {
+		this.points = points;
+		calculBarycenter();
 	}
 	
 	/**
@@ -56,7 +57,7 @@ public class Face{
 	 * @author Cheikh bassirou Mbaye
 	 * @version 28/09/2021
 	 */
-	public ArrayList<Point> getPoints() {
+	public List<Point> getPoints() {
 		return points;
 	}
 	
@@ -70,8 +71,23 @@ public class Face{
 	 * @author Cheikh bassirou Mbaye
 	 * @version 28/09/2021
 	 */
-	public void sortPoint(Comparator<Point> comparator) {
+	/*public void sortPoint(Comparator<Point> comparator) {
 		Collections.sort(points, comparator);
+	}*/
+	public void calculBarycenter() {
+		double x=0;
+		double y=0;
+		double z=0;
+		for (Point point : points) {
+			x+=point.getX();
+			y+=point.getY();
+			z+=point.getZ();
+		}
+		this.barycenter=new Point(x/points.size(), y/points.size(), z/points.size());
+		
+	}
+	public Point getBarycenter() {
+		return this.barycenter;
 	}
 
 	

@@ -6,20 +6,22 @@ import java.util.Comparator;
 
 import view.Face;
 
-public class FaceComparatorZ implements Comparator<Face>{
+public class FaceComparatorZ implements FaceComparator{
 
 	@Override
 	public int compare(Face t1, Face t2) {
-		ArrayList <Point> points1=t1.getPoints();
-		ArrayList <Point> points2=t2.getPoints();
-		for(int i=0; i<points1.size();i++) {
-			if(points1.get(i).getZ()>points2.get(i).getZ()) {
-				return 1;
-			}else if(points1.get(i).getZ()>points2.get(i).getZ()) {
-				return -1;
-			}
-		}
-		return 0;
+		double z=t1.getBarycenter().getZ()-t2.getBarycenter().getZ();
+		return z>0?1:z==0?0:-1;
+	}
+
+	@Override
+	public double getX2D(Point point) {
+		return point.getX();
+	}
+
+	@Override
+	public double getY2D(Point point) {
+		return point.getY();
 	}
 	
 }

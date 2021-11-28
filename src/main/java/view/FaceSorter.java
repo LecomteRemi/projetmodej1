@@ -7,40 +7,28 @@ import java.util.List;
 import modele.FaceComparatorX;
 import modele.FaceComparatorY;
 import modele.FaceComparatorZ;
-import modele.Point;
-import modele.PointComparatorX;
-import modele.PointComparatorY;
-import modele.PointComparatorZ;
 
 public class FaceSorter {
 	public Comparator<Face> faceComparator;
-	public Comparator<Point> pointComparator;
 	
-	protected FaceSorter(Comparator<Face> triangleComparator, Comparator<Point> pointComparator) {
+	protected FaceSorter(Comparator<Face> triangleComparator) {
 		this.faceComparator = triangleComparator;
-		this.pointComparator = pointComparator;
 	}
 	public static FaceSorter faceSorterZ() {
-		return new FaceSorter(new FaceComparatorZ(), new PointComparatorZ());
+		return new FaceSorter(new FaceComparatorZ());
 	}
 	public static FaceSorter faceSorterX() {
-		return new FaceSorter(new FaceComparatorX(), new PointComparatorX());
+		return new FaceSorter(new FaceComparatorX());
 	}
 	public static FaceSorter faceSorterY() {
-		return new FaceSorter(new FaceComparatorY(), new PointComparatorY());
+		return new FaceSorter(new FaceComparatorY());
 	}
 	
 	public void sort(Face[] faces) {
-		for(int i=0; i<faces.length;i++) {
-			faces[i].sortPoint(pointComparator);
-		}
 		Arrays.sort(faces, faceComparator);
 	}
 	
 	public void sort(List<Face> faces) {
-		for(int i=0; i<faces.size();i++) {
-			faces.get(i).sortPoint(pointComparator);
-		}
 		faces.sort(faceComparator);
 	}
 	

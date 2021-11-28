@@ -21,10 +21,7 @@ public class Repere {
 			coordonneeInMatrice[i][0]=coordonnee[i];
 		}
 		coordonneeInMatrice[3][0]=1;
-		System.out.println("\n\n|||||||||||"+Arrays.deepToString(coordonneeInMatrice)+"\n\n---");
 		double[][]coordonneeInRepere=matrice.multiplication(coordonneeInMatrice).points;
-		System.out.println(Arrays.deepToString(coordonneeInRepere)+"\n\n---");
-		
 		return new double[] {coordonneeInRepere[0][0],coordonneeInRepere[1][0],coordonneeInRepere[2][0]};
 	}
 	public Point getPointInRepere(Point point) throws Exception{
@@ -39,14 +36,14 @@ public class Repere {
 									   {0,1,0,0},
 									   {TrigonometrieSimplifiee.sin(degree),0,TrigonometrieSimplifiee.cos(degree),0},
 									   {0,0,0,1}});
-		this.matrice=matriceTemporaire.multiplication(this.matrice);
+		this.matrice=matriceTemporaire;
 	}
 	public void turnOnXAxisOf(double degree) throws Exception {
 		Matrice matriceTemporaire=new Matrice(new double[][] {{1,0,0,0},
 									  {0,TrigonometrieSimplifiee.cos(degree),-1*TrigonometrieSimplifiee.sin(degree),0},
 									  {0,TrigonometrieSimplifiee.sin(degree),TrigonometrieSimplifiee.cos(degree),0},
 									  {0,0,0,1}});
-			   this.matrice=matriceTemporaire.multiplication(this.matrice);
+			   this.matrice=matriceTemporaire;
 	}
 	
 	public void  turnOnYAxisAroundAPoint(double degree, Point point) throws Exception {
@@ -62,14 +59,8 @@ public class Repere {
 	}
 	
 	public void absoluteTranslation(double x, double y, double z) throws Exception {
-		Matrice matriceTemporaire=new Matrice(new double[][]{{0,0,0,x},{0,0,0,y},{0,0,0,z},{0,0,0,0}});
-		this.matrice=this.matrice.addition(matriceTemporaire);
-	}
-	
-	public void relativeTranslation(double x, double y, double z) throws Exception{
 		Matrice matriceTemporaire=new Matrice(new double[][]{{1,0,0,x},{0,1,0,y},{0,0,1,z},{0,0,0,1}});
-		this.matrice=this.matrice.multiplication(matriceTemporaire.points);
-		
+		this.matrice=matriceTemporaire;
 	}
 	
 	public void homotetie(double factor) throws Exception {
@@ -77,7 +68,7 @@ public class Repere {
 													{0,factor,0,0},
 													{0,0,factor,0},
 													{0,0,0,1}});
-		this.matrice=matriceTemporaire.multiplication(this.matrice);
+		this.matrice=matriceTemporaire;
 	}
 	
 	public void homotetiFromAPoint(double factor, Point point) throws Exception {
@@ -146,7 +137,7 @@ public class Repere {
 	public void symetry(String plan) throws Exception {
 		SymetricMatrixFactory factory=new SymetricMatrixFactory();
 		Matrice matriceTemporaire=factory.SymetricMatrix(plan);
-		this.matrice=matriceTemporaire.multiplication(this.matrice);
+		this.matrice=matriceTemporaire;
 	}
 	public void symetryFromAPoint(String plan, Point point) throws Exception {
 		this.absoluteTranslation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
@@ -161,7 +152,7 @@ public class Repere {
 			  {TrigonometrieSimplifiee.sin(degree),TrigonometrieSimplifiee.cos(degree),0,0},
 			  {0,0,1,0},
 			  {0,0,0,1}});
-		this.matrice=matriceTemporaire.multiplication(this.matrice);
+		this.matrice=matriceTemporaire;
 		
 	}
 
