@@ -1,11 +1,10 @@
-package view;
+package controle;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import controle.Repere;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -238,6 +237,7 @@ public class App extends Application /*implements Observer*/{
 	
 	public BorderPane translationButtonPane(Modele modele) {
 		BorderPane res=new BorderPane();
+		res.setMaxSize(105, 105);
 		Button upTranslationButton=new Button("/|\\");
 		Button downTranslationButton=new Button("\\|/");
 		Button leftTranslationButton=new Button("<-");
