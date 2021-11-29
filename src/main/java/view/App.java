@@ -7,6 +7,8 @@ import java.util.List;
 
 import controle.Repere;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -21,6 +23,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import modele.AffichageMode;
 import modele.FaceComparatorX;
 import modele.FaceComparatorY;
 import modele.FaceComparatorZ;
@@ -56,7 +59,7 @@ public class App extends Application /*implements Observer*/{
     	primaryStage.setTitle("Projet Modelisation");
         HBox root = new HBox();
         //GraphicsContext gc = canvas.getGraphicsContext2D();
-       modele = Lecture.creation_modele("./exemples/vache.ply");
+       modele = Lecture.creation_modele("./exemples/fracttree.ply");
        System.out.println(("ok"));
      // modele.attach(this);
       listePoint = modele.getListPoints();
@@ -83,26 +86,10 @@ public class App extends Application /*implements Observer*/{
         }
         
         root.getChildren().addAll(zView, yView, xView);
-        Button button = new Button("tourner de 5 degrés sur y");
-        
-        button.setOnAction(e->{
-        	try {
-				modele.turnOnYAxis(5);
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}});
-                Button button2=new Button("tourner de 5 degrés sur x");
-        button2.setOnAction(e->{
-        		try {
-					modele.turnOnXAxis(5);
-				} catch (Exception e1) {
-					
-				}
-        });		
+    	
 			
    
-        root.getChildren().addAll(buttonBox( modele), translationButtonPane(modele), listeModele());
+        root.getChildren().addAll(buttonBox( modele), translationButtonPane(modele),affichageModeBox(), listeModele());
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
        
@@ -167,13 +154,15 @@ public class App extends Application /*implements Observer*/{
 	public VBox buttonBox( Modele modele) {
 		VBox res=new VBox();
 		Button yPlusButton=new Button("/\\");
+		yPlusButton.setPrefSize(35, 35);
 		yPlusButton.setOnAction(e->{
 			try {
-				modele.turnOnXAxis(5);
+				modele.turnOnXAxis(-5);
 			} catch (Exception e1) {}
 		});
 
 		Button xPlusButton=new Button(">");
+		xPlusButton.setPrefSize(35, 35);
 		xPlusButton.setOnAction(e->{
 			try {
 				modele.turnOnYAxis(-5);
@@ -181,13 +170,15 @@ public class App extends Application /*implements Observer*/{
 		});
 
 		Button yMoinsButton=new Button("\\/");
+		yMoinsButton.setPrefSize(35, 35);
 		yMoinsButton.setOnAction(e->{
 			try {
-				modele.turnOnXAxis(-5);
+				modele.turnOnXAxis(5);
 			} catch (Exception e1) {}
 		});
 
 		Button xMoinsButton=new Button("<");
+		xMoinsButton.setPrefSize(35, 35);
 		xMoinsButton.setOnAction(e->{
 			try {
 				modele.turnOnYAxis(5);
@@ -196,7 +187,9 @@ public class App extends Application /*implements Observer*/{
 		HBox xButtonBox=new HBox();
 		
 		Button zoomButton =new Button("+");
+		zoomButton.setPrefSize(35, 35);
 		Button dezoomButton=new Button("-");
+		dezoomButton.setPrefSize(35, 35);
 		zoomButton.setOnAction(e->{
 			try {
 				modele.homotetie(1.1);
@@ -213,8 +206,10 @@ public class App extends Application /*implements Observer*/{
 				e1.printStackTrace();
 			}
 		});
-		Button zPlusButton=new Button("+z");
+		Button zPlusButton=new Button("z");
+		zPlusButton.setPrefSize(35, 35);
 		Button zMoinsButton=new Button("-z");
+		zMoinsButton.setPrefSize(35, 35);
 		zPlusButton.setOnAction(e->{
 			try {
 				modele.turnOnZAxis(5);
@@ -248,6 +243,11 @@ public class App extends Application /*implements Observer*/{
 		Button leftTranslationButton=new Button("<-");
 		Button rightTranslationButton=new Button("->");
 		Button barycenterButton=new Button("o");
+		upTranslationButton.setPrefSize(35, 35);
+		downTranslationButton.setPrefSize(35, 35);
+		leftTranslationButton.setPrefSize(35, 35);
+		rightTranslationButton.setPrefSize(35, 35);
+		barycenterButton.setPrefSize(35, 35);
 		upTranslationButton.setOnAction(e->{
 			try {
 				modele.translation(0, 1, 0);
@@ -281,13 +281,7 @@ public class App extends Application /*implements Observer*/{
 			}
 		});
 		barycenterButton.setOnAction(e->{
-			Point barycenter=modele.getBarycenter();
-			try {
-				modele.translation(-1*barycenter.getX(), -1*barycenter.getY(), -1*barycenter.getZ());
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			modele.toBarycenter();
 		});
 		res.setBottom(downTranslationButton);
 		res.setTop(upTranslationButton);
@@ -306,6 +300,25 @@ public class App extends Application /*implements Observer*/{
 			res.getItems().add(string);
 		}
 		return res;
+	}
+	
+	public VBox affichageModeBox() {
+		Button filDeFerButton =new Button("Fil de fer");
+		Button faceButton=new Button("Faces");
+		Button completButton=new Button("Complet");
+		filDeFerButton.setOnAction(e->{
+			modele.setAffichageMode(AffichageMode.FIL_DE_FER);
+		});
+		faceButton.setOnAction(e->{
+			modele.setAffichageMode(AffichageMode.FACE);
+		});
+		completButton.setOnAction(e->{
+			modele.setAffichageMode(AffichageMode.COMPLET);
+		});
+		VBox res=new VBox();
+		res.getChildren().addAll(filDeFerButton, faceButton, completButton);
+		return res;
+		
 	}
 
 }
