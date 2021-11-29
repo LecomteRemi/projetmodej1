@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import view.Face;
-
 public class Lecture {
 	private static List<Point> listePoints = new ArrayList<Point>();
 	private static List<Face> listeFaces = new ArrayList<Face>();

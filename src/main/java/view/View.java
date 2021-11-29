@@ -7,6 +7,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import modele.AffichageMode;
+import modele.Face;
 import modele.FaceComparator;
 import modele.Modele;
 import modele.Point;

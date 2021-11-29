@@ -1,4 +1,4 @@
-package view;
+package modele;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
-import modele.Point;
 
 /**
  * Matrice d'adjacence servant à représenter les arcs 

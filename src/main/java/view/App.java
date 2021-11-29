@@ -24,17 +24,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import modele.AffichageMode;
+import modele.Face;
 import modele.FaceComparatorX;
 import modele.FaceComparatorY;
 import modele.FaceComparatorZ;
+import modele.FaceSorter;
 import modele.Lecture;
 import modele.Modele;
 import modele.Point;
 import utilitaire.Observer;
 import utilitaire.Subject;
 import view.View;
-import view.Face;
-import view.FaceSorter;
 
 
 /**

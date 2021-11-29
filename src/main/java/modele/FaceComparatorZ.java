@@ -4,8 +4,6 @@ package modele;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import view.Face;
-
 public class FaceComparatorZ implements FaceComparator{
 
 	@Override

@@ -1,12 +1,8 @@
-package view;
+package modele;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-
-import modele.FaceComparatorX;
-import modele.FaceComparatorY;
-import modele.FaceComparatorZ;
 
 public class FaceSorter {
 	public Comparator<Face> faceComparator;

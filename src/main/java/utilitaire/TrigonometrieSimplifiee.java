@@ -1,12 +1,12 @@
 package utilitaire;
 
 public class TrigonometrieSimplifiee {
-	private static int precision=1000000;
+	private static final int PRECISION=1000000;
 	public static double cos(double degree) {
-		return (double)Math.round(Math.cos( Math.toRadians(degree))*precision)/precision;
+		return (double)Math.round(Math.cos( Math.toRadians(degree))*PRECISION)/PRECISION;
 	}
 	public static double sin(double degree) {
-		return (double)Math.round(Math.sin( Math.toRadians(degree))*precision)/precision;
+		return (double)Math.round(Math.sin( Math.toRadians(degree))*PRECISION)/PRECISION;
 	}
 	
 

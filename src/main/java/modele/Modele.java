@@ -5,7 +5,6 @@ import java.util.List;
 
 import controle.Repere;
 import utilitaire.Subject;
-import view.Face;
 
 public class Modele extends Subject {
 

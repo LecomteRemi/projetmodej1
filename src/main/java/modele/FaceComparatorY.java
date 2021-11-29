@@ -3,8 +3,6 @@ package modele;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import view.Face;
-
 public class FaceComparatorY implements FaceComparator{
 	@Override
 	public int compare(Face t1, Face t2) {

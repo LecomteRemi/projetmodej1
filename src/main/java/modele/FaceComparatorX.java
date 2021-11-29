@@ -3,8 +3,6 @@ package modele;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import view.Face;
-
 /**
  * Matrice d'adjacence servant à représenter les arcs 
  * @author Cheikh bassirou Mbaye
