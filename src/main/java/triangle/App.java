@@ -83,11 +83,7 @@ public class App extends Application {
         
         FaceSorter faceSorter= FaceSorter.faceSorterZ();
         faceSorter.sort(listeface);
-<<<<<<< HEAD
         drawTriangles(gc,listeface);
-=======
-        
->>>>>>> 99708e24380730a9e1a1e3b66131a3c261ace39d
         /*
         drawShapes(gc);
         Point p1 = new Point(90,30);
