@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /**
  * Matrice d'adjacence servant à représenter les arcs 
@@ -87,6 +88,10 @@ public class Face{
 	}
 	public Point getBarycenter() {
 		return this.barycenter;
+	}
+	
+	public Color getColor() {
+		return Color.SKYBLUE;
 	}
 
 	

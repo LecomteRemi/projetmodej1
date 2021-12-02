@@ -61,7 +61,7 @@ public class View extends Canvas implements Observer{
 				gc.strokePolygon(x, y, face.getPoints().size());
 			}
 			if(modele.getAffichageMode().equals(AffichageMode.COMPLET) || modele.getAffichageMode().equals(AffichageMode.FACE)) {
-				gc.setFill(Color.SKYBLUE);
+				gc.setFill(face.getColor());
 				gc.fillPolygon(x, y, face.getPoints().size());
 			}
 		}

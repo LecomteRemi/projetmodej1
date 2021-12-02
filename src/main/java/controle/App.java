@@ -58,7 +58,7 @@ public class App extends Application /*implements Observer*/{
     	primaryStage.setTitle("Projet Modelisation");
         HBox root = new HBox();
         //GraphicsContext gc = canvas.getGraphicsContext2D();
-       modele = Lecture.creation_modele("./exemples/fracttree.ply");
+       modele = Lecture.creation_modele("./exemples/vache.ply");
        System.out.println(("ok"));
      // modele.attach(this);
       listePoint = modele.getListPoints();
