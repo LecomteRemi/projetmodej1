@@ -39,14 +39,14 @@
 ## Fonctionnalités implémentées
 
 
-- [ ] Affichage faces seulement / segments seulement
-- [ ] Affichage avancé de la bibliothèque de modèles
-- [ ] Recherche dans la bibliothèque de modèles
+- [ x] Affichage faces seulement / segments seulement
+- [ x] Affichage avancé de la bibliothèque de modèles
+- [ x] Recherche dans la bibliothèque de modèles
 - [ ] Éditer les informations sur un modèle
-- [ ] Modèle centré
-- [ ] Éclairage
+- [x ] Modèle centré
+- [x ] Éclairage
 - [ ] Lissage
-- [ ] Ombre portée
+- [x ] Ombre portée
 - [ ] Vue en tranches
 - [ ] Controleur horloge
 - [ ] Autres, préciser
