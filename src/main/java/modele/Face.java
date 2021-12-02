@@ -1,6 +1,8 @@
-package triangle;
+package modele;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -16,7 +18,8 @@ public class Face{
 	/**
 	 * Tableau de Points appartenant à la face.
 	 */
-	private Point[] points;
+	private List<Point> points;
+	private Point barycenter;
 
 	/**
 	 * Constructeur acceptant un tableau de points 
@@ -25,7 +28,12 @@ public class Face{
 	 * @version 28/09/2021
 	 */
 	public Face(Point[] points) {
-		this.points=points;
+		ArrayList<Point> pointsList = new ArrayList<Point>();
+		for(int i=0; i<points.length; i++) {
+			pointsList.add(points[i]);
+		}
+		this.points=pointsList;
+		calculBarycenter();
 	}
 	
 	/**
@@ -37,8 +45,9 @@ public class Face{
 	 * @author Cheikh bassirou Mbaye
 	 * @version 28/09/2021
 	 */
-	public Face(int a, int b, int c, List<Point> point) {
-		this(new Point[] {point.get(a),point.get(b),point.get(c)});
+	public Face(List<Point> points) {
+		this.points = points;
+		calculBarycenter();
 	}
 	
 	/**
@@ -47,8 +56,12 @@ public class Face{
 	 * @author Cheikh bassirou Mbaye
 	 * @version 28/09/2021
 	 */
-	public Point[] getPoints() {
+	public List<Point> getPoints() {
 		return points;
+	}
+	
+	public Face(int a, int b, int c, List<Point> point) {
+		this(new Point[] {point.get(a),point.get(b),point.get(c)});
 	}
 	
 	/**
@@ -57,8 +70,23 @@ public class Face{
 	 * @author Cheikh bassirou Mbaye
 	 * @version 28/09/2021
 	 */
-	public void sortPoint(Comparator<Point> comparator) {
-		Arrays.sort(points, comparator);
+	/*public void sortPoint(Comparator<Point> comparator) {
+		Collections.sort(points, comparator);
+	}*/
+	public void calculBarycenter() {
+		double x=0;
+		double y=0;
+		double z=0;
+		for (Point point : points) {
+			x+=point.getX();
+			y+=point.getY();
+			z+=point.getZ();
+		}
+		this.barycenter=new Point(x/points.size(), y/points.size(), z/points.size());
+		
+	}
+	public Point getBarycenter() {
+		return this.barycenter;
 	}
 
 	

@@ -1,6 +1,6 @@
-package triangle;
+package modele;
 
-import repere.Repere;
+import controle.Repere;
 /**
  * 
  * @author Cheikh bassirou Mbaye
@@ -19,6 +19,7 @@ public class Point {
 	 * Attribut qui stocke la position z du point
 	 */
 	protected double z;
+	
 
 	/**
 	 * Constructeur récupérant les positions x et y pour les assigner au point
@@ -27,7 +28,7 @@ public class Point {
 	 * @author Cheikh bassirou Mbaye
      * @version 12/09/2021
 	 */
-	public Point(double x, double y) {
+	public Point(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -103,7 +104,7 @@ public class Point {
 	 * @author Cheikh bassirou Mbaye
      * @version 12/09/2021
 	 */
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
@@ -113,7 +114,7 @@ public class Point {
 	 * @author Cheikh bassirou Mbaye
      * @version 12/09/2021
 	 */
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 	
@@ -123,7 +124,7 @@ public class Point {
 	 * @author Cheikh bassirou Mbaye
      * @version 12/09/2021
 	 */
-	public void setZ(int z) {
+	public void setZ(double z) {
 		this.z = z;
 	}
 
@@ -143,7 +144,7 @@ public class Point {
 	 * @author Cheikh bassirou Mbaye
      * @version 12/09/2021
 	 */
-	public void translate(int dx, int dy, int dz) {
+	public void translate(double dx, double dy, double dz) {
 		x = x + dx;
 		y = y + dy;
 		z = z + dz;
@@ -159,6 +160,7 @@ public class Point {
 		return new double[] {x,y,z,1};
 	}
 	
+	
 	/**
 	 * retourne les nouvelles coordonées suite à l'adaptation du repère
 	 * @param repere
@@ -172,5 +174,6 @@ public class Point {
 		this.y=pointInRepere.y;
 		this.z=pointInRepere.z;
 	}
+
 
 }
