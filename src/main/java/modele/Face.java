@@ -88,6 +88,13 @@ public class Face{
 	public Point getBarycenter() {
 		return this.barycenter;
 	}
+	
+	
+	public Point[] sortedPoint(Face face) {
+		
+		return null;
+		
+	}
 
 	
 }
