@@ -1,5 +1,6 @@
 package controle;
 
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +30,7 @@ import modele.FaceComparatorY;
 import modele.FaceComparatorZ;
 import modele.FaceSorter;
 import modele.Lecture;
+import modele.Lecture2;
 import modele.Modele;
 import modele.Point;
 import utilitaire.Observer;
@@ -54,11 +56,12 @@ public class App extends Application /*implements Observer*/{
 	//Canvas canvas = new Canvas(300, 250);
 	
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
     	primaryStage.setTitle("Projet Modelisation");
         HBox root = new HBox();
         //GraphicsContext gc = canvas.getGraphicsContext2D();
-       modele = Lecture.creation_modele("./exemples/vache.ply");
+        Lecture2 lecture2=new Lecture2();
+       modele = lecture2.creation_modele("./exemples/skull.ply");
        System.out.println(("ok"));
      // modele.attach(this);
       listePoint = modele.getListPoints();

@@ -21,7 +21,11 @@ public class Vecteur {
 	}
 	
 	public double scalaire(Vecteur other) {
-		
+		return this.x*other.x+this.y+other.y+this.z*other.z;
+	}
+	public double getNorme() {
+		double sommeCarre=x*x+y*y+z*z;
+		return Math.sqrt(sommeCarre);
 	}
 	
 }

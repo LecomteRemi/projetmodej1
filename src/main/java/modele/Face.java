@@ -22,6 +22,7 @@ public class Face{
 	 */
 	private List<Point> points;
 	private Point barycenter;
+	protected Color color;
 
 	/**
 	 * Constructeur acceptant un tableau de points 
@@ -29,13 +30,17 @@ public class Face{
 	 * @author Cheikh bassirou Mbaye
 	 * @version 28/09/2021
 	 */
-	public Face(Point[] points) {
+	public Face(Point[] points, Color color) {
 		ArrayList<Point> pointsList = new ArrayList<Point>();
 		for(int i=0; i<points.length; i++) {
 			pointsList.add(points[i]);
 		}
 		this.points=pointsList;
+		this.color=color;
 		calculBarycenter();
+	}
+	public Face(Point[] points) {
+		this(points, null);
 	}
 	
 	/**
@@ -97,7 +102,12 @@ public class Face{
 		return null;
 	}
 	public Color getColor() {
-		return Color.SKYBLUE;
+		if(this.color==null) {
+			return points.get(0).getColor();
+		}else {
+			return this.color;
+		}
+		
 	}
 
 	
