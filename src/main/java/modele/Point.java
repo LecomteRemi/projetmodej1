@@ -181,7 +181,7 @@ public class Point {
 	}
 	
 	public Color getColor() {
-		return color;
+		return color==null?Color.WHITE:color;
 	}
 
 

@@ -30,7 +30,6 @@ import modele.FaceComparatorY;
 import modele.FaceComparatorZ;
 import modele.FaceSorter;
 import modele.Lecture;
-import modele.Lecture2;
 import modele.Modele;
 import modele.Point;
 import utilitaire.Observer;
@@ -60,8 +59,11 @@ public class App extends Application /*implements Observer*/{
     	primaryStage.setTitle("Projet Modelisation");
         HBox root = new HBox();
         //GraphicsContext gc = canvas.getGraphicsContext2D();
-        Lecture2 lecture2=new Lecture2();
-       modele = lecture2.creation_modele("./exemples/skull.ply");
+        primaryStage.setScene(new Scene(root,1400,300));
+        primaryStage.show();
+        Lecture lecture=new Lecture();
+       modele = lecture.creation_modele("./exemples/vache.ply");
+       //root.getChildren().remove(loadingBar);
        System.out.println(("ok"));
      // modele.attach(this);
       listePoint = modele.getListPoints();
@@ -92,8 +94,7 @@ public class App extends Application /*implements Observer*/{
 			
    
         root.getChildren().addAll(buttonBox( modele), translationButtonPane(modele),affichageModeBox(), listeModele());
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        
        
         } catch (Exception e) {
         	System.out.println("\n\n-------------------"+e.toString());

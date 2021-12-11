@@ -49,8 +49,9 @@ public class View extends Canvas implements Observer{
 		
 		//faceSorter.sort(listeface); 
 		for (Face face : modele.getListeFaces()) {
-			double[] x=new double[3];
-			double[] y=new double[3];
+			int size=face.getPoints().size();
+			double[] x=new double[size];
+			double[] y=new double[size];
 			for(int i=0; i<face.getPoints().size(); i++) {
 				Point point=face.getPoints().get(i);
 				x[i]=faceComparator.getX2D(point)*coeff+this.getWidth()/2;

@@ -5,6 +5,7 @@ import java.util.List;
 
 import controle.Repere;
 import utilitaire.Subject;
+import utilitaire.Vecteur;
 
 public class Modele extends Subject {
 
@@ -16,8 +17,9 @@ public class Modele extends Subject {
 	protected Repere repere;
 	protected AffichageMode affichageMode;
 	protected double ecart;
+	protected Vecteur lightVector;
 	
-	public Modele(List<Face> listeFaces, List<Point> listPoints) {
+	public Modele(List<Face> listeFaces, List<Point> listPoints, Vecteur lightVector) {
 		super();
 		this.listeFaces = listeFaces;
 		this.listePoints = listPoints;
@@ -27,6 +29,11 @@ public class Modele extends Subject {
 		this.toBarycenter();
 		affichageMode=AffichageMode.COMPLET;
 		ecart=maxEcart();
+		this.lightVector=lightVector;
+		updateFace();
+	}
+	public Modele(List<Face> listeFaces, List<Point> listPoints) {
+		this(listeFaces, listPoints, new Vecteur(0, 0, 1));
 	}
 
 	public List<Face> getListeFaces() {
@@ -55,31 +62,31 @@ public class Modele extends Subject {
 	}
 	public void turnOnXAxis(double degree) throws Exception {
 		this.repere.turnOnXAxisOf(degree);
-		updatePoint();
+		updatePointAndFace();
 	}
 	public void turnOnYAxis(double degree) throws Exception {
 		this.repere.turnOnYAxisOf(degree);
-		updatePoint();
+		updatePointAndFace();
 	}
 	public void turnOnZAxis(double degree) throws Exception {
 		this.repere.turnOnZAxisOf(degree);
-		updatePoint();
+		updatePointAndFace();
 	}
 	public void turnOnXAxisAroundAPoint(double degree, Point point) throws Exception {
 		this.repere.turnOnXAxisAroundAPoint(degree, point);
-		updatePoint();
+		updatePointAndFace();
 	}
 	public void turnOnYAxisAroundAPoint(double degree, Point point) throws Exception {
 		this.repere.turnOnYAxisAroundAPoint(degree, point);
-		updatePoint();
+		updatePointAndFace();
 	}
 	public void turnOnZAxisAroundAPoint(double degree, Point point) throws Exception {
 		this.repere.turnOnZAxisAroundAPoint(degree, point);
-		updatePoint();
+		updatePointAndFace();
 	}
 	public void homotetie(double factor) throws Exception {
 		this.repere.homotetie(factor);
-		updatePoint();
+		updatePointAndFace();
 	}
 	public void translation(double x, double y, double z) throws Exception {
 		this.repere.absoluteTranslation(x,y,z);
@@ -146,6 +153,16 @@ public class Modele extends Subject {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	}
+	
+	protected void updateFace() {
+		for (Face face : listeFaces) {
+			face.calculFinalColor(lightVector);
+		}
+	}
+	protected void updatePointAndFace() throws Exception {
+		updatePoint();
+		updateFace();
 	}
 
 }
