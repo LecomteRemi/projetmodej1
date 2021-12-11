@@ -1,16 +1,28 @@
 package modele;
 
+import utilitaire.Vecteur;
+
 public class Eclairage {
-	public double[] getN(Point[] points) {
-		return null;
+	protected static Eclairage instance;
+	private Eclairage() {
+		
 	}
-	public double brightCoeff(double[] normal, double[] lightVector) {
-		double scalaire=0;
-		for(int i=0; i<3; i++) {
-			scalaire+=normal[i]*lightVector[i];
-			
-		}
-		return scalaire;
 	
+	public static Eclairage getInstance() {
+		if(instance==null) {
+			instance=new Eclairage();
+		}
+		//return scalaire;
+	
+		return instance;
+	}
+	public double brightCoeff(Face face, Vecteur lightVector) {
+		Vecteur normale=face.getNormal();
+		double scalaire=normale.scalaire(lightVector);
+		double res=scalaire/(normale.getNorme()*lightVector.getNorme());
+		res=res<0?0:res;
+		res=res;
+		return res;
+		
 	}
 }

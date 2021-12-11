@@ -1,5 +1,6 @@
 package controle;
 
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,11 +55,15 @@ public class App extends Application /*implements Observer*/{
 	//Canvas canvas = new Canvas(300, 250);
 	
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
     	primaryStage.setTitle("Projet Modelisation");
         HBox root = new HBox();
         //GraphicsContext gc = canvas.getGraphicsContext2D();
-       modele = Lecture.creation_modele("./exemples/vache.ply");
+        primaryStage.setScene(new Scene(root,1400,300));
+        primaryStage.show();
+        Lecture lecture=new Lecture();
+       modele = lecture.creation_modele("./exemples/vache.ply");
+       //root.getChildren().remove(loadingBar);
        System.out.println(("ok"));
      // modele.attach(this);
       listePoint = modele.getListPoints();
@@ -89,8 +94,7 @@ public class App extends Application /*implements Observer*/{
 			
    
         root.getChildren().addAll(buttonBox( modele), translationButtonPane(modele),affichageModeBox(), listeModele());
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        
        
         } catch (Exception e) {
         	System.out.println("\n\n-------------------"+e.toString());

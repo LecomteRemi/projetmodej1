@@ -1,111 +1,233 @@
 package modele;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 
 public class Lecture {
-	private static List<Point> listePoints = new ArrayList<Point>();
-	private static List<Face> listeFaces = new ArrayList<Face>();
 	
-	public static Modele creation_modele(String file) {
-		lecture(file);
-		return new Modele(listeFaces, listePoints);
+	protected ArrayList<String> pointProperty;
+	protected ArrayList<String> faceProperty;
+	protected ArrayList<Face> listFace;
+	protected ArrayList<Point> listPoint;
+	protected int nbPoint;
+	protected int nbFace;
+	protected String partieHeader;
+
+	
+	public Modele creation_modele(String file) throws Exception {
+
+		pointProperty=new ArrayList<>();
+		faceProperty=new ArrayList<>();
+		listPoint=new ArrayList<>();
+		listFace=new ArrayList<>();
+		nbPoint=0;
+		nbFace=0;
+		partieHeader="debut";
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader(file));
+			String line="";
+			/*while(!"header".equals(line)){
+				line=br.readLine();
+				System.out.println("ok");
+			}*/
+			this.readHeader(br);
+			this.readBody(br);
+			return new Modele(listFace, listPoint);
+		} catch (IOException e) {
+			
+		}
+
+		return null;
 		
 	}
 	
-	@SuppressWarnings("unused")
-	public static void lecture(String file) {
-		String line;
-		String entete=""; //pour mettre toute la partie avant les coordonnées des points, sera gérée plus tard
-		String coordonnees=""; 
-		String faces=""; 
-		try(BufferedReader br = new BufferedReader(new FileReader(file))) {
-			line = br.readLine();
-			String[] splited;
-			while(!line.split(" ")[0].equals("end_header")) {
-				entete = entete +line+"\n";
-				line = br.readLine();
-			}
-			//--------Points--------
-			line = br.readLine();
-			while (line!=null && !est_ligne_face(line)) {
-				creation_point(line);
-				coordonnees = coordonnees +line+"\n";
-				line = br.readLine();
-			}
-			//--------Faces--------
-			int nbptFace ;
+	private void readBody(BufferedReader br) {
+		try {
 			int cpt=0;
-			while(line!=null && est_ligne_face(line)) {
-				nbptFace = getNbPointsFaces(line);
-				creation_faces(line, nbptFace);
-				System.out.println(listeFaces.get(listeFaces.size()-1));
-				faces= faces +line+"\n";
-				line = br.readLine();
-				cpt++;
+			String line="";
+			while(br.ready()) {
+				line=br.readLine();
+					
+					if(cpt<=nbPoint && line.split(" ").length==pointProperty.size()) {
+						readPoint(line);
+						
+					}else if(cpt<=nbFace+nbPoint && line.split(" ").length>=faceProperty.size() && !line.equals("")) {
+						System.out.println(faceProperty.size());
+						readFace(line);
+					}
+					cpt++;
+				
+				
 			}
-			System.out.println(listeFaces.size());
-		}catch(IOException e) {
-			System.out.println("Une erreur est survenue");
-			e.printStackTrace();
-		}
-	}
-	
-	
-	private static void creation_point(String line) {
-		String [] splited = line.split(" ");
-		if(splited.length==3) {
-			listePoints.add(new Point((Float.parseFloat(splited[0])), (Float.parseFloat(splited[1])), (Float.parseFloat(splited[2])) ) );
-		}
+		} catch (IOException e) {}
+		
 	}
 
-	
-	private static void creation_faces(String line, int nbpoint) {
-		String [] splited = line.split(" ");
-		ArrayList<Point> pointDeFace = new ArrayList<Point>();
-		for(int i=1; i<=nbpoint; i++) {
-			pointDeFace.add(listePoints.get(Integer.parseInt(splited[i])));
+	public void readHeader(BufferedReader br) throws Exception {
+		String line="";
+		while(!"end_header".equals(line.toLowerCase())) {
+			try {
+				line=br.readLine();
+				if(line.length()>6 && line.substring(0, 7).equals("element")) {
+					if(partieHeader.equals("debut")) {
+						String[] lineSplit=line.split(" ");
+						nbPoint=Integer.parseInt(lineSplit[2]);
+						partieHeader="point";
+					}else if(partieHeader.equals("point")) {
+						partieHeader="face";
+						String[] lineSplit=line.split(" ");
+						nbFace=Integer.parseInt(lineSplit[2]);
+					}
+				}
+				if(line.length()>8 && line.substring(0, 8).equals("property")) {
+					if(partieHeader.equals("point")) {
+						try{String type=getPointPropertyType(line);
+						pointProperty.add(type);}catch(Exception e) {}
+					}
+					if(partieHeader.equals("face")) {
+						try{String type=getFacePropertyType(line);
+						faceProperty.add(type);}catch(Exception e) {
+							
+						}
+					}
+					
+				}
+				
+				
+			} catch (IOException e) {}
+			
 		}
-		listeFaces.add(new Face(pointDeFace));
 	}
 	
-	private static void ecrire_fichier(String ligne, String fichier_dest) {
-		PrintWriter writer;
-		try {
-			writer = new PrintWriter(fichier_dest);
-			writer.println(ligne);
-			writer.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("Fichier introuvable");
-			e.printStackTrace();
+	protected String getFacePropertyType(String line) throws Exception {
+		String[] lineSplit=line.split(" ");
+		String type=lineSplit[2].toLowerCase();
+		if(type.equals("red")) {
+			return "red";
+		}else if(type.equals("green")) {
+			return "green";
+		}else if(type.equals("blue")) {
+			return "blue";
+		}else if(lineSplit[1].toLowerCase().equals("list")) {
+			return "list";
+		}
+		
+		throw new Exception("Erreur: le type de cette propriete n'est pas valide!\ntype:"+type);
+	}
+
+	protected String getPointPropertyType(String line) throws Exception {
+		String[] lineSplit=line.split(" ");
+		String type=lineSplit[2].toLowerCase();
+		if(type.equals("x")) {
+			return "x";
+		}else if(type.equals("y")) {
+			return "y";
+		}else if(type.equals("z")) {
+			return "z";
+		}else if(type.equals("red")) {
+			return "red";
+		}else if(type.equals("green")) {
+			return "green";
+		}else if(type.equals("blue")) {
+			return "blue";
+		}else if(type.equals("nx") || type.equals("ny") || type.equals("nz") || type.equals("u") || type.equals("v") ) {
+			return "inconnu";
+		}
+		
+		throw new Exception("Erreur: le type de cette propriete n'est pas valide!");
+	}
+	
+	protected void readPoint(String line) {
+		String[] lineSplit=line.split(" ");
+		double x=0;
+		double y=0;
+		double z=0;
+		double red=0;
+		double blue=0;
+		double green=0;
+		boolean isColored=false;
+		for(int i=0; i<lineSplit.length;i++) {
+			String type=pointProperty.get(i);
+			System.out.println(lineSplit.length);
+			System.out.println(line);
+			System.out.println(pointProperty.toString());
+			double value=Double.parseDouble(lineSplit[i]);
+			if(type.equals("x")) {
+				x=value;
+			}else if(type.equals("y")) {
+				y=value;
+			}else if(type.equals("z")) {
+				z=value;
+			}else if(type.equals("red")) {
+				red=value;
+				isColored=true;
+			}else if(type.equals("green")) {
+				green=value;
+				isColored=true;
+			}else if(type.equals("blue")) {
+				blue=value;
+				isColored=true;
+			}
+		}
+		if(isColored) {
+			Color color=new Color(red/255, green/255, blue/255, 1);
+			listPoint.add(new Point(x, y, z, color));
+		}else {
+			listPoint.add(new Point(x, y, z));
 		}
 	}
 	
-	private static boolean est_ligne_face(String ligne) {
-		String[] mots = ligne.split(" ");
-		Scanner scanner = new Scanner(mots[0]);
-		if(scanner.hasNextInt()) {
-		int nb = scanner.nextInt();
-		if(nb==mots.length-1) {
-			return true;
+	protected void readFace(String line) {
+		Point[] points=null;
+		boolean isColored=false;
+		int idxSplit=0;
+		String[] lineSplit=line.split(" ");
+		double red=0;
+		double blue=0;
+		double green=0;
+		for(int i=0; i<faceProperty.size();i++) {
+			String type=faceProperty.get(i);
+			
+			if(type.equals("list")) {
+				System.out.println(line);
+				System.out.println(lineSplit[i]);
+				int nbPointFace=Integer.parseInt(lineSplit[i]);
+				points=new Point[nbPointFace];
+				for(int j=1; j<=idxSplit+nbPointFace;j++) {
+					
+					points[j-1]=listPoint.get(Integer.parseInt(lineSplit[idxSplit+j]));
+				}
+				idxSplit+=nbPointFace;
+			}else if(type.equals("red")) {
+				red=Double.parseDouble(lineSplit[idxSplit]);
+				isColored=true;
+				idxSplit++;
+			}else if(type.equals("green")) {
+				green=Double.parseDouble(lineSplit[idxSplit]);
+				isColored=true;
+				idxSplit++;
+			}else if(type.equals("blue")) {
+				blue=Double.parseDouble(lineSplit[idxSplit]);
+				isColored=true;
+				idxSplit++;
+			}
+			if(isColored) {
+				Color color=new Color(red/255, green/255, blue/255, 1);
+				listFace.add(new Face(points, color));
+			}else {
+				listFace.add(new Face(points));
+
+				System.out.println(points.length);
+			}
 		}
-		}
-		return false;
-	}
-	
-	private static int getNbPointsFaces(String line) {
-		String [] splited = line.split(" ");
-		return Integer.parseInt(splited[0]);
-	}
-	
-	public static void main(String [] args) {
-		lecture("./exemples/vache.ply");
-		//lecture("./exemples/skull.ply");
+		
 	}
 }

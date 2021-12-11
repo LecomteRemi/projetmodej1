@@ -1,6 +1,7 @@
 package modele;
 
 import controle.Repere;
+import javafx.scene.paint.Color;
 /**
  * 
  * @author Cheikh bassirou Mbaye
@@ -20,7 +21,7 @@ public class Point {
 	 */
 	protected double z;
 	
-
+	protected Color color;
 	/**
 	 * Constructeur récupérant les positions x et y pour les assigner au point
 	 * @param x
@@ -42,9 +43,13 @@ public class Point {
      * @version 12/09/2021
 	 */
 	public Point(double x, double y, double z) {
+		this(x,y,z,null);
+	}
+	public Point(double x, double y, double z, Color color) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		this.color=color;
 	}
 	
 	/**
@@ -173,6 +178,10 @@ public class Point {
 		this.x=pointInRepere.x;
 		this.y=pointInRepere.y;
 		this.z=pointInRepere.z;
+	}
+	
+	public Color getColor() {
+		return color==null?Color.WHITE:color;
 	}
 
 
