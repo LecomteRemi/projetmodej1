@@ -10,5 +10,7 @@ public class Eclairage {
 			scalaire+=normal[i]*lightVector[i];
 			
 		}
+		return scalaire;
+	
 	}
 }

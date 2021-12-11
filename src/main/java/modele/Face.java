@@ -99,6 +99,51 @@ public class Face{
 	public Color getColor() {
 		return Color.SKYBLUE;
 	}
+	
+	
+	public double min(double a ,double  b ,double c ) {
+		return Math.min(c, Math.min(a, b));
+	}
+	
+	/**
+	 * 
+	 * @param face
+	 * @return une liste des points appartenant a la face passee en parametre , mais cette liste est triee selon les coordonnees
+	 * z et y (par exemple le premier element de la liste contient 
+	 */
+	public List<Point> plusPetitZ(Face face) {
+		List<Point> trieeSelonZY = new ArrayList<>();
+		List<Point> listeFaceCourante = face.getPoints();
+		Point p1 = listeFaceCourante.get(0);
+		Point p2 = listeFaceCourante.get(1);
+		Point p3 = listeFaceCourante.get(2);
+		if(min(p1.getZ(), p2.getZ(), p3.getZ())==p1.getZ()) {
+			trieeSelonZY.add(p1);
+			if(Math.min(p2.getY(), p3.getY())==p2.getY()) {
+				trieeSelonZY.add(p2);
+			}else if (Math.min(p2.getY(), p3.getY())==p3.getY()) {
+				trieeSelonZY.add(p3);
+			}
+		}else if(min(p1.getZ(), p2.getZ(), p3.getZ())==p2.getZ()) {
+			trieeSelonZY.add(p2);
+			if(Math.min(p1.getY(), p3.getY())==p1.getY()) {
+				trieeSelonZY.add(p1);
+			}else if (Math.min(p1.getY(), p3.getY())==p3.getY()) {
+				trieeSelonZY.add(p3);
+			}
+		}else if(min(p1.getZ(), p2.getZ(), p3.getZ())==p3.getZ()) {
+			trieeSelonZY.add(p3);
+			if(Math.min(p1.getY(), p2.getY())==p1.getY()) {
+				trieeSelonZY.add(p1);
+			}else if (Math.min(p1.getY(), p2.getY())==p2.getY()) {
+				trieeSelonZY.add(p2);
+			}
+		}
+		
+		return trieeSelonZY;
+		
+		
+	}
 
 	
 }

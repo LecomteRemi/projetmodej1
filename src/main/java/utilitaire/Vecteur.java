@@ -21,6 +21,8 @@ public class Vecteur {
 	}
 	
 	public double scalaire(Vecteur other) {
+		return 0;
+	
 		
 	}
 	

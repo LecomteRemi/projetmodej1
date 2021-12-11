@@ -14,13 +14,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import repere.Repere;
-import triangle.Face;
-import triangle.Point;
 import utilitaire.Matrice;
 import javafx.scene.shape.ArcType;
-
-
+import modele.*
+;
 /**
  * JavaFX app pour tester la génération 2D
  * @author Cheikh bassirou Mbaye
