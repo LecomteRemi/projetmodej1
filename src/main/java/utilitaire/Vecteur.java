@@ -19,21 +19,35 @@ public class Vecteur {
 		this.y=p1.getY()-p2.getY();
 		this.z=p1.getZ()-p2.getZ();
 	}
-	
+	/**
+	 * calcule le produit scalaire entre le vecteur passé en parametre et le vecteur courant 
+	 * @param other : un vecteur 
+	 * @return le produit scalaire 
+	 */
 	public double scalaire(Vecteur other) {
-		return 0;
-		//return this.x*other.x+this.y*other.y+this.z*other.z;
+		//return 0;
+		return this.x*other.x+this.y*other.y+this.z*other.z;
 	}
 	public double getNorme() {
 		double sommeCarre=x*x+y*y+z*z;
 		return Math.sqrt(sommeCarre);
 	}
+	/**
+	 *calcule le produit vectoriel entre le vecteur passé en parametre et le vecteur courant  
+	 * @param other un vecteur 
+	 * @return un vecteur normal au deux vecteurs 
+	 */
 	public Vecteur produitVectoriel(Vecteur other) {
 		double x=this.y*other.z-this.z*other.y;
 		double y=this.z*other.x-this.x*other.z;
 		double z=this.x*other.y-this.y*other.x;
 		return new Vecteur(x, y, z);
 	}
+	/**
+	 * 
+	 * @param diviseur
+	 * @return
+	 */
 	public Vecteur divide(double diviseur) {
 		double x=this.x/diviseur;
 		double y=this.y/diviseur;

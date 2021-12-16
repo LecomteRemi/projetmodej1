@@ -164,5 +164,10 @@ public class Modele extends Subject {
 		updatePoint();
 		updateFace();
 	}
+	
+	public void setlightVecteur(Vecteur vecteur) {
+		this.lightVector = vecteur;
+		updateFace();
+	}
 
 }
