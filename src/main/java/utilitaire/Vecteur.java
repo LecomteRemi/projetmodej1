@@ -45,7 +45,6 @@ public class Vecteur {
 		Vecteur v1 =new Vecteur(10,9,90);
 		Vecteur v2=new Vecteur(-5, 2, 0);
 		System.out.println(v1.scalaire(v2));
->>>>>>> 90572512b61e403419ed29378cad68e4e679057c
 	}
 	
 }
