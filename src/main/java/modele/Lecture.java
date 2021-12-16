@@ -60,7 +60,7 @@ public class Lecture {
 						readPoint(line);
 						
 					}else if(cpt<=nbFace+nbPoint && line.split(" ").length>=faceProperty.size() && !line.equals("")) {
-						System.out.println(faceProperty.size());
+						//System.out.println(faceProperty.size());
 						readFace(line);
 					}
 					cpt++;
@@ -225,7 +225,7 @@ public class Lecture {
 			}else {
 				listFace.add(new Face(points));
 
-				System.out.println(points.length);
+				//System.out.println(points.length);
 			}
 		}
 		

@@ -12,7 +12,6 @@ public class Eclairage {
 		if(instance==null) {
 			instance=new Eclairage();
 		}
-		//return scalaire;
 	
 		return instance;
 	}

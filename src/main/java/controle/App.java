@@ -92,8 +92,20 @@ public class App extends Application /*implements Observer*/{
         root.getChildren().addAll(zView, yView, xView);
     	
 			
-   
-        root.getChildren().addAll(buttonBox( modele), translationButtonPane(modele),affichageModeBox(), listeModele());
+        ListView<String> listeModele= listeModele();
+        Button loadingButton=new Button("Charger modèle");
+        loadingButton.setMinSize(200, 40);
+        loadingButton.setOnAction(e->{
+        	try {
+				Modele tmp = lecture.creation_modele("./exemples/"+listeModele.getSelectionModel().getSelectedItem());
+				modele.replaceModele(tmp);
+			} catch (Exception e1) {
+				System.out.println(e.toString());
+			}
+        });
+        VBox fileBox=new VBox();
+        fileBox.getChildren().addAll(listeModele, loadingButton);
+        root.getChildren().addAll(buttonBox( modele), translationButtonPane(modele),affichageModeBox(), fileBox);
         
        
         } catch (Exception e) {

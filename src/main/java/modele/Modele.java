@@ -164,5 +164,18 @@ public class Modele extends Subject {
 		updatePoint();
 		updateFace();
 	}
+	
+	public void replaceModele(Modele other) {
+		listeFaces=other.getListeFaces();
+		listePoints=other.getListPoints();
+		repere=other.repere;
+		ecart=other.ecart;
+		try {
+			updatePointAndFace();
+			toBarycenter();
+		} catch (Exception e) {
+			
+		}
+	}
 
 }

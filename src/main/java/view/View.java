@@ -31,11 +31,14 @@ public class View extends Canvas implements Observer{
 	
 	@Override
 	public void update(Subject subj) {
+
+		coeff=calculCoeff(modele.getEcart(), this.getWidth(), this.getHeight());
 		DrawModele(modele);
 	}
 
 	@Override
 	public void update(Subject subj, Object data) {
+		coeff=calculCoeff(modele.getEcart(), this.getWidth(), this.getHeight());
 		DrawModele(modele);
 	}
 	
