@@ -3,108 +3,117 @@ package controle;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import controle.SortingMode;
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 import modele.AffichageMode;
-import modele.Face;
 import modele.FaceComparatorX;
 import modele.FaceComparatorY;
 import modele.FaceComparatorZ;
-import modele.FaceSorter;
 import modele.Lecture;
 import modele.Modele;
-import modele.Point;
-import utilitaire.Observer;
-import utilitaire.Subject;
 import view.View;
 
 
 /**
  * JavaFX App
  */
-public class App extends Application /*implements Observer*/{
+public class App extends Application {
 
-	/**
-	 * Attribut qui stocke une liste de points dans une collection
-	 */
-	public List<Point> listePoint = new ArrayList<>();
-	/**
-	 * Attribut qui stocke une liste de Face dans une collection
-	 */
-	public List<Face> listeface = new ArrayList<>();
-	Modele modele;
-	protected FaceSorter faceSorter= FaceSorter.faceSorterZ();
-	//Canvas canvas = new Canvas(300, 250);
-	
+	protected Modele modele;
+	protected List<String> fileNameList;
+	protected SortingMode sortingMode;
     @Override
     public void start(Stage primaryStage) throws Exception {
     	primaryStage.setTitle("Projet Modelisation");
         HBox root = new HBox();
-        //GraphicsContext gc = canvas.getGraphicsContext2D();
         primaryStage.setScene(new Scene(root,1400,300));
         primaryStage.show();
         Lecture lecture=new Lecture();
-       modele = lecture.creation_modele("./exemples/vache.ply");
-       //root.getChildren().remove(loadingBar);
-       System.out.println(("ok"));
-     // modele.attach(this);
-      listePoint = modele.getListPoints();
-      listeface = modele.getListeFaces();
-      View xView=new View(300, 300, new FaceComparatorX(), modele);
-      View yView=new View(300, 300, new FaceComparatorY(), modele);
-      View zView=new View(300, 300, new FaceComparatorZ(), modele);
-      modele.attach(zView);
-      modele.attach(xView);
-      modele.attach(yView);
-
-        
-        
-        //FaceSorter faceSorter = FaceSorter.faceSorterZ();
-       // faceSorter.sort(listeface);
+        sortingMode=SortingMode.NAME;
+        fileNameList=new ArrayList<>();
+        modele = lecture.creation_modele("./exemples/vache.ply");
+        System.out.println(("ok"));
+        View xView=new View(300, 300, new FaceComparatorX(), modele);
+        View yView=new View(300, 300, new FaceComparatorY(), modele);
+        View zView=new View(300, 300, new FaceComparatorZ(), modele);
+        modele.attach(zView);
+        modele.attach(xView);
+        modele.attach(yView);
 
       
         try {
-		
-        try {
-			//DrawModele(modele, canvas);
-		} catch (Exception e1) {
-			
-        }
+
+
         
         root.getChildren().addAll(zView, yView, xView);
     	
+		
+        ListView<HBox> listeModele= listeModele();
+        TextField searchBar=new TextField();
+		searchBar.textProperty().addListener((obs, oldText, newText) -> {
+			fileNameList.clear();
+			listeModele.getItems().clear();
+			File path = new File("exemples"+File.separator);
+			String[] filelist = path.list();
+			for (String string : filelist) {
+				if(string.contains(newText)) {
+					fileNameList.add(string);
+					listeModele.getItems().add(createListViewFileName(string));
+				}
+			}
+
 			
-        ListView<String> listeModele= listeModele();
+			
+		});
         Button loadingButton=new Button("Charger modèle");
         loadingButton.setMinSize(200, 40);
         loadingButton.setOnAction(e->{
         	try {
-				Modele tmp = lecture.creation_modele("./exemples/"+listeModele.getSelectionModel().getSelectedItem());
+				Modele tmp = lecture.creation_modele("./exemples/"+fileNameList.get(listeModele.getSelectionModel().getSelectedIndex()));
 				modele.replaceModele(tmp);
 			} catch (Exception e1) {
 				System.out.println(e.toString());
 			}
         });
+        Button nameSortButton=new Button("nom");
+        Button pointSortButton=new Button("points");
+        Button faceSortButton=new Button("faces");
+        nameSortButton.setMinSize(100, 30);
+        nameSortButton.setOnAction(e->{
+        	sortingMode=SortingMode.NAME;
+        	nameSortButton.setDisable(true);
+        	pointSortButton.setDisable(false);
+        	faceSortButton.setDisable(false);
+        });
+        pointSortButton.setOnAction(e->{
+        	sortingMode=SortingMode.POINT;
+        	nameSortButton.setDisable(false);
+        	pointSortButton.setDisable(true);
+        	faceSortButton.setDisable(false);
+        });
+        faceSortButton.setOnAction(e->{
+        	sortingMode=SortingMode.FACE;
+        	nameSortButton.setDisable(false);
+        	pointSortButton.setDisable(false);
+        	faceSortButton.setDisable(true);
+        });
+        pointSortButton.setMinSize(60, 30);
+        faceSortButton.setMinSize(60, 30);
+        HBox sortingButtonBox=new HBox();
+        sortingButtonBox.getChildren().addAll(nameSortButton,pointSortButton,faceSortButton);
         VBox fileBox=new VBox();
-        fileBox.getChildren().addAll(listeModele, loadingButton);
+        fileBox.getChildren().addAll(searchBar,sortingButtonBox, listeModele, loadingButton);
         root.getChildren().addAll(buttonBox( modele), translationButtonPane(modele),affichageModeBox(), fileBox);
         
        
@@ -115,32 +124,7 @@ public class App extends Application /*implements Observer*/{
 		}
     }
     
-    
-    
   
-	
-	/*protected void DrawModele(Modele modele, Canvas canvas) {
-		List<Face> faceList=modele.getListeFaces();
-		this.faceSorter.sort(faceList);
-		GraphicsContext gc= canvas.getGraphicsContext2D();
-		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-    	
-		
-		//faceSorter.sort(listeface); 
-		for (Face face : modele.getListeFaces()) {
-			double[] x=new double[3];
-			double[] y=new double[3];
-			for(int i=0; i<face.getPoints().size(); i++) {
-				x[i]=face.getPoints().get(i).getX()*20+100;
-				y[i]=face.getPoints().get(i).getY()*20+100;
-
-			}
-			gc.strokePolygon(x, y, face.getPoints().size());
-			gc.setFill(Color.LIME);
-			gc.fillPolygon(x, y, face.getPoints().size());
-		}
-		
-	}*/
 
 
 
@@ -151,20 +135,6 @@ public class App extends Application /*implements Observer*/{
 
 
 
-/*	@Override
-	public void update(Subject subj) {
-		DrawModele(modele, canvas);
-		
-	}*/
-
-
-
-	/*@Override
-	public void update(Subject subj, Object data) {
-
-		DrawModele(modele, canvas);
-		
-	}*/
 	
 	public VBox buttonBox( Modele modele) {
 		VBox res=new VBox();
@@ -307,13 +277,14 @@ public class App extends Application /*implements Observer*/{
 		return res;
 	}
 	
-	public ListView<String> listeModele(){
-		ListView<String> res=new ListView<>();
+	public ListView<HBox> listeModele(){
+		fileNameList.clear();
+		ListView<HBox> res=new ListView<>();
 		File path = new File("exemples"+File.separator);
 		String[] filelist = path.list();
 		for (String string : filelist) {
-			
-			res.getItems().add(string);
+			fileNameList.add(string);
+			res.getItems().add(createListViewFileName(string));
 		}
 		return res;
 	}
@@ -335,6 +306,32 @@ public class App extends Application /*implements Observer*/{
 		res.getChildren().addAll(filDeFerButton, faceButton, completButton);
 		return res;
 		
+	}
+	
+	public HBox createListViewFileName(String fileName) {
+		int[] nbPointAndFace=new Lecture().getNbPointAndFace("exemples"+File.separator+fileName);
+		String name=fileName.substring(0, fileName.length()-4);
+		if(name.length()>40) {
+			name=name.substring(0, 37)+"...";
+		}
+		Label nameLabel=new Label(name);
+		nameLabel.setMinSize(90, 30);
+		nameLabel.setStyle("-fx-border-style: solid inside;"
+		        + "-fx-border-width: 2;"+"-fx-padding: 5px;");
+		String nbPoint=""+nbPointAndFace[0];
+		Label pointLabel=new Label(""+nbPoint);
+		pointLabel.setStyle("-fx-border-style: solid inside;"
+		        + "-fx-border-width: 2;"+"-fx-padding: 5px;");
+		pointLabel.setMinSize(60, 30);
+		String nbFace=""+nbPointAndFace[1];
+		Label faceLabel=new Label(""+nbFace);
+		faceLabel.setStyle("-fx-border-style: solid inside;"
+		        + "-fx-border-width: 2;"+"-fx-padding: 5px;");
+		faceLabel.setMinSize(60, 30);
+		HBox res=new HBox();
+		res.getChildren().addAll(nameLabel,pointLabel,faceLabel);
+		//return res;
+		return res;
 	}
 
 }

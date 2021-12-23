@@ -230,4 +230,23 @@ public class Lecture {
 		}
 		
 	}
+	
+	public int[] getNbPointAndFace(String fileName) {
+		nbPoint=0;
+		nbFace=0;
+		partieHeader="debut";
+		BufferedReader br;
+		try {
+			br = new BufferedReader(new FileReader(fileName));
+			String line="";
+			/*while(!"header".equals(line)){
+				line=br.readLine();
+				System.out.println("ok");
+			}*/
+			this.readHeader(br);
+		}catch(Exception e) {
+			System.out.println("Erreur: "+ e.toString());
+		}
+		return new int[] {nbPoint, nbFace};
+	}
 }
