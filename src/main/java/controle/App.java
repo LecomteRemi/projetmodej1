@@ -7,6 +7,8 @@ import java.util.List;
 
 import controle.SortingMode;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -37,7 +39,7 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
     	primaryStage.setTitle("Projet Modelisation");
         HBox root = new HBox();
-        primaryStage.setScene(new Scene(root,1400,300));
+        primaryStage.setScene(new Scene(root,1400,500));
         primaryStage.show();
         Lecture lecture=new Lecture();
         sortingMode=SortingMode.NAME;
@@ -114,7 +116,9 @@ public class App extends Application {
         sortingButtonBox.getChildren().addAll(nameSortButton,pointSortButton,faceSortButton);
         VBox fileBox=new VBox();
         fileBox.getChildren().addAll(searchBar,sortingButtonBox, listeModele, loadingButton);
-        root.getChildren().addAll(buttonBox( modele), translationButtonPane(modele),affichageModeBox(), fileBox);
+       // root.getChildren().addAll(buttonBox( modele), translationButtonPane(modele),affichageModeBox(), fileBox);
+        root.getChildren().addAll(buttonBox( modele), afficheMoveButton(),affichageModeBox(), fileBox);
+
         
        
         } catch (Exception e) {
@@ -133,12 +137,104 @@ public class App extends Application {
         launch();
     }
 
+	public HBox afficheMoveButton() {
+		  BorderPane root = new BorderPane();
+		  root.setMaxSize(200, 200);
+	      root.setPadding(new Insets(15, 20, 10, 10));
+	      
+	      HBox conteneurPrincipale = new HBox();
+	      conteneurPrincipale.setSpacing(10);
+	      conteneurPrincipale.setPadding(new Insets(15,20, 10,10));
+	      VBox conteneurButton = new VBox();
+
+	      // TOP
+	      Button upTranslationButton=new Button("up");
+	      upTranslationButton.setPrefSize(35, 35);
+	      upTranslationButton.setOnAction(e->{
+				try {
+					modele.translation(0, 1, 0);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			});
+	      upTranslationButton.setPadding(new Insets(10, 10, 10, 10));
+	      root.setTop(upTranslationButton);
+	      BorderPane.setAlignment(upTranslationButton, Pos.TOP_CENTER);
+	      BorderPane.setMargin(upTranslationButton, new Insets(10, 10, 10, 10));
+	     
+
+	      // LEFT
+	      Button leftTranslationButton=new Button("left");
+	      leftTranslationButton.setPrefSize(35, 35);
+	      leftTranslationButton.setPadding(new Insets(5, 5, 5, 5));
+	      leftTranslationButton.setOnAction(e->{
+				try {
+					modele.translation(-1, 0, 0);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			});
+	      root.setLeft(leftTranslationButton);
+	      BorderPane.setAlignment(leftTranslationButton, Pos.CENTER_LEFT);
+	      BorderPane.setMargin(leftTranslationButton, new Insets(10, 10, 10, 10));
+	     
+	      // CENTER
+	      Button barycenterButton=new Button("o");
+	      barycenterButton.setPrefSize(35, 35);
+	      barycenterButton.setPadding(new Insets(5, 5, 5, 5));
+	      barycenterButton.setOnAction(e->{
+				modele.toBarycenter();
+			});
+	      root.setCenter(barycenterButton);
+	      BorderPane.setAlignment(barycenterButton, Pos.CENTER);
+	      
+	      // RIGHT
+	     
+	      Button rightTranslationButton=new Button("right");
+	      rightTranslationButton.setPrefSize(35, 35);
+	      rightTranslationButton.setPadding(new Insets(5, 5, 5, 5));
+	      rightTranslationButton.setOnAction(e->{
+				try {
+					modele.translation(1, 0, 0);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			});
+	      root.setRight(rightTranslationButton);
+	      BorderPane.setAlignment(rightTranslationButton, Pos.CENTER_RIGHT);
+	      BorderPane.setMargin(rightTranslationButton, new Insets(10, 10, 10, 10));
+
+	      // BOTTOM
+	      Button downTranslationButton=new Button("down");
+	      downTranslationButton.setPrefSize(35, 35);
+	      downTranslationButton.setPadding(new Insets(5, 5, 5, 5));
+	      downTranslationButton.setOnAction(e->{
+				try {
+					modele.translation(0, -1, 0);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			});
+	      root.setBottom(downTranslationButton);
+	      BorderPane.setAlignment(downTranslationButton, Pos.BOTTOM_CENTER);
+	      BorderPane.setMargin(downTranslationButton, new Insets(10, 10, 10, 10));
+	      
+	      conteneurButton.getChildren().addAll(root);
+	      conteneurPrincipale.getChildren().addAll(conteneurButton);
+	    
+
+		return conteneurPrincipale ;
+	}
 
 
 	
 	public VBox buttonBox( Modele modele) {
 		VBox res=new VBox();
-		Button yPlusButton=new Button("/\\");
+		Button yPlusButton=new Button("1");
 		yPlusButton.setPrefSize(35, 35);
 		yPlusButton.setOnAction(e->{
 			try {
@@ -146,7 +242,7 @@ public class App extends Application {
 			} catch (Exception e1) {}
 		});
 
-		Button xPlusButton=new Button(">");
+		Button xPlusButton=new Button("2");
 		xPlusButton.setPrefSize(35, 35);
 		xPlusButton.setOnAction(e->{
 			try {
@@ -154,7 +250,7 @@ public class App extends Application {
 			} catch (Exception e1) {}
 		});
 
-		Button yMoinsButton=new Button("\\/");
+		Button yMoinsButton=new Button("3");
 		yMoinsButton.setPrefSize(35, 35);
 		yMoinsButton.setOnAction(e->{
 			try {
@@ -162,7 +258,7 @@ public class App extends Application {
 			} catch (Exception e1) {}
 		});
 
-		Button xMoinsButton=new Button("<");
+		Button xMoinsButton=new Button("4");
 		xMoinsButton.setPrefSize(35, 35);
 		xMoinsButton.setOnAction(e->{
 			try {
@@ -220,7 +316,7 @@ public class App extends Application {
 		return res;
 		
 	}
-	
+	/*
 	public BorderPane translationButtonPane(Modele modele) {
 		BorderPane res=new BorderPane();
 		res.setMaxSize(105, 105);
@@ -276,6 +372,7 @@ public class App extends Application {
 		res.setCenter(barycenterButton);
 		return res;
 	}
+	*/
 	
 	public ListView<HBox> listeModele(){
 		fileNameList.clear();
