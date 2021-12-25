@@ -3,9 +3,13 @@ package controle;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-import controle.SortingMode;
+import controle.FileProperty;
+import controle.NameFilePropertyComparator;
+import controle.NbFaceFilePropertyComparator;
+import controle.NbPointFilePropertyComparator;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,17 +35,19 @@ import view.View;
 public class App extends Application {
 
 	protected Modele modele;
-	protected List<String> fileNameList;
-	protected SortingMode sortingMode;
-    @Override
+	protected Comparator<FileProperty> filePropertyComparator;
+	protected String fileNamePattern;
+	protected List<FileProperty> filePropertyList;
+     @Override
     public void start(Stage primaryStage) throws Exception {
     	primaryStage.setTitle("Projet Modelisation");
         HBox root = new HBox();
         primaryStage.setScene(new Scene(root,1400,300));
         primaryStage.show();
         Lecture lecture=new Lecture();
-        sortingMode=SortingMode.NAME;
-        fileNameList=new ArrayList<>();
+        filePropertyComparator=new NameFilePropertyComparator();
+        filePropertyList=new ArrayList<>();
+        fileNamePattern="";
         modele = lecture.creation_modele("./exemples/vache.ply");
         System.out.println(("ok"));
         View xView=new View(300, 300, new FaceComparatorX(), modele);
@@ -62,16 +68,8 @@ public class App extends Application {
         ListView<HBox> listeModele= listeModele();
         TextField searchBar=new TextField();
 		searchBar.textProperty().addListener((obs, oldText, newText) -> {
-			fileNameList.clear();
-			listeModele.getItems().clear();
-			File path = new File("exemples"+File.separator);
-			String[] filelist = path.list();
-			for (String string : filelist) {
-				if(string.contains(newText)) {
-					fileNameList.add(string);
-					listeModele.getItems().add(createListViewFileName(string));
-				}
-			}
+			fileNamePattern=newText;
+			updateListeModel(listeModele);
 
 			
 			
@@ -80,7 +78,8 @@ public class App extends Application {
         loadingButton.setMinSize(200, 40);
         loadingButton.setOnAction(e->{
         	try {
-				Modele tmp = lecture.creation_modele("./exemples/"+fileNameList.get(listeModele.getSelectionModel().getSelectedIndex()));
+        		Label nameLabel=(Label) listeModele.getSelectionModel().getSelectedItem().getChildren().get(0);
+				Modele tmp = lecture.creation_modele(searchFilePath(nameLabel.getText()));
 				modele.replaceModele(tmp);
 			} catch (Exception e1) {
 				System.out.println(e.toString());
@@ -91,19 +90,23 @@ public class App extends Application {
         Button faceSortButton=new Button("faces");
         nameSortButton.setMinSize(100, 30);
         nameSortButton.setOnAction(e->{
-        	sortingMode=SortingMode.NAME;
+        	filePropertyComparator=new NameFilePropertyComparator();
+        	updateListeModel(listeModele);
         	nameSortButton.setDisable(true);
         	pointSortButton.setDisable(false);
         	faceSortButton.setDisable(false);
         });
+        nameSortButton.setDisable(true);
         pointSortButton.setOnAction(e->{
-        	sortingMode=SortingMode.POINT;
+        	filePropertyComparator=new NbPointFilePropertyComparator();
+        	updateListeModel(listeModele);
         	nameSortButton.setDisable(false);
         	pointSortButton.setDisable(true);
         	faceSortButton.setDisable(false);
         });
         faceSortButton.setOnAction(e->{
-        	sortingMode=SortingMode.FACE;
+        	filePropertyComparator=new NbFaceFilePropertyComparator();
+        	updateListeModel(listeModele);
         	nameSortButton.setDisable(false);
         	pointSortButton.setDisable(false);
         	faceSortButton.setDisable(true);
@@ -278,14 +281,16 @@ public class App extends Application {
 	}
 	
 	public ListView<HBox> listeModele(){
-		fileNameList.clear();
+		filePropertyList.clear();
 		ListView<HBox> res=new ListView<>();
 		File path = new File("exemples"+File.separator);
 		String[] filelist = path.list();
 		for (String string : filelist) {
-			fileNameList.add(string);
-			res.getItems().add(createListViewFileName(string));
+			FileProperty tmp=new FileProperty(string);
+			filePropertyList.add(tmp);
+			//res.getItems().add(createListViewFileName(tmp));
 		}
+		updateListeModel(res);
 		return res;
 	}
 	
@@ -308,23 +313,18 @@ public class App extends Application {
 		
 	}
 	
-	public HBox createListViewFileName(String fileName) {
-		int[] nbPointAndFace=new Lecture().getNbPointAndFace("exemples"+File.separator+fileName);
-		String name=fileName.substring(0, fileName.length()-4);
-		if(name.length()>40) {
-			name=name.substring(0, 37)+"...";
-		}
-		Label nameLabel=new Label(name);
+	public HBox createListViewFileName(FileProperty fileProperty) {
+		Label nameLabel=new Label(fileProperty.getName());
 		nameLabel.setMinSize(90, 30);
 		nameLabel.setStyle("-fx-border-style: solid inside;"
 		        + "-fx-border-width: 2;"+"-fx-padding: 5px;");
-		String nbPoint=""+nbPointAndFace[0];
-		Label pointLabel=new Label(""+nbPoint);
+		String nbPoint=""+fileProperty.getNbPoint();
+		Label pointLabel=new Label(nbPoint);
 		pointLabel.setStyle("-fx-border-style: solid inside;"
 		        + "-fx-border-width: 2;"+"-fx-padding: 5px;");
 		pointLabel.setMinSize(60, 30);
-		String nbFace=""+nbPointAndFace[1];
-		Label faceLabel=new Label(""+nbFace);
+		String nbFace=""+fileProperty.getNbFace();
+		Label faceLabel=new Label(nbFace);
 		faceLabel.setStyle("-fx-border-style: solid inside;"
 		        + "-fx-border-width: 2;"+"-fx-padding: 5px;");
 		faceLabel.setMinSize(60, 30);
@@ -334,4 +334,26 @@ public class App extends Application {
 		return res;
 	}
 
+	protected String searchFilePath(String name) {
+		for (FileProperty fileProperty : filePropertyList) {
+			if(fileProperty.getName().equals(name)) {
+				return fileProperty.getPath();
+			}
+		}
+		return null;
+	}
+	
+	protected void updateListeModel(ListView<HBox> listeModele) {
+		listeModele.getItems().clear();
+		List<FileProperty> tmp=new ArrayList<>();
+		for (FileProperty fileProperty : filePropertyList) {
+			if(fileProperty.getName().contains(fileNamePattern)) {
+				tmp.add(fileProperty);
+			}
+		}
+		tmp.sort(filePropertyComparator);
+		for (FileProperty fileProperty : tmp) {
+			listeModele.getItems().add(createListViewFileName(fileProperty));
+		}
+	}
 }
