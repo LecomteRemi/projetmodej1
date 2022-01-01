@@ -28,7 +28,8 @@ import modele.FaceComparatorY;
 import modele.FaceComparatorZ;
 import modele.Lecture;
 import modele.Modele;
-import view.View;
+import view.SliceView;
+import view.View3D;
 
 
 /**
@@ -52,19 +53,21 @@ public class App extends Application {
         fileNamePattern="";
         modele = lecture.creation_modele("./exemples/vache.ply");
         System.out.println(("ok"));
-        View xView=new View(300, 300, new FaceComparatorX(), modele);
-        View yView=new View(300, 300, new FaceComparatorY(), modele);
-        View zView=new View(300, 300, new FaceComparatorZ(), modele);
+        View3D xView=new View3D(300, 300, new FaceComparatorX(), modele);
+        View3D yView=new View3D(300, 300, new FaceComparatorY(), modele);
+        View3D zView=new View3D(300, 300, new FaceComparatorZ(), modele);
+        SliceView sliceView=new SliceView(300, 300, modele, 0);
         modele.attach(zView);
         modele.attach(xView);
         modele.attach(yView);
+        modele.attach(sliceView);
 
       
         try {
 
 
         
-        root.getChildren().addAll(zView, yView, xView);
+        root.getChildren().addAll(zView, yView, xView, sliceView);
     	
 		
         ListView<HBox> listeModele= listeModele();

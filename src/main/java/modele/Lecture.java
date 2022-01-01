@@ -156,9 +156,9 @@ public class Lecture {
 		boolean isColored=false;
 		for(int i=0; i<lineSplit.length;i++) {
 			String type=pointProperty.get(i);
-			System.out.println(lineSplit.length);
-			System.out.println(line);
-			System.out.println(pointProperty.toString());
+			//System.out.println(lineSplit.length);
+			//System.out.println(line);
+			//System.out.println(pointProperty.toString());
 			double value=Double.parseDouble(lineSplit[i]);
 			if(type.equals("x")) {
 				x=value;
@@ -197,8 +197,8 @@ public class Lecture {
 			String type=faceProperty.get(i);
 			
 			if(type.equals("list")) {
-				System.out.println(line);
-				System.out.println(lineSplit[i]);
+				//System.out.println(line);
+				//System.out.println(lineSplit[i]);
 				int nbPointFace=Integer.parseInt(lineSplit[i]);
 				points=new Point[nbPointFace];
 				for(int j=1; j<=idxSplit+nbPointFace;j++) {

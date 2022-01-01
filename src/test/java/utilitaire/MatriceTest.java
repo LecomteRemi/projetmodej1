@@ -2,12 +2,11 @@ package utilitaire;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 import org.junit.jupiter.api.Test;
 
-import utilitaire.Matrice;
-
 class MatriceTest {
+
+
 
 	@Test
 	void additionTest() throws Exception {

@@ -2,6 +2,7 @@ package modele;
 
 import controle.Repere;
 import javafx.scene.paint.Color;
+import utilitaire.Vecteur;
 /**
  * 
  * @author Cheikh bassirou Mbaye
@@ -22,17 +23,7 @@ public class Point {
 	protected double z;
 	
 	protected Color color;
-	/**
-	 * Constructeur récupérant les positions x et y pour les assigner au point
-	 * @param x
-	 * @param y
-	 * @author Cheikh bassirou Mbaye
-     * @version 12/09/2021
-	 */
-	public Point(float x, float y) {
-		this.x = x;
-		this.y = y;
-	}
+
 	
 	/**
 	 * Constructeur récupérant les positions x, y et z pour les assigner au point
@@ -60,17 +51,6 @@ public class Point {
 	 */
 	public Point(double[] coordonnnee) {
 		this(coordonnnee[0],coordonnnee[1],coordonnnee[2]);
-	}
-	
-	/**
-	 * 
-	 * @param p : Point
-	 * @author Cheikh bassirou Mbaye
-     * @version 12/09/2021
-	 */
-	public Point(Point p) {
-		this.x = p.x;
-		this.y = p.y;
 	}
 
 	/**
@@ -183,6 +163,34 @@ public class Point {
 	public Color getColor() {
 		return color==null?Color.WHITE:color;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Point other = (Point) obj;
+		if (color == null) {
+			if (other.color != null)
+				return false;
+		} else if (!color.equals(other.color))
+			return false;
+		if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x))
+			return false;
+		if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y))
+			return false;
+		if (Double.doubleToLongBits(z) != Double.doubleToLongBits(other.z))
+			return false;
+		return true;
+	}
 
-
+	public Point translate(Vecteur vector) {
+		double x=this.x+vector.getX();
+		double y=this.y+vector.getY();
+		double z=this.z+vector.getZ();
+		return new Point(x, y, z);
+	}
+	
 }

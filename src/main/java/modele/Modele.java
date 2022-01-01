@@ -72,24 +72,12 @@ public class Modele extends Subject {
 		this.repere.turnOnZAxisOf(degree);
 		updatePointAndFace();
 	}
-	public void turnOnXAxisAroundAPoint(double degree, Point point) throws Exception {
-		this.repere.turnOnXAxisAroundAPoint(degree, point);
-		updatePointAndFace();
-	}
-	public void turnOnYAxisAroundAPoint(double degree, Point point) throws Exception {
-		this.repere.turnOnYAxisAroundAPoint(degree, point);
-		updatePointAndFace();
-	}
-	public void turnOnZAxisAroundAPoint(double degree, Point point) throws Exception {
-		this.repere.turnOnZAxisAroundAPoint(degree, point);
-		updatePointAndFace();
-	}
 	public void homotetie(double factor) throws Exception {
 		this.repere.homotetie(factor);
 		updatePointAndFace();
 	}
 	public void translation(double x, double y, double z) throws Exception {
-		this.repere.absoluteTranslation(x,y,z);
+		this.repere.translation(x,y,z);
 		updatePoint();
 	}
 	public Point getBarycenter() {
@@ -180,6 +168,14 @@ public class Modele extends Subject {
 	public void setlightVecteur(Vecteur vecteur) {
 		this.lightVector = vecteur;
 		updateFace();
+	}
+	
+	public List<Point[]> getSegment(){
+		List<Point[]> res=new ArrayList<>();
+		for (Face face : listeFaces) {
+			res.addAll(face.getSegment());
+		}
+		return res;
 	}
 
 }
