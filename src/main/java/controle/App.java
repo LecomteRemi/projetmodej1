@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+
+
 import controle.FileProperty;
 import controle.NameFilePropertyComparator;
 import controle.NbFaceFilePropertyComparator;
@@ -19,6 +21,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -53,7 +57,23 @@ public class App extends Application {
         VBox affichage = new VBox();
         int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
         int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
-        primaryStage.setScene(new Scene(root,screenWidth,screenHeight));
+        Scene scene=new Scene(root,screenWidth,screenHeight);
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+        	KeyCode keyCode=keyEvent.getCode();
+        	try {
+            	if( keyCode.equals(KeyCode.UP)) {
+            		modele.turnOnXAxis(5);
+            	}else if(keyCode.equals(KeyCode.DOWN)) {
+            		modele.turnOnXAxis(-5);
+            	}else if(keyCode.equals(KeyCode.RIGHT)) {
+            		modele.turnOnYAxis(-5);
+            	}else if(keyCode.equals(KeyCode.LEFT)) {
+            		modele.turnOnYAxis(5);
+            	}
+            }catch(Exception e) {}
+        });
+        primaryStage.setScene(scene);
+        primaryStage.setFullScreen(true);
         primaryStage.show();
         Lecture lecture=new Lecture();
         filePropertyComparator=new NameFilePropertyComparator();
@@ -78,6 +98,7 @@ public class App extends Application {
         bas.getChildren().addAll(xView,sliceView);
         affichage.getChildren().addAll(haut,bas);
         affichage.setPrefSize(screenWidth*2/3, screenHeight);
+        
         //root.getChildren().addAll(zView, yView, xView, sliceView);
         root.getChildren().addAll(affichage);
     	
@@ -300,7 +321,7 @@ public class App extends Application {
 	     // yPlusButton.setPadding(new Insets(10, 10, 10, 10));
 	      yPlusButton.setOnAction(e->{
 				try {
-					modele.turnOnYAxis(5);
+					modele.turnOnXAxis(5);
 				} catch (Exception e1) {}
 			});
 	      //BorderPane.setAlignment(yPlusButton, Pos.CENTER);
@@ -311,7 +332,7 @@ public class App extends Application {
 	      //yMoinsButton.setPadding(new Insets(10, 10, 10, 10));
 	      yMoinsButton.setOnAction(e->{
 	    	  try {
-					modele.turnOnYAxis(5);
+					modele.turnOnXAxis(-5);
 				} catch (Exception e1) {}
 			});
 	      //BorderPane.setAlignment(yMoinsButton, Pos.CENTER);
@@ -340,7 +361,7 @@ public class App extends Application {
 	      //zMoinsButton.setPadding(new Insets(10, 10, 10, 10));
 	      zMoinsButton.setOnAction(e->{
 	    	  try {
-					modele.turnOnZAxis(5);
+					modele.turnOnZAxis(-5);
 				} catch (Exception e1) {}
 			});
 	      //BorderPane.setAlignment(yMoinsButton, Pos.CENTER);
@@ -356,7 +377,7 @@ public class App extends Application {
 	      //zoomButton.setPadding(new Insets(10, 10, 10, 10));
 	      zoomButton.setOnAction(e->{
 				try {
-					modele.turnOnYAxis(5);
+					modele.homotetie(1.1);
 				} catch (Exception e1) {}
 			});
 	     // BorderPane.setAlignment(zoomButton, Pos.CENTER);
@@ -367,7 +388,7 @@ public class App extends Application {
 	      //dezoomButton.setPadding(new Insets(10, 10, 10, 10));
 	      dezoomButton.setOnAction(e->{
 	    	  try {
-					modele.turnOnYAxis(5);
+					modele.homotetie(0.9);;
 				} catch (Exception e1) {}
 			});
 	      //BorderPane.setAlignment(dezoomButton, Pos.CENTER);
