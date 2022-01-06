@@ -12,10 +12,12 @@ import controle.NbFaceFilePropertyComparator;
 import controle.NbPointFilePropertyComparator;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -123,7 +125,14 @@ public class App extends Application {
         VBox fileBox=new VBox();
         fileBox.getChildren().addAll(searchBar,sortingButtonBox, listeModele, loadingButton);
        // root.getChildren().addAll(buttonBox( modele), translationButtonPane(modele),affichageModeBox(), fileBox);
-        root.getChildren().addAll(buttonBox( modele), afficheMoveButton(),affichageModeBox(), fileBox);
+        Slider zSliceSlider=new Slider(-100, 100, 0.1);
+        zSliceSlider.setMaxSize(20, 200);
+        zSliceSlider.setValue(0);
+        zSliceSlider.setOrientation(Orientation.VERTICAL);
+         zSliceSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+        	 sliceView.update(modele, newValue);
+         });
+        root.getChildren().addAll(buttonBox( modele), afficheMoveButton(), zSliceSlider,affichageModeBox(), fileBox);
 
         
        
