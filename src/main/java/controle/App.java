@@ -117,7 +117,7 @@ public class App extends Application {
         VBox fileBox=new VBox();
         fileBox.getChildren().addAll(searchBar,sortingButtonBox, listeModele, loadingButton);
        // root.getChildren().addAll(buttonBox( modele), translationButtonPane(modele),affichageModeBox(), fileBox);
-        root.getChildren().addAll(buttonBox( modele), afficheMoveButton(),affichageModeBox(), fileBox);
+        root.getChildren().addAll(buttons(),affichageModeBox(), fileBox);
 
         
        
@@ -136,17 +136,25 @@ public class App extends Application {
 	public static void main(String[] args) {
         launch();
     }
+	
+	public VBox buttons() {
+		VBox res = new VBox();
+		res.getChildren().addAll(afficheMoveButton(),afficherTransformButton());
+		return res;
+		
+	}
 
-	public HBox afficheMoveButton() {
+	public VBox afficheMoveButton() {
 		  BorderPane root = new BorderPane();
 		  root.setMaxSize(200, 200);
 	      root.setPadding(new Insets(15, 20, 10, 10));
-	      
+	      /*
 	      HBox conteneurPrincipale = new HBox();
 	      conteneurPrincipale.setSpacing(10);
 	      conteneurPrincipale.setPadding(new Insets(15,20, 10,10));
+	      */
 	      VBox conteneurButton = new VBox();
-
+		
 	      // TOP
 	      Button upTranslationButton=new Button("up");
 	      upTranslationButton.setPrefSize(35, 35);
@@ -224,10 +232,130 @@ public class App extends Application {
 	      BorderPane.setMargin(downTranslationButton, new Insets(10, 10, 10, 10));
 	      
 	      conteneurButton.getChildren().addAll(root);
-	      conteneurPrincipale.getChildren().addAll(conteneurButton);
+	      //conteneurPrincipale.getChildren().addAll(conteneurButton);
 	    
 
-		return conteneurPrincipale ;
+		return conteneurButton ;
+	}
+	
+	
+	public VBox afficherTransformButton() {
+	
+	      VBox conteneurButton = new VBox();
+	      conteneurButton.setAlignment(Pos.CENTER);
+	      VBox conteneurButtons = new VBox();
+	      conteneurButtons.setAlignment(Pos.CENTER);
+	      
+	      // translation selon x
+	      Button xPlusButton=new Button("+x");
+		  xPlusButton.setPrefSize(35, 35);
+		  xPlusButton.setOnAction(e->{
+				try {
+					modele.turnOnYAxis(-5);
+				} catch (Exception e1) {}
+			});
+	     
+	      Button xMoinsButton=new Button("-x");
+	      xMoinsButton.setPrefSize(35, 35);
+	      xMoinsButton.setOnAction(e->{
+	    	  try {
+					modele.turnOnYAxis(5);
+				} catch (Exception e1) {}
+			});
+	   
+	      Label rx = new Label("rotation x ");
+	      HBox rotationX = new HBox(xPlusButton,rx,xMoinsButton);
+	      rotationX.setSpacing(10);
+	      conteneurButton.getChildren().add(rotationX);
+
+	      
+	      // transformation selon l'axe y
+	      
+	      Button yPlusButton=new Button("+y");
+	      yPlusButton.setPrefSize(35, 35);
+	     // yPlusButton.setPadding(new Insets(10, 10, 10, 10));
+	      yPlusButton.setOnAction(e->{
+				try {
+					modele.turnOnYAxis(5);
+				} catch (Exception e1) {}
+			});
+	      //BorderPane.setAlignment(yPlusButton, Pos.CENTER);
+	      //BorderPane.setMargin(yPlusButton, new Insets(10, 10, 10, 10));
+	     
+	      Button yMoinsButton=new Button("-y");
+	      yMoinsButton.setPrefSize(35, 35);
+	      //yMoinsButton.setPadding(new Insets(10, 10, 10, 10));
+	      yMoinsButton.setOnAction(e->{
+	    	  try {
+					modele.turnOnYAxis(5);
+				} catch (Exception e1) {}
+			});
+	      //BorderPane.setAlignment(yMoinsButton, Pos.CENTER);
+	      //BorderPane.setMargin(yMoinsButton, new Insets(10, 10, 10, 10));
+	      Label ry = new Label("rotation y ");
+	      HBox rotationy = new HBox(yPlusButton,ry,yMoinsButton);
+	      rotationy.setSpacing(10);
+	      conteneurButton.getChildren().add(rotationy);
+	      
+	      
+	      // rotation selon z
+	      
+	      Button zPlusButton=new Button("+z");
+	      zPlusButton.setPrefSize(35, 35);
+	      //zPlusButton.setPadding(new Insets(10, 10, 10, 10));
+	      zPlusButton.setOnAction(e->{
+				try {
+					modele.turnOnZAxis(5);
+				} catch (Exception e1) {}
+			});
+	      //BorderPane.setAlignment(yPlusButton, Pos.CENTER);
+	      //BorderPane.setMargin(yPlusButton, new Insets(10, 10, 10, 10));
+	     
+	      Button zMoinsButton=new Button("-z");
+	      zMoinsButton.setPrefSize(35, 35);
+	      //zMoinsButton.setPadding(new Insets(10, 10, 10, 10));
+	      zMoinsButton.setOnAction(e->{
+	    	  try {
+					modele.turnOnZAxis(5);
+				} catch (Exception e1) {}
+			});
+	      //BorderPane.setAlignment(yMoinsButton, Pos.CENTER);
+	      //BorderPane.setMargin(yMoinsButton, new Insets(10, 10, 10, 10));
+	      Label rz = new Label("rotation z");
+	      HBox rotationz = new HBox(zPlusButton,rz,zMoinsButton);
+	      rotationz.setSpacing(10);
+	      conteneurButton.getChildren().add(rotationz);
+	      
+	      // zoome
+	      Button zoomButton=new Button("+");
+	      zoomButton.setPrefSize(35, 35);
+	      //zoomButton.setPadding(new Insets(10, 10, 10, 10));
+	      zoomButton.setOnAction(e->{
+				try {
+					modele.turnOnYAxis(5);
+				} catch (Exception e1) {}
+			});
+	     // BorderPane.setAlignment(zoomButton, Pos.CENTER);
+	      //BorderPane.setMargin(zoomButton, new Insets(10, 10, 10, 10));
+	     
+	      Button dezoomButton=new Button("-");
+	      dezoomButton.setPrefSize(35, 35);
+	      //dezoomButton.setPadding(new Insets(10, 10, 10, 10));
+	      dezoomButton.setOnAction(e->{
+	    	  try {
+					modele.turnOnYAxis(5);
+				} catch (Exception e1) {}
+			});
+	      //BorderPane.setAlignment(dezoomButton, Pos.CENTER);
+	      //BorderPane.setMargin(dezoomButton, new Insets(10, 10, 10, 10));
+	      Label rzm = new Label(" Zoom     ");
+	      HBox dezoom = new HBox(zoomButton,rzm,dezoomButton);
+	      dezoom.setSpacing(10);
+	      conteneurButton.getChildren().add(dezoom);
+	      conteneurButton.setSpacing(10);
+	      conteneurButtons.getChildren().addAll(conteneurButton);
+		return conteneurButtons;
+		
 	}
 
 
