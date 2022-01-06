@@ -81,7 +81,6 @@ public class App extends Application {
         //root.getChildren().addAll(zView, yView, xView, sliceView);
         root.getChildren().addAll(affichage);
     	
-		
         ListView<HBox> listeModele= listeModele();
         TextField searchBar=new TextField();
 		searchBar.textProperty().addListener((obs, oldText, newText) -> {
@@ -136,10 +135,10 @@ public class App extends Application {
         zSliceSlider.setMaxSize(20, 200);
         zSliceSlider.setValue(0);
         zSliceSlider.setOrientation(Orientation.VERTICAL);
-         zSliceSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-        	 sliceView.update(modele, newValue);
+        zSliceSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+        sliceView.update(modele, newValue);
          });
-        root.getChildren().addAll(buttons(),affichageModeBox(),zSliceSlider, fileBox);
+        root.getChildren().addAll(buttons(),zSliceSlider, fileBox);
         
         //root.getChildren().addAll(buttonBox( modele), afficheMoveButton(), zSliceSlider,affichageModeBox(), fileBox);
 
@@ -163,10 +162,13 @@ public class App extends Application {
 	
 	public VBox buttons() {
 		VBox res = new VBox();
-		res.getChildren().addAll(afficheMoveButton(),afficherTransformButton());
+		res.setSpacing(20);
+		res.setAlignment(Pos.TOP_CENTER);
+		res.getChildren().addAll(afficheMoveButton(),afficherTransformButton(),affichageModeBox());
 		return res;
 		
 	}
+	
 
 	public VBox afficheMoveButton() {
 		  BorderPane root = new BorderPane();
@@ -178,6 +180,7 @@ public class App extends Application {
 	      conteneurPrincipale.setPadding(new Insets(15,20, 10,10));
 	      */
 	      VBox conteneurButton = new VBox();
+	      conteneurButton.setSpacing(10);
 		
 	      // TOP
 	      Button upTranslationButton=new Button("up");
@@ -383,7 +386,7 @@ public class App extends Application {
 	}
 
 
-	
+	/*
 	public VBox buttonBox( Modele modele) {
 		VBox res=new VBox();
 		Button yPlusButton=new Button("1");
@@ -468,7 +471,7 @@ public class App extends Application {
 		return res;
 		
 	}
-	/*
+	
 	public BorderPane translationButtonPane(Modele modele) {
 		BorderPane res=new BorderPane();
 		res.setMaxSize(105, 105);
@@ -540,10 +543,13 @@ public class App extends Application {
 		return res;
 	}
 	
-	public VBox affichageModeBox() {
+	public HBox affichageModeBox() {
 		Button filDeFerButton =new Button("Fil de fer");
+		filDeFerButton.setPrefSize(40,35);
 		Button faceButton=new Button("Faces");
+		faceButton.setPrefSize(40,35);
 		Button completButton=new Button("Complet");
+		completButton.setPrefSize(40,35);
 		filDeFerButton.setOnAction(e->{
 			modele.setAffichageMode(AffichageMode.FIL_DE_FER);
 		});
@@ -553,7 +559,8 @@ public class App extends Application {
 		completButton.setOnAction(e->{
 			modele.setAffichageMode(AffichageMode.COMPLET);
 		});
-		VBox res=new VBox();
+		HBox res=new HBox();
+		res.setSpacing(10);
 		res.getChildren().addAll(filDeFerButton, faceButton, completButton);
 		return res;
 		
