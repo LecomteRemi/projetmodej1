@@ -70,6 +70,10 @@ public class Tranche {
 	public void updateSegment() {
 		segmentList=getSegmentOfTheSlice(modele, zSliceCoordonnee);
 	}
+	public void updateSegment(double zSliiceCoordonnee) {
+		this.zSliceCoordonnee=zSliiceCoordonnee;
+		segmentList=getSegmentOfTheSlice(modele, zSliceCoordonnee);
+	}
 	
 	public List<Segment> getSegmentList(){
 		return this.segmentList;

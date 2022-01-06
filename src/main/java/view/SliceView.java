@@ -56,14 +56,13 @@ public class SliceView extends View{
 		tranche.updateSegment();
 		coeff=calculCoeff(modele.getEcart(), this.getWidth(), this.getHeight());
 		DrawModele(modele);
-		System.out.println("oihou");
 	}
 
 	@Override
 	public void update(Subject subj, Object data) {
+		tranche.updateSegment(((double) data)*modele.getEcart()/200);
 		coeff=calculCoeff(modele.getEcart(), this.getWidth(), this.getHeight());
 		DrawModele(modele);
-		System.out.println("oihou");
 	}
 
 
