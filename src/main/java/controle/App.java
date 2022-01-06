@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import modele.AffichageMode;
@@ -47,7 +48,12 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
     	primaryStage.setTitle("Projet Modelisation");
         HBox root = new HBox();
-        primaryStage.setScene(new Scene(root,1400,500));
+        HBox haut = new HBox();
+        HBox bas = new HBox();
+        VBox affichage = new VBox();
+        int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
+        int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
+        primaryStage.setScene(new Scene(root,screenWidth,screenHeight));
         primaryStage.show();
         Lecture lecture=new Lecture();
         filePropertyComparator=new NameFilePropertyComparator();
@@ -68,18 +74,19 @@ public class App extends Application {
         try {
 
 
-        
-        root.getChildren().addAll(zView, yView, xView, sliceView);
+        haut.getChildren().addAll(zView,yView);
+        bas.getChildren().addAll(xView,sliceView);
+        affichage.getChildren().addAll(haut,bas);
+        affichage.setPrefSize(screenWidth*2/3, screenHeight);
+        //root.getChildren().addAll(zView, yView, xView, sliceView);
+        root.getChildren().addAll(affichage);
     	
 		
         ListView<HBox> listeModele= listeModele();
         TextField searchBar=new TextField();
 		searchBar.textProperty().addListener((obs, oldText, newText) -> {
 			fileNamePattern=newText;
-			updateListeModel(listeModele);
-
-			
-			
+			updateListeModel(listeModele);			
 		});
         Button loadingButton=new Button("Charger modèle");
         loadingButton.setMinSize(200, 40);
@@ -125,8 +132,6 @@ public class App extends Application {
         VBox fileBox=new VBox();
         fileBox.getChildren().addAll(searchBar,sortingButtonBox, listeModele, loadingButton);
        // root.getChildren().addAll(buttonBox( modele), translationButtonPane(modele),affichageModeBox(), fileBox);
-
-        root.getChildren().addAll(buttons(),affichageModeBox(), fileBox);
         Slider zSliceSlider=new Slider(-100, 100, 0.1);
         zSliceSlider.setMaxSize(20, 200);
         zSliceSlider.setValue(0);
@@ -134,7 +139,9 @@ public class App extends Application {
          zSliceSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
         	 sliceView.update(modele, newValue);
          });
-        root.getChildren().addAll(buttonBox( modele), afficheMoveButton(), zSliceSlider,affichageModeBox(), fileBox);
+        root.getChildren().addAll(buttons(),affichageModeBox(),zSliceSlider, fileBox);
+        
+        //root.getChildren().addAll(buttonBox( modele), afficheMoveButton(), zSliceSlider,affichageModeBox(), fileBox);
 
         
        
