@@ -27,7 +27,7 @@ public class SliceView extends View{
 		for(int i=0;i<pointListSize;i++) {
 			Point p=pointList.get(i);
 			double x=p.getX()*coeff+this.getWidth()/2;
-			double y=p.getY()*coeff+this.getWidth()/2;
+			double y=-1*p.getY()*coeff+this.getWidth()/2;
 			this.getGraphicsContext2D().strokeRect(x, y, 1, 1);
 			
 		}
@@ -47,16 +47,14 @@ public class SliceView extends View{
 	@Override
 	public void update(Subject subj) {
 
-		System.out.println("hou");
-		coeff=calculCoeff(modele.getEcart(), this.getWidth(), this.getHeight());
 		tranche.updatePoint();
+		coeff=calculCoeff(modele.getEcart(), this.getWidth(), this.getHeight());
 		DrawModele(modele);
 		System.out.println("oihou");
 	}
 
 	@Override
 	public void update(Subject subj, Object data) {
-		System.out.println("ou");
 		coeff=calculCoeff(modele.getEcart(), this.getWidth(), this.getHeight());
 		DrawModele(modele);
 		System.out.println("oihou");
