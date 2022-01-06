@@ -170,12 +170,6 @@ public class Modele extends Subject {
 		updateFace();
 	}
 	
-	public List<Point[]> getSegment(){
-		List<Point[]> res=new ArrayList<>();
-		for (Face face : listeFaces) {
-			res.addAll(face.getSegment());
-		}
-		return res;
-	}
+	
 
 }

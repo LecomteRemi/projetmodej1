@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.scene.paint.Color;
 import modele.Modele;
 import modele.Point;
+import modele.Segment;
 import modele.Tranche;
 import utilitaire.Subject;
 
@@ -22,13 +23,18 @@ public class SliceView extends View{
 	protected void DrawModele(Modele modele) {
 		this.getGraphicsContext2D().clearRect(0, 0, getWidth(), getHeight());
 		System.out.println("hou564");
-		List<Point> pointList=tranche.getPointList();
-		int pointListSize=pointList.size();
+		List<Segment> segmentList=tranche.getSegmentList();
+		int pointListSize=segmentList.size();
 		for(int i=0;i<pointListSize;i++) {
-			Point p=pointList.get(i);
-			double x=p.getX()*coeff+this.getWidth()/2;
-			double y=-1*p.getY()*coeff+this.getWidth()/2;
-			this.getGraphicsContext2D().strokeRect(x, y, 1, 1);
+			Segment segment=segmentList.get(i);
+			Point p1=segment.getP1();
+			Point p2=segment.getP2();
+
+			double x1=p1.getX()*coeff+this.getWidth()/2;
+			double y1=-1*p1.getY()*coeff+this.getWidth()/2;
+			double x2=p2.getX()*coeff+this.getWidth()/2;
+			double y2=-1*p2.getY()*coeff+this.getWidth()/2;
+			this.getGraphicsContext2D().strokeLine(x1, y1, x2, y2);
 			
 		}
 		/*double[] xCoordonne=new double[pointListSize];
@@ -47,7 +53,7 @@ public class SliceView extends View{
 	@Override
 	public void update(Subject subj) {
 
-		tranche.updatePoint();
+		tranche.updateSegment();
 		coeff=calculCoeff(modele.getEcart(), this.getWidth(), this.getHeight());
 		DrawModele(modele);
 		System.out.println("oihou");

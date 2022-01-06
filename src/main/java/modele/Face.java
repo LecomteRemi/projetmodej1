@@ -180,10 +180,10 @@ public class Face{
 		
 	}
 	
-	protected List<Point[]> getSegment(){
-		List<Point[]> res=new ArrayList<>();
+	protected List<Segment> getSegment(){
+		List<Segment> res=new ArrayList<>();
 		for(int i=0; i<points.size();i++) {
-			Point[] segment=new Point[] {points.get(i), points.get((i+1+points.size())%points.size())};
+			Segment segment=new Segment(points.get(i), points.get((i+1+points.size())%points.size()));
 			res.add(segment);
 		}
 		return res;

@@ -3,26 +3,41 @@ package modele;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import utilitaire.Vecteur;
 
 public class Tranche {
-	protected List<Point> pointList;
+	protected List<Segment> segmentList;
 	protected Modele modele;
 	protected double zSliceCoordonnee;
 	public Tranche(Modele modele, double zSliceCoordonne) {
 		this.modele=modele;
 		this.zSliceCoordonnee=zSliceCoordonne;
-		pointList=getPoitOfTheSlice(modele, zSliceCoordonne);
+		segmentList=getSegmentOfTheSlice(modele, zSliceCoordonne);
 	};
 
 	
-	protected List<Point> getPoitOfTheSlice(Modele modele, double zSliceCoordonne) {
-		List<Point> res=new ArrayList<>();
-		for (Point[] segment : modele.getSegment()) {
+	protected List<Segment> getSegmentOfTheSlice(Modele modele, double zSliceCoordonne) {
+		List<Segment> res=new ArrayList<>();
+		for(Face face : modele.getListeFaces()) {
+			List<Point> pointOfSliceList=new ArrayList<>();
+			for(Segment segment: face.getSegment()) {
+				Point point=pointOfASlice(segment.getP1(), segment.getP2(), zSliceCoordonne);
+				if(point!=null) {
+					pointOfSliceList.add(point);
+				}
+			}
+			for(int i=0; i<pointOfSliceList.size(); i++) {
+				for(int j=pointOfSliceList.size()-1; j>i;j--) {
+					res.add(new Segment(pointOfSliceList.get(i), pointOfSliceList.get(j)));
+				}
+			}
+			
+		/*for (Point[] segment : modele.getSegment()) {
 			Point point=pointOfASlice(segment[0], segment[1], zSliceCoordonne);
 			if(point!=null) {
 				res.add(point);
-			}
+			}*/
 		}
 		return res;
 	}
@@ -52,12 +67,12 @@ public class Tranche {
 		return res;
 	}
 	
-	public void updatePoint() {
-		pointList=getPoitOfTheSlice(modele, zSliceCoordonnee);
+	public void updateSegment() {
+		segmentList=getSegmentOfTheSlice(modele, zSliceCoordonnee);
 	}
 	
-	public List<Point> getPointList(){
-		return this.pointList;
+	public List<Segment> getSegmentList(){
+		return this.segmentList;
 	}
 	
 
