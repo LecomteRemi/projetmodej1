@@ -15,9 +15,9 @@ public class Vecteur {
 	}
 	
 	public Vecteur(Point p1, Point p2) {
-		this.x=p1.getX()-p2.getX();
-		this.y=p1.getY()-p2.getY();
-		this.z=p1.getZ()-p2.getZ();
+		this.x=p2.getX()-p1.getX();
+		this.y=p2.getY()-p1.getY();
+		this.z=p2.getZ()-p1.getZ();
 	}
 	/**
 	 * calcule le produit scalaire entre le vecteur passé en parametre et le vecteur courant 
@@ -53,6 +53,39 @@ public class Vecteur {
 		double z=this.z/diviseur;
 		return new Vecteur(x, y, z);
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Vecteur other = (Vecteur) obj;
+		if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x))
+			return false;
+		if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y))
+			return false;
+		if (Double.doubleToLongBits(z) != Double.doubleToLongBits(other.z))
+			return false;
+		return true;
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public double getZ() {
+		return z;
+	}
+
+
 	
 	
 	

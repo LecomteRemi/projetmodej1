@@ -46,19 +46,7 @@ public class Repere {
 			   this.matrice=matriceTemporaire;
 	}
 	
-	public void  turnOnYAxisAroundAPoint(double degree, Point point) throws Exception {
-		this.absoluteTranslation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
-		this.turnOnYAxisOf(degree);
-		this.absoluteTranslation(point.getX(), point.getY(), point.getZ());
-	}
-	
-	public void  turnOnXAxisAroundAPoint(double degree, Point point) throws Exception {
-		this.absoluteTranslation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
-		this.turnOnXAxisOf(degree);
-		this.absoluteTranslation(point.getX(), point.getY(), point.getZ());
-	}
-	
-	public void absoluteTranslation(double x, double y, double z) throws Exception {
+	public void translation(double x, double y, double z) throws Exception {
 		Matrice matriceTemporaire=new Matrice(new double[][]{{1,0,0,x},{0,1,0,y},{0,0,1,z},{0,0,0,1}});
 		this.matrice=matriceTemporaire;
 	}
@@ -71,10 +59,10 @@ public class Repere {
 		this.matrice=matriceTemporaire;
 	}
 	
-	public void homotetiFromAPoint(double factor, Point point) throws Exception {
-		this.absoluteTranslation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
+	public void homotetieFromAPoint(double factor, Point point) throws Exception {
+		this.translation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
 		this.homotetie(factor);
-		this.absoluteTranslation(point.getX(), point.getY(), point.getZ());
+		this.translation(point.getX(), point.getY(), point.getZ());
 	}
 	
 	public double[] getVector(int col) {
@@ -140,9 +128,9 @@ public class Repere {
 		this.matrice=matriceTemporaire;
 	}
 	public void symetryFromAPoint(String plan, Point point) throws Exception {
-		this.absoluteTranslation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
+		this.translation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
 		this.symetry(plan);
-		this.absoluteTranslation(point.getX(), point.getY(), point.getZ());
+		this.translation(point.getX(), point.getY(), point.getZ());
 		
 	}
 
@@ -154,12 +142,6 @@ public class Repere {
 			  {0,0,0,1}});
 		this.matrice=matriceTemporaire;
 		
-	}
-
-	public void turnOnZAxisAroundAPoint(double degree, Point point) throws Exception {
-		this.absoluteTranslation(-1*point.getX(), -1*point.getY(), -1*point.getZ());
-		this.turnOnZAxisOf(degree);
-		this.absoluteTranslation(point.getX(), point.getY(), point.getZ());
 	}
 	
 }

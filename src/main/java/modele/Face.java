@@ -179,6 +179,15 @@ public class Face{
 		
 		
 	}
+	
+	protected List<Segment> getSegment(){
+		List<Segment> res=new ArrayList<>();
+		for(int i=0; i<points.size();i++) {
+			Segment segment=new Segment(points.get(i), points.get((i+1+points.size())%points.size()));
+			res.add(segment);
+		}
+		return res;
+	}
 
 	
 }
