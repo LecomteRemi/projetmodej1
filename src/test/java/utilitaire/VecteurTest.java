@@ -13,7 +13,7 @@ class VecteurTest {
 		Point p1=new Point(1, 0, 1);
 		Point p2=new Point(5,-1,0);
 		Vecteur res=new Vecteur(-4, 1, 1);
-		assertEquals(res,new Vecteur(p1, p2));
+		assertEquals(res,new Vecteur(p2, p1));
 	}
 	
 	@Test
