@@ -57,14 +57,15 @@ On a mis du temps a comprendre comment fonctionne le fichier ply, problèmes ave
 ## Autres exigences
 
 - [X] Tests unitaires
-- [ ] Diagramme de classes UML
+- [X] Diagramme de classes UML
 - [ ] Javadoc
-- [ ] Captures d'écran
-- [ ] Vidéo de présentation
+- [X] Captures d'écran
+- [X] Vidéo de présentation
 - [ ] Respect du format de rendu
 
 ## Distribution du travail (qui a fait quoi)
-    Rémi Lecomte: implémentation de la bibliothèque de modèle, de la vue en tranche, de l'éclairage, de l'affichage par segments ou faces et de l'amélioration de la lecture
+    Rémi : implémentation de la bibliothèque de modèle, de la vue en tranche, de l'affichage par segments ou faces, amélioration de la lecture et travail sur l'éclairage.
+    Cheikh: implémentation d'une interface graphique améliorée, travail sur l'éclairage.
 
 ## Difficultés rencontrées
 
