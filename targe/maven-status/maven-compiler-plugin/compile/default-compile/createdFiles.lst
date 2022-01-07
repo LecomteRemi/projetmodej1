@@ -1,0 +1,11 @@
+controle/NbFaceFilePropertyComparator.class
+modele/Segment.class
+controle/NameFilePropertyComparator.class
+controle/NbPointFilePropertyComparator.class
+controle/SortingMode.class
+modele/Tranche.class
+controle/Repere.class
+controle/ControlleurButton.class
+view/View3D.class
+view/SliceView.class
+controle/FileProperty.class
