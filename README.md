@@ -42,21 +42,21 @@ On a mis du temps a comprendre comment fonctionne le fichier ply, problèmes ave
 ## Fonctionnalités implémentées
 
 
-- [ ] Affichage faces seulement / segments seulement
+- [X] Affichage faces seulement / segments seulement
 - [ ] Affichage avancé de la bibliothèque de modèles
-- [ ] Recherche dans la bibliothèque de modèles
+- [X] Recherche dans la bibliothèque de modèles
 - [ ] Éditer les informations sur un modèle
-- [ ] Modèle centré
-- [ ] Éclairage
+- [X] Modèle centré
+- [X] Éclairage
 - [ ] Lissage
 - [ ] Ombre portée
-- [ ] Vue en tranches
+- [X] Vue en tranches
 - [ ] Controleur horloge
 - [ ] Autres, préciser
 
 ## Autres exigences
 
-- [ ] Tests unitaires
+- [X] Tests unitaires
 - [ ] Diagramme de classes UML
 - [ ] Javadoc
 - [ ] Captures d'écran
@@ -64,7 +64,7 @@ On a mis du temps a comprendre comment fonctionne le fichier ply, problèmes ave
 - [ ] Respect du format de rendu
 
 ## Distribution du travail (qui a fait quoi)
-
+    Rémi Lecomte: implémentation de la bibliothèque de modèle, de la vue en tranche, de l'éclairage, de l'affichage par segments ou faces et de l'amélioration de la lecture
 
 ## Difficultés rencontrées
 
