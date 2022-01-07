@@ -65,7 +65,7 @@ On a mis du temps a comprendre comment fonctionne le fichier ply, problèmes ave
 
 ## Distribution du travail (qui a fait quoi)
     Rémi : implémentation de la bibliothèque de modèle, de la vue en tranche, de l'affichage par segments ou faces, amélioration de la lecture et travail sur l'éclairage.
-    Cheikh: implémentation d'une interface graphique améliorée, travail sur l'éclairage.
+    Cheikh: implémentation d'une interface graphique améliorée, travail sur l'éclairage,amélioration de l'affichage des model ,trie des point d'une face selon les cordonnées
 
 ## Difficultés rencontrées
 
